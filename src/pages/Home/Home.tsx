@@ -20,6 +20,12 @@ const HeroContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     gap: 20px;
+
+    @media (max-width: 820px) {
+        margin-top: 40px;
+        flex-direction: column-reverse;
+        gap: 20px;
+    }
 `;
 
 const HeroBody = styled.div`
@@ -28,37 +34,62 @@ const HeroBody = styled.div`
     width: 50%;
     margin-left: 80px;
     font-family: "Prata", serif;
+
+    @media (max-width: 1100px) {
+        margin-left: 0;
+    }
+
+    @media (max-width: 820px) {
+        width: 100%;
+
+        & a {
+            margin: 0 auto;
+        }
+    }
 `;
 
 const HeroBodyTitle = styled.h1`
     font-size: 64px;
     font-weight: normal;
+
+    @media (max-width: 1300px) {
+        font-size: 56px;
+    }
+
+    @media (max-width: 1100px) {
+        font-size: 42px;
+    }
+
+    @media (max-width: 995px) {
+        font-size: 36px;
+        margin-bottom: 0;
+        margin-top: 20px;
+    }
 `;
 
 const HeroBodyDescription = styled.p`
     font-size: 20px;
     margin-bottom: 80px;
+
+    @media (max-width: 1300px) {
+        font-size: 18px;
+    }
+
+    @media (max-width: 1100px) {
+        font-size: 16px;
+    }
+
+    @media (max-width: 995px) {
+        font-size: 16px;
+        margin-bottom: 60px;
+    }
+
 `;
 
-// const Button = styled(Link)`
-//     background-color: var(--primary-color);
-//     color: white;
-//     padding: 16px 0;
-//     font-family: 'Roboto', sans-serif;
-//     font-size: 16px;
-//     font-weight: 500;
-//     text-align: center;
-//     width: 220px;
-//     cursor: pointer;
-//     transition: 0.3s ease-in-out;
-
-//     &:hover {
-//         box-shadow: -1px 6px 10px 0 rgba(120, 60, 20, .15);
-//     }
-// `;
-
 const HeroImage = styled.img`
-
+@media (max-width: 820px) {
+    width: 100%;
+}
 `;
 
 const ProductGallery = styled.div`
@@ -82,11 +113,24 @@ const Banner = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @media (max-width: 1300px) {
+        width: 440px;
+        margin: 0 auto 80px;
+        padding: 20px;
+        flex-direction: column-reverse;
+        align-items: center;
+        gap: 20px;
+    }
 `;
 
 const BannerBody = styled.div`
     display: flex;
     flex-direction: column;
+
+    @media (max-width: 1300px) {
+        align-items: center;
+    }
 `;
 
 const BannerBodyTitle = styled.h2`
@@ -98,88 +142,11 @@ const BannerBodyTitle = styled.h2`
 
 const BannerImage = styled.img`
     width: 60%;
-`;
 
-const HomePage = styled.section`
     @media (max-width: 1300px) {
-        ${HeroBodyTitle} {
-            font-size: 56px;
-        }
-
-        ${HeroBodyDescription} {
-            font-size: 16px;
-        }
-
-        ${BannerBody} {
-            align-items: center;
-        }
-
-        ${Banner} {
-            width: 440px;
-            margin: 0 auto;
-            margin-bottom: 80px;
-            padding: 20px;
-            background-color: white;
-            display: flex;
-            justify-content: space-between;
-            flex-direction: column-reverse;
-            align-items: center;
-            gap: 20px;
-        }
-
-        ${BannerImage} {
-            width: 100%;
-        }
-    }
-
-    @media (max-width: 1100px) {
-        ${HeroBody} {
-            margin-left: 0;
-        }   
-            
-        ${HeroBodyTitle} {
-            font-size: 42px;
-        }
-
-        ${HeroBodyDescription} {
-            font-size: 18px;
-        }
-    }
-
-    @media (max-width: 995px) {
-        ${HeroBodyTitle} {
-            font-size: 36px;
-            margin-bottom: 0;
-            margin-top: 20px;
-        }
-        
-        ${HeroBodyDescription} {
-            font-size: 16px;
-            margin-bottom: 60px;
-        }
-    }
-
-    @media (max-width: 820px) {
-        ${HeroContainer} {
-            margin-top: 40px;
-            flex-direction: column-reverse;
-            gap: 20px;
-        }
-
-        ${HeroImage} {
-            width: 100%;
-        }
-
-        ${HeroBody} {
-            width: 100%;
-        }
-
-        ${Button} {
-            margin: 0 auto;
-        }
+        width: 100%;
     }
 `;
-
 
 function Home() {
     const [allProducts, setAllProducts] = useState([]);
@@ -196,39 +163,37 @@ function Home() {
     return (
         <>
             <Header />
-            <HomePage>
-                <HeroContainer>
-                    <HeroBody>
-                        <HeroBodyTitle>On Sale <i>-50%</i></HeroBodyTitle>
-                        <HeroBodyDescription>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam soluta saepe et dolorem corporis numquam? Quaerat quod quae sapiente ullam magnam consequuntur recusandae? Iste enim reprehenderit voluptatem ex laudantium ut?
-                        </HeroBodyDescription>
-                        <Button to="/productlistpage">View Products</Button>
-                    </HeroBody>
+            <HeroContainer>
+                <HeroBody>
+                    <HeroBodyTitle>On Sale <i>-50%</i></HeroBodyTitle>
+                    <HeroBodyDescription>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam soluta saepe et dolorem corporis numquam? Quaerat quod quae sapiente ullam magnam consequuntur recusandae? Iste enim reprehenderit voluptatem ex laudantium ut?
+                    </HeroBodyDescription>
+                    <Button to="/productlistpage">View Products</Button>
+                </HeroBody>
 
-                    <HeroImage src={heroImg} alt="single product display" />
-                </HeroContainer>
+                <HeroImage src={heroImg} alt="single product display" />
+            </HeroContainer>
 
-                <ProductGallery>
-                    {
-                        allProducts.slice(0, 3).map((product, index) => {
-                            return (
-                                <ProductContainer key={index} to={`/productlistpage/${product.id}`}>
-                                    <Product key={product.id} productProp={product} />
-                                </ProductContainer>
-                            )
-                        })
-                    }
-                </ProductGallery>
+            <ProductGallery>
+                {
+                    allProducts.slice(0, 3).map((product, index) => {
+                        return (
+                            <ProductContainer key={index} to={`/productlistpage/${product.id}`}>
+                                <Product key={product.id} productProp={product} />
+                            </ProductContainer>
+                        )
+                    })
+                }
+            </ProductGallery>
 
-                <Banner>
-                    <BannerBody>
-                        <BannerBodyTitle>Trending Now</BannerBodyTitle>
-                        <Button to="/productlistpage">View Products</Button>
-                    </BannerBody>
-                    <BannerImage src={bannerImg} alt="banner image" />
-                </Banner>
-            </HomePage>
+            <Banner>
+                <BannerBody>
+                    <BannerBodyTitle>Trending Now</BannerBodyTitle>
+                    <Button to="/productlistpage">View Products</Button>
+                </BannerBody>
+                <BannerImage src={bannerImg} alt="banner image" />
+            </Banner>
 
             <Footer />
         </>

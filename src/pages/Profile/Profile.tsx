@@ -9,7 +9,6 @@ import avatar from "../../assets/avatar.jpg";
 function Profile() {
 	const fetchedToken = localStorage.getItem("token");
 	const fetchedId = localStorage.getItem("Id");
-	const adminToken = localStorage.getItem("adminToken");
 
 	const [editProfile, setEditProfile] = useState(false);
 	const [userData, setUserData] = useState({});
@@ -32,19 +31,21 @@ function Profile() {
 
 	useEffect(() => {
 		const fetchedId = localStorage.getItem("Id");
-		console.log(userData);
 		
 		async function fetchProfile() {
 			const request = {
 				method: "GET",
 				headers: {
 					"Content-Type": "application/json",
-					Authorization: adminToken,
+					Authorization: localStorage.getItem("adminToken"),
 				},
 			};
 
 			const response = await fetch(`/api/v1/admins/users/${fetchedId}`, request);
+			console.log("response", response);
+
 			const json = await response.json();
+			console.log("json", json);
 			setUserData(json);
 		}
 		fetchProfile();
