@@ -1,0 +1,139 @@
+.filter-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.category-form, .rating-form, .price-form {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+    margin-bottom: 50px;
+}
+
+
+.filter-button {
+    cursor: pointer;
+    border: none;
+    font-size: 15px;
+    background-color: var(--light-grey);
+    border-bottom: 1px solid rgb(212, 212, 212);
+    margin-bottom: 10px;
+    text-align: left;
+    padding-bottom: 5px;
+    padding-left: 0;
+    font-weight: 500;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.arrow-down {
+    height: 5px;
+}
+
+.arrow-right {
+    height: 9px;
+}
+
+.filter-container {
+    margin-bottom: 120px;
+}
+
+.filter-button {
+    width: 100%;
+    cursor: pointer;
+    border: none;
+    font-size: 15px;
+    background-color: var(--light-grey);
+    border-bottom: 1px solid rgb(212, 212, 212);
+    margin-bottom: 30px;
+    text-align: left;
+    padding-bottom: 5px;
+    padding-left: 0;
+    font-weight: 500;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+
+
+
+
+.inner-filter-container {
+    flex-direction: column;
+    margin-left: 30px;
+}
+
+
+
+
+.rating-button, .price-button, .category-button {
+    width: 100%;
+    cursor: pointer;
+    border: none;
+    font-size: 15px;
+    background-color: var(--light-grey);
+    border-bottom: 1px solid rgb(212, 212, 212);
+    margin-bottom: 30px;
+    text-align: left;
+    padding-bottom: 5px;
+    padding-left: 0;
+    font-weight: 500;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    /* padding: 10px; */
+}
+
+.category-radio-label, .rating-radio-label {
+    font-size: 14px;
+    padding: 10px;
+}
+
+.category-radio {
+    /* height: 11px;
+    border: none; */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  
+    border-radius: 50%;
+    width: 11px;
+    height: 11px;
+  
+    border: 1px solid black;
+    /* transition: 0.2s all linear; */
+    margin-right: 15px;
+  
+    position: relative;
+    top: 1px;
+}
+
+.rating-radio {
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  
+    border-radius: 50%;
+    width: 11px;
+    height: 11px;
+  
+    border: 1px solid black;
+
+    margin-right: 15px;
+  
+    position: relative;
+    top: -1px;
+}
+
+.category-radio:checked, .rating-radio:checked {
+    background-color: black;
+    /* border: 6px solid black; */
+}

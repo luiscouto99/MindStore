@@ -1,0 +1,30 @@
+.empty_main-product-container {
+    background-color: var(--light-grey);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 20px 0px 20px 0px;
+    padding: 10px;
+    padding-right: 20px;
+}
+
+.empty_image-div {
+    width: 12%;
+}
+
+.empty_image-div img {
+    width: 100%;
+    min-width: 50px;
+}
+
+.empty_details-div {
+    display: flex;
+    flex-direction: column;
+}
+
+.empty_remove-button {
+    border: none;
+    background-color: var(--light-grey);
+    cursor: pointer;
+}
