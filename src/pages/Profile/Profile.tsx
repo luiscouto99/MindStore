@@ -11,7 +11,6 @@ function Profile() {
 	const fetchedId = localStorage.getItem("Id");
 	const adminToken = localStorage.getItem("adminToken");
 
-	const [profileColor, setProfileColor] = useState(false);
 	const [editProfile, setEditProfile] = useState(false);
 	const [userData, setUserData] = useState({});
 	const [newInfo, setNewInfo] = useState(false);
@@ -34,8 +33,7 @@ function Profile() {
 	useEffect(() => {
 		const fetchedId = localStorage.getItem("Id");
 		console.log(userData);
-
-		setProfileColor(true);
+		
 		async function fetchProfile() {
 			const request = {
 				method: "GET",
@@ -142,7 +140,7 @@ function Profile() {
 
 	return (
 		<>
-			<Header profileColor={profileColor} />
+			<Header linkActive={true} />
 
 			{editProfile ? (
 				<>

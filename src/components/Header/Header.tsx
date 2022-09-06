@@ -1,155 +1,112 @@
 // @ts-nocheck
+import { NavLink, Link } from "react-router-dom";
+import styled from "styled-components";
+import Cart from "../../assets/shopping-cart.png";
 
-import { Link } from "react-router-dom";
-import "./header.css";
-import { useState } from "react";
+const MainHeader = styled.header`
+	background-color: white;
+`;
 
-function Header(props) {
-	const { loginColor, registerColor, profileColor, productPageColor, cartColor } = props;
-	const fetchedToken = localStorage.getItem("token");
-	// console.log("fetchedToken from Header \n", fetchedToken);
-	// const { userId } = useParams();
+const Navbar = styled.nav`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 100px;
+    margin: 0 40px;
+`;
 
-	const [isLoginClicked, setIsLoginClicked] = useState(false);
-	const [isRegisterClicked, setIsRegisterClicked] = useState(false);
-	const [isCartClicked, setIsCartClicked] = useState(false);
-	const [isProductPageClicked, setIsProductPageClicked] = useState(false);
-	const [isProfileClicked, setIsProfileClicked] = useState(false);
-	// const [token, setToken] = useState(null);
+const NavbarLogo = styled(Link)`
+	font-family: "Prata", serif;
+    font-size: 20px;
+`;
 
-	// setToken(fetchedToken);
+const NavbarLogoBold = styled.span`
+	font-weight: 800;
+`;
 
-	function handleLoginClick() {
-		setIsLoginClicked(!isLoginClicked);
+const NavbarLinksContainer = styled.div`
+    display: flex;
+	align-items: center;
+`;
+
+const NavbarLink = styled(NavLink)`
+	margin-left: 20px;
+    position: relative;
+
+	&:before {
+			content: "";
+			position: absolute;
+			width: 0;
+			height: 0.5px;
+			bottom: 0;
+			left: 0;
+			background-color: var(--primary-color);
+			visibility: hidden;
+			transition: all 0.3s ease-in-out;
 	}
 
-	function handleRegisterClick() {
-		setIsRegisterClicked(!isRegisterClicked);
+	&:hover:before {
+		visibility: visible;
+		width: 100%;
 	}
 
-	function handleCartClick() {
-		setIsCartClicked(!isCartClicked);
+	&.active {
+    	color: var(--primary-color);
 	}
+`;
 
-	function handleProductPageClick() {
-		setIsProductPageClicked(!isProductPageClicked);
-	}
+const NavbarCart = styled.div`
+    background: url(${Cart});
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 19px;
+    width: 19px;
+    display: inline-block;
+`;
 
-	function handleProfileClick() {
-		setIsProfileClicked(!isProfileClicked);
-	}
 
-    function handleLogout() {
-        console.log("trying to logout");
-        localStorage.removeItem("token");
-		localStorage.removeItem("adminToken");
-    }
+function Header() {
+	const getToken = localStorage.getItem("token");
 
-	if (fetchedToken === null) {
+	if (getToken !== null) {
 		return (
-			<>
-				<header>
-					<nav>
-						<Link to="/" className="logo-div">
-							Mind<span className="bold">Store</span>
-						</Link>
-						{/* {isLoginClicked} */}
+			<MainHeader>
+				<Navbar>
+					<NavbarLogo to="/">
+						Mind
+						<NavbarLogoBold>Store</NavbarLogoBold>
+					</NavbarLogo>
 
-						<div className="links-div">
-							<Link to="/productlistpage" className={productPageColor ? "active" : ""} onClick={handleProductPageClick}>
-								Products
-							</Link>
-							<Link to="/login" className={loginColor ? "active" : ""} onClick={handleLoginClick}>
-								Login
-							</Link>
-							<Link to="/register" className={registerColor ? "active" : ""} onClick={handleRegisterClick}>
-								Register
-							</Link>
-							{/* <Link to="/profile" className={profileColor ? "active" : ""} onClick={handleProfileClick}>Profile</Link> */}
-							{/* <Link to="/cart" className={cartColor ? "pink-cart" : "black-cart"} onClick={handleCartClick}></Link>  */}
-						</div>
-					</nav>
-				</header>
-			</>
+					<NavbarLinksContainer>
+						<NavbarLink to="/productlistpage">Products</NavbarLink>
+						<NavbarLink to="/profile">Profile</NavbarLink>
+						<NavbarLink to="/" onClick={() => localStorage.clear()}>Logout</NavbarLink>
+						<NavbarLink to={`/cart/${localStorage.getItem("Id")}`}>
+							<NavbarCart />
+						</NavbarLink>
+					</NavbarLinksContainer>
+				</Navbar>
+			</MainHeader>
 		);
 	} else {
-        return(
-            <>
-			<header>
-				<nav>
-					<Link to="/" className="logo-div">
-						Mind<span className="bold">Store</span>
-					</Link>
-					{/* {isLoginClicked} */}
+		return (
+			<MainHeader>
+				<Navbar>
+					<NavbarLogo to="/">
+						Mind
+						<NavbarLogoBold>Store</NavbarLogoBold>
+					</NavbarLogo>
 
-					<div className="links-div">
-						<Link to="/productlistpage" className={productPageColor ? "active" : ""} onClick={handleProductPageClick}>
-							Products
-						</Link>
-						{/* <Link to={`/profile/${userId}`} className={profileColor ? "active" : ""} onClick={handleProfileClick}> */}
-						<Link to={`/profile`} className={profileColor ? "active" : ""} onClick={handleProfileClick}>
-							Profile
-						</Link>
-						<Link to="/" onClick={handleLogout}>
-							Logout
-							</Link>
-							
-							{/* <Link to="/cart" className={cartColor ? "pink-cart" : "black-cart"} onClick={handleCartClick}></Link> */}
-							<Link to={`/cart/${localStorage.getItem("Id")}`} className={cartColor ? "pink-cart" : "black-cart"} onClick={handleCartClick}></Link>
-					</div>
-				</nav>
-			</header>
-		</>
-        );
-    }
-
-	// return (
-	// 	<>
-	// 		<header>
-	// 			<nav>
-	// 				<Link to="/" className="logo-div">
-	// 					Mind<span className="bold">Store</span>
-	// 				</Link>
-	// 				{/* {isLoginClicked} */}
-
-	// 				<div className="links-div">
-	// 					<Link to="/login" className={loginColor ? "active" : ""} onClick={handleLoginClick}>
-	// 						Login
-	// 					</Link>
-	// 					<Link to="/register" className={registerColor ? "active" : ""} onClick={handleRegisterClick}>
-	// 						Register
-	// 					</Link>
-	// 					<Link to="/profile" className={profileColor ? "active" : ""} onClick={handleProfileClick}>
-	// 						Profile
-	// 					</Link>
-	// 					<Link to="/productlistpage" className={productPageColor ? "active" : ""} onClick={handleProductPageClick}>
-	// 						Product
-	// 					</Link>
-	// 					<Link to="/cart" className={cartColor ? "pink-cart" : "black-cart"} onClick={handleCartClick}></Link>
-	// 				</div>
-	// 			</nav>
-	// 		</header>
-	// 	</>
-	// );
+					<NavbarLinksContainer>
+						<NavbarLink to="/productlistpage">Products</NavbarLink>
+						<NavbarLink to="/login">Login</NavbarLink>
+						<NavbarLink to="/register">Register</NavbarLink>
+					</NavbarLinksContainer>
+				</Navbar>
+			</MainHeader>
+		);
+	}
 }
 
 export default Header;
-
-/*
-   return (
-        <>
-            <header>
-                <nav>
-                    <Link to="/" className="logo-div">Mind<span className="bold">Store</span></Link>
-                    <div className='links-div'>
-                        <Link to="/login" className={loginColor ? "active" : ""} onClick={handleLoginClick}>Login</Link>
-                        <Link to="/register" className={registerColor ? "active" : ""} onClick={handleRegisterClick}>Register</Link>
-                        <Link to="/profile" className={profileColor ? "active" : ""} onClick={handleProfileClick}>Profile</Link>
-                        <Link to="/productlistpage" className={productPageColor ? "active" : ""} onClick={handleProductPageClick}>Product</Link>
-                        <Link to="/cart" className={cartColor ? "pink-cart" : "black-cart"} onClick={handleCartClick}></Link> 
-                    </div>
-                </nav>
-            </header>
-        </>
-    )
-*/
