@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+export const MainLayout = styled.main``;
+
 export const Button = styled(Link)`
     background-color: var(--primary-color);
     color: white;

@@ -5,14 +5,14 @@ import { Link } from "react-router-dom";
 import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
 import Product from "../../components/Product/Product";
-import { Button } from "../../styled/Styled";
+import { MainLayout, Button } from "../../components/Layout/Layout";
 
 import bannerImg from "../../assets/bannerImg.jpg";
 import heroImg from "../../assets/heroImg.jpg";
 
 import styled from "styled-components";
 
-const HeroContainer = styled.div`
+const HeroContainer = styled.section`
     margin: 84px 40px;
     padding: 40px;
     background-color: white;
@@ -87,12 +87,12 @@ const HeroBodyDescription = styled.p`
 `;
 
 const HeroImage = styled.img`
-@media (max-width: 820px) {
-    width: 100%;
-}
+    @media (max-width: 820px) {
+        width: 100%;
+    }
 `;
 
-const ProductGallery = styled.div`
+const ProductGallery = styled.section`
     margin: 80px 40px;
     display: grid;
     grid-template-columns: repeat(auto-fit, 440px);
@@ -106,7 +106,7 @@ const ProductContainer = styled(Link)`
     padding: 40px 20px 20px 20px;
 `;
 
-const Banner = styled.div`
+const Banner = styled.section`
     margin: 80px 20%;
     padding: 40px;
     background-color: white;
@@ -163,37 +163,42 @@ function Home() {
     return (
         <>
             <Header />
-            <HeroContainer>
-                <HeroBody>
-                    <HeroBodyTitle>On Sale <i>-50%</i></HeroBodyTitle>
-                    <HeroBodyDescription>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam soluta saepe et dolorem corporis numquam? Quaerat quod quae sapiente ullam magnam consequuntur recusandae? Iste enim reprehenderit voluptatem ex laudantium ut?
-                    </HeroBodyDescription>
-                    <Button to="/productlistpage">View Products</Button>
-                </HeroBody>
 
-                <HeroImage src={heroImg} alt="single product display" />
-            </HeroContainer>
+            <MainLayout>
 
-            <ProductGallery>
-                {
-                    allProducts.slice(0, 3).map((product, index) => {
-                        return (
-                            <ProductContainer key={index} to={`/productlistpage/${product.id}`}>
-                                <Product key={product.id} productProp={product} />
-                            </ProductContainer>
-                        )
-                    })
-                }
-            </ProductGallery>
+                <HeroContainer>
+                    <HeroBody>
+                        <HeroBodyTitle>On Sale <i>-50%</i></HeroBodyTitle>
+                        <HeroBodyDescription>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam soluta saepe et dolorem corporis numquam? Quaerat quod quae sapiente ullam magnam consequuntur recusandae? Iste enim reprehenderit voluptatem ex laudantium ut?
+                        </HeroBodyDescription>
+                        <Button to="/productlistpage">View Products</Button>
+                    </HeroBody>
 
-            <Banner>
-                <BannerBody>
-                    <BannerBodyTitle>Trending Now</BannerBodyTitle>
-                    <Button to="/productlistpage">View Products</Button>
-                </BannerBody>
-                <BannerImage src={bannerImg} alt="banner image" />
-            </Banner>
+                    <HeroImage src={heroImg} alt="single product display" />
+                </HeroContainer>
+
+                <ProductGallery>
+                    {
+                        allProducts.slice(0, 3).map((product, index) => {
+                            return (
+                                <ProductContainer key={index} to={`/productlistpage/${product.id}`}>
+                                    <Product key={product.id} productProp={product} />
+                                </ProductContainer>
+                            )
+                        })
+                    }
+                </ProductGallery>
+
+                <Banner>
+                    <BannerBody>
+                        <BannerBodyTitle>Trending Now</BannerBodyTitle>
+                        <Button to="/productlistpage">View Products</Button>
+                    </BannerBody>
+                    <BannerImage src={bannerImg} alt="banner image" />
+                </Banner>
+
+            </MainLayout>
 
             <Footer />
         </>

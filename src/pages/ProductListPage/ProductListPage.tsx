@@ -1,33 +1,131 @@
 // @ts-nocheck
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import Header from "../../components/Header/Header";
+
 import Footer from "../../components/Footer/Footer";
-import Sidebar from "../../components/Sidebar/Sidebar";
+import Header from "../../components/Header/Header";
 import Product from "../../components/Product/Product";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import { MainLayout } from "../../components/Layout/Layout";
+
 import searchBar from "../../assets/search-bar.png";
 import heartEmpty from "../../assets/heart-empty.png";
 import heartFull from "../../assets/heart-full.png";
+
+import styled from "styled-components";
 import "./productlistpage.css";
 
+const ListContainer = styled.section`
+    display: flex;
+    flex-direction: row;
+`;
+
+const SearchBarLabel = styled.label`
+    margin-top: 30px;
+	width: 300px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+`;
+
+const SearchBarInput = styled.input`
+	width: 100%;
+	border: none;
+	border-bottom: 1px solid rgb(149, 149, 149);
+   	background-color: var(--light-grey);
+	color: gray;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+`;
+
+const SearchBarIcon = styled.img`
+	width: 15px;
+    height: 15px;
+`;
+
+const ProductGrid = styled.div`
+    width: 100%;
+	margin-top: 20px;
+    margin-bottom: 50px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 300px);
+    grid-gap: 20px;
+`;
+
+const ProductContainer = styled.div`
+	position: relative;
+`;
+
+const FavouriteButton = styled.button`
+    position: absolute;
+	top: 20px;
+    right: 20px;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+	border: none;
+    background-color: transparent;
+    z-index: 1;
+	cursor: pointer;
+`;
+
+const FavouriteIcon = styled.img`
+    width: 18px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`;
+
+const PaginationContainer = styled.section`
+	display: flex;
+    justify-content: center;
+    margin: 20px 0 60px 20%;
+`;
+
+const PaginationButton = styled.button`
+    margin: 0 12px;
+    border: none;
+    font-weight: 500;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: transparent;
+
+	&:focus, &.active {
+		color: var(--primary-color);
+	}
+`;
+
+const ProductDisplay = styled.div`
+	display: flex;
+	flex-direction: column;
+	width: 80%;
+`;
+
 function ProductListPage() {
-	const [productPageColor, setProductPageColor] = useState(false);
 	const [allProducts, setAllProducts] = useState([]);
-	const [pageBtnValue, setPageBtnValue] = useState(1);
 	const inputSearch = useRef("");
 	const [sort, setSort] = useState("ASC");
 	const [link, setLink] = useState("?field=title&pagesize=9&direction=");
 	const [page, setPage] = useState("1");
-	const [isButtonLiked, setIsButtonLiked] = useState(false);
 
 	useEffect(() => {
-		setProductPageColor(true);
-
 		async function fetchAllProducts() {
 			const response = await fetch(`/api/v1/users/products${link}${sort}&page=${page}`);
 			const products = await response.json();
-			setAllProducts(products);
-			console.log("all products", products);
+
+			const likedArr = products.map((product) => {
+				const obj = {
+					productInfo: product,
+					isLiked: false,
+				}
+				return obj;
+			});
+
+			setAllProducts(likedArr);
 		}
 		fetchAllProducts();
 	}, [link, sort, page]);
@@ -39,63 +137,16 @@ function ProductListPage() {
 		}
 	}
 
-	function handleIconClick() {
-		console.log(inputSearch.current.value, "icon click here! ");
-	}
+	function handleLikeClick(productId) {
+		const newArr = [...allProducts];
 
-	async function handleSortFetch(direction) {
-		// const response = await fetch(`/api/v1/users/products?direction=${direction}&field=title&page=1&pagesize=9`);
-		// const json = await response.json();
-		// setAllProducts(json);
-		setSort(direction);
-	}
-
-	async function handleCategoryFetch(link) {
-		// const response = await fetch(`/api/v1/users/products/category?category=${field}&page=1&pagesize=9&direction=${sort}`);
-		// const json = await response.json();
-		// setAllProducts(json);
-		console.log("category fetch");
-		setLink(link);
-	}
-
-	async function handlePriceFetch(link) { //Object { min: 449, max: 1000 }
-		// let minPrice = priceObj.min;
-		// let maxPrice = priceObj.max;
-		// const response = await fetch(`/api/v1/users/products/price?direction=${sort}&page=1&pagesize=9&min=${minPrice}&max=${maxPrice}`);
-		// // /api/v1/users/products/price?direction=ASC&page=1&pagesize=9&min=1&max=5000
-		// const json = await response.json();
-		// setAllProducts(json);
-		setLink(link);
-		console.log("price fetch");
-	}
-
-	async function handleRatingFetch(link) {
-		// const response = await fetch(`/api/v1/users/products?direction=ASC&field=${ratingId}&page=1&pagesize=9`);
-		// // /api/v1/users/products?direction=ASC&field=${ratingId}&page=1&pagesize=9
-		// const json = await response.json();
-		// setAllProducts(json);
-		setLink(link);
-		console.log("rating fetch");
-	}
-	
-	function handleLikeClick(index) {
-		console.log(index);
-		setIsButtonLiked(!isButtonLiked);
+		for (let i = 0; i < newArr.length; i++) {
+			if (productId === newArr[i].productInfo.id) {
+				newArr[i].isLiked = !newArr[i].isLiked;
+				setAllProducts(newArr);
+			}
+		}
 	};
-
-
-	const myArray = allProducts.map((product, index) => {
-		return (
-			<div className="like-div">
-				<button onClick={() => { handleLikeClick(product.id) }} className="product-button">
-					<img id={product.id} src={isButtonLiked ? heartFull : heartEmpty} alt="" />
-				</button>
-				<Link key={index} to={`/productlistpage/${product.id}`}>
-					<Product key={product.id} productProp={product} />
-				</Link>
-			</div>
-		)
-	});
 
 	async function handleSearchBar() {
 		const response = await fetch(`/api/v1/users/products/name?title=${inputSearch.current.value}&page=1&pagesize=6`);
@@ -103,49 +154,45 @@ function ProductListPage() {
 		setAllProducts(json);
 	}
 
-	async function handlePageChange(event) {
-		// setPageBtnValue(event.target.value);
-		// const pageNumber = event.target.value;
-		// const response = await fetch(`/api/v1/users/products?direction=DESC&field=title&page=${pageNumber}&pagesize=9`);
-		// const products = await response.json();
-		// setAllProducts(products);
-		setPage(event.target.value);
-	}
-
 	return (
 		<>
-			<Header productPageColor={productPageColor} />
+			<Header />
 
-			<div className="product-list-container">
+			<MainLayout>
+				<ListContainer>
+					<Sidebar className="sidebar" handleSortFetch={(direction) => setSort(direction)} handleCategoryFetch={() => setLink(link)} handlePriceFetch={(link) => setLink(link)} handleRatingFetch={(link) => setLink(link)} />
+					<ProductDisplay>
+						<SearchBarLabel>
+							<SearchBarInput type="text" placeholder="Search" ref={inputSearch} onKeyPress={handleEnterPress} onChange={handleSearchBar} />
+							<SearchBarIcon src={searchBar} alt="search bar icon" />
+						</SearchBarLabel>
 
-				<Sidebar className="sidebar" handleSortFetch={handleSortFetch} handleCategoryFetch={handleCategoryFetch} handlePriceFetch={handlePriceFetch} handleRatingFetch={handleRatingFetch} />
+						<ProductGrid>
 
+							{
+								allProducts.map((product, index) => {
+									return (
+										<ProductContainer>
+											<FavouriteButton onClick={() => { handleLikeClick(product.productInfo.id) }}>
+												<FavouriteIcon src={product.isLiked ? heartFull : heartEmpty} alt="add to favourites" />
+											</FavouriteButton>
+											<Link key={index} to={`/productlistpage/${product.productInfo.id}`}>
+												<Product key={product.productInfo.id} productProp={product.productInfo} />
+											</Link>
+										</ProductContainer>
+									)
+								})
+							}
+						</ProductGrid>
+					</ProductDisplay>
+				</ListContainer>
 
-				<div className="first-grid">
-					<div className="inner-search-div">
-						<label className="label-flex">
-							<input className="search-div" type="text" placeholder="Search" ref={inputSearch} onKeyPress={handleEnterPress} onChange={handleSearchBar} />
-							<a href="#" onClick={handleIconClick}>
-								<img className="search-icon" src={searchBar} alt="" />
-							</a>
-						</label>
-						<div className="blank-div"></div>
-						<div className="blank-div"></div>
-						<div className="blank-div"></div>
-					</div>
-
-					<div className="inner-product-grid">
-						{myArray}
-					</div>
-				</div>
-			</div>
-
-			<div className="pagination">
-				<button value={1} onClick={handlePageChange} className={pageBtnValue === 1 ? "btn-page-numbers active" : "btn-page-numbers" }>1</button>
-				<button value={2} onClick={handlePageChange} className="btn-page-numbers">2</button>
-				<button value={3} onClick={handlePageChange} className="btn-page-numbers">3</button>
-			</div>
-
+				<PaginationContainer>
+					<PaginationButton value={1} onClick={(event) => setPage(event.target.value)}>1</PaginationButton>
+					<PaginationButton value={2} onClick={(event) => setPage(event.target.value)}>2</PaginationButton>
+					<PaginationButton value={3} onClick={(event) => setPage(event.target.value)}>3</PaginationButton>
+				</PaginationContainer>
+			</MainLayout>
 			<Footer />
 		</>
 	);

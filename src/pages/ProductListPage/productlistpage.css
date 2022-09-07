@@ -1,4 +1,4 @@
-.product-list-container {
+/* .product-list-container {
     display: flex;
     flex-direction: row;
 }
@@ -7,17 +7,17 @@
     width: 80%;
     display: flex;
     flex-direction: column;
-}
+} */
 
-.inner-search-div {
+/* .inner-search-div {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fit, 300px);
     grid-gap: 20px;
     justify-content: center;
-}
+} */
 
-.inner-product-grid {
+/* .inner-product-grid {
     margin-top: 20px;
     margin-bottom: 50px;
     width: 100%;
@@ -25,7 +25,7 @@
     grid-template-columns: repeat(auto-fit, 300px);
     grid-gap: 20px;
     justify-content: center;
-}
+} */
 
 .inner-product-grid:first-child {
     grid-column: 1/-1;
@@ -61,7 +61,7 @@
     }
 }
 
-.search-div {
+/* .search-div {
     background-color: var(--light-grey);
     margin-top: 30px;
     font-size: 16px;
@@ -71,37 +71,37 @@
     width: 99%;
     border-bottom: 1px solid rgb(149, 149, 149);
     font-family: 'Roboto', sans-serif;
-}
+} */
 
 /* até um maximo de 768, div é none */
-@media (max-width: 791px) {
+/* @media (max-width: 791px) {
     .blank-div {
         display: none;
     }
-}
+} */
 
-.label-flex {
+/* .label-flex {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     position: relative;
-}
+} */
 
-.search-icon {
+/* .search-icon {
     width: 15px;
     height: 15px;
     position: absolute;
     right: 0px;
     bottom: 3px;
-}
+} */
 
-.pagination {
+/* .pagination {
     display: flex;
     justify-content: center;
     margin: 20px 0 60px 20%;
-}
+} */
 
-.btn-page-numbers {
+/* .btn-page-numbers {
     margin: 0 12px;
     border: none;
     font-weight: 500;
@@ -118,7 +118,7 @@
 
 .btn-page-numbers .active {
     color: var(--primary-color);
-}
+} */
 
 
 
@@ -138,12 +138,12 @@
         margin: 0 auto 40px ;
     }
 }
-.like-div {
+/* .like-div {
     position: relative;
-}
-.product-button {
+} */
+/* .product-button {
     cursor: pointer;
     background-color: transparent;
     position: absolute;
     z-index: 1;
-}
+} */

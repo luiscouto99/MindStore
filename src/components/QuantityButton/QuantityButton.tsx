@@ -1,19 +1,49 @@
 // @ts-nocheck
+import styled from "styled-components";
 
-import React from 'react'
-import { useState } from "react";
-import "./quantitybutton.css"
+const QuantityContainer = styled.div`
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+    border-radius: 4px;
+    height: 45px;
+    margin-right: 20px;
+`;
 
-function QuantityButton(props) {
-    const { handleAddToUserCart } = props;
-    const [quantity, setQuantity] = useState(1);
+const QuantityBtn = styled.button`
+    background-color: transparent;
+    border: none;
+    color: rgba(0, 0, 0, 0.3);
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    cursor: pointer;
+`;
+
+const QuantityCounter = styled.p`
+    background-color: transparent;
+    border: none;
+    color: var(--primary-color);
+    width: 20px;
+    font-size: 18px;
+    text-align: center;
+    font-weight: 400;
+`;
+
+type QuantityButtonProps = {
+    handleAddToUserCart: (quantity: number) => void,
+    quantity: number
+}
+
+const QuantityButton = ({handleAddToUserCart, quantity}: QuantityButtonProps) => {
 
     function handleDecrement() {
         if (quantity === 1) {
             handleAddToUserCart(quantity);
             return;
         }
-        setQuantity(quantity - 1);
+        
         handleAddToUserCart(quantity - 1);
     }
 
@@ -22,16 +52,16 @@ function QuantityButton(props) {
             handleAddToUserCart(quantity);
             return;
         }
-        setQuantity(quantity + 1);
+    
         handleAddToUserCart(quantity + 1);
     }
 
     return (
-        <div className='product-detail_quantity'>
-            <button onClick={handleDecrement} className='input-btn'>-</button>
-            <input type="number" value={quantity} readOnly  />
-            <button onClick={handleIncrement} className='input-btn'>+</button>
-        </div>
+        <QuantityContainer>
+            <QuantityBtn onClick={handleDecrement}>-</QuantityBtn>
+            <QuantityCounter>{quantity}</QuantityCounter>
+            <QuantityBtn onClick={handleIncrement}>+</QuantityBtn>
+        </QuantityContainer>
     )
 }
 

@@ -1,9 +1,0 @@
-.product-detail_quantity {
-    display: flex;
-    align-items: center;
-    background-color: transparent;
-    border: 2px solid var(--primary-color);
-    border-radius: 4px;
-    height: 45px;
-    margin-right: 20px;
-}

@@ -1,12 +1,18 @@
 // @ts-nocheck
 
-import React from "react";
+import React, { useState }  from "react";
 import { Link } from "react-router-dom"
 import QuantityButton from "../QuantityButton/QuantityButton";
 import "./checkoutproduct.css";
 
 function CheckoutProduct(props) {
 	const { handleRemove, product } = props;
+	const [productsToAdd, setProductsToAdd] = useState(1);
+	
+	// nao funciona
+	function handleAddToUserCart(quantity) {
+        setProductsToAdd(quantity);
+    }
 
 	return (
 		<div className="main-product-container">
@@ -23,7 +29,7 @@ function CheckoutProduct(props) {
 			</div>
 
 			<div className="quantity-div">
-				<QuantityButton />
+				<QuantityButton quantity={productsToAdd} handleAddToUserCart={handleAddToUserCart} />
 			</div>
 
 			<div className="price-div">{product.price} €</div>
