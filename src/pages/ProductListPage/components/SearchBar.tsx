@@ -21,6 +21,10 @@ const SearchBarInput = styled.input`
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     font-weight: 300;
+
+    &:focus {
+        outline: none;
+    }
 `;
 
 const SearchBarIcon = styled.img`

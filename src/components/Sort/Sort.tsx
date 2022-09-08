@@ -5,7 +5,7 @@ import arrowRight from "../../assets/arrow-right.png";
 import styled, { css } from "styled-components";
 
 const SortContainer = styled.div`
-    margin-top: 42px;
+    margin-top: 53px;
     margin-bottom: 40px;
 `;
 

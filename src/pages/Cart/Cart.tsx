@@ -154,6 +154,7 @@ function CartPage() {
 	return (
 		<>
 			<Header />
+			
 			<CartContainer>
 				<CartProducts>
 					<CartProductsTitle>Shopping Cart</CartProductsTitle>

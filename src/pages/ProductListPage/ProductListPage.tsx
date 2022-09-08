@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { useState, useEffect, useRef } from "react";
 
 import Footer from "../../components/Footer/Footer";
@@ -33,10 +35,12 @@ const ProductDisplay = styled.div`
 
 function ProductListPage() {
 	const [allProducts, setAllProducts] = useState([] as LikedProduct[]);
-	const inputSearch = useRef("");
 	const [sort, setSort] = useState("ASC");
-	const [link, setLink] = useState("?field=title&pagesize=9&direction=");
+	const [link, setLink] = useState("?field=title&pagesize=12&direction=");
 	const [page, setPage] = useState("1");
+	const [isLoading, setIsLoading] = useState(true);
+	const [itemsFromSearch, setItemsFromSearch] = useState(null);
+	const inputSearch = useRef("");
 
 	useEffect(() => {
 		async function fetchAllProducts() {
@@ -52,13 +56,12 @@ function ProductListPage() {
 				}
 				return obj;
 			});
-
 			setAllProducts(likedArr);
 		}
 		fetchAllProducts();
+		setTimeout(() => setIsLoading(false), 2000);
 	}, [link, sort, page]);
 
-	// ver funcoes dos arrays e otimizar isto (map, filter, foreach, every, ...)
 	function handleLikeClick(productId: number) {
 		const likedProducts = [...allProducts];
 
@@ -71,9 +74,19 @@ function ProductListPage() {
 	};
 
 	async function handleSearchBar() {
+		setIsLoading(true);
+
 		const response = await fetch(`/api/v1/users/products/name?title=${(inputSearch as unknown as React.RefObject<HTMLInputElement>).current?.value}&page=1&pagesize=6`);
+		if (response.status === 404) {
+			setIsLoading(false);
+			setItemsFromSearch(`No results found for the search: "${inputSearch.current.value}"`);
+			setAllProducts([{}]); // se nao tiver isto devolve o fetch inicial
+			// setInterval(() => inputSearch = "", 3000);
+			return;
+		}
 		const json = await response.json();
 		setAllProducts(json);
+		setIsLoading(false);
 	}
 
 	return (
@@ -84,10 +97,10 @@ function ProductListPage() {
 					<Sidebar className="sidebar" handleSortFetch={(direction: ProductListSorting) => setSort(direction)} handleCategoryFetch={() => setLink(link)} handlePriceFetch={(link: string) => setLink(link)} handleRatingFetch={(link: string) => setLink(link)} />
 					<ProductDisplay>
 						<SearchBar inputSearch={inputSearch} handleSearchBar={handleSearchBar} />
-						<ProductListGrid allProducts={allProducts} handleLikeClick={handleLikeClick} />
+						{itemsFromSearch !== "" ? <p>{itemsFromSearch}</p> : null}
+						<ProductListGrid allProducts={allProducts} handleLikeClick={handleLikeClick} isLoading={isLoading} />
 					</ProductDisplay>
 				</ListContainer>
-				
 				<Pagination setPage={setPage} />
 			</MainLayout>
 			<Footer />

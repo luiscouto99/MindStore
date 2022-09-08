@@ -1,14 +1,18 @@
+// @ts-nocheck
 import { Link } from "react-router-dom";
-import styled from "styled-components/macro";
+
 import Product from "../../../components/Product/Product";
-import { LikedProduct } from "../../../types/product";
+import ProductSkeleton from "../../../components/ProductSkeleton/ProductSkeleton";
+
+import styled from "styled-components/macro";
 
 import heartEmpty from "../../../assets/heart-empty.png";
 import heartFull from "../../../assets/heart-full.png";
 
+import { LikedProduct } from "../../../types/product";
+
 const ProductGrid = styled.div`
     width: 100%;
-	margin-top: 20px;
     margin-bottom: 50px;
     display: grid;
     grid-template-columns: repeat(auto-fit, 300px);
@@ -44,20 +48,52 @@ const FavouriteIcon = styled.img`
     transform: translate(-50%, -50%);
 `;
 
-export const ProductListGrid = ({allProducts, handleLikeClick} : {allProducts: LikedProduct[], handleLikeClick: (productId: number) => void}) =>
+export const ProductListGrid = ({ allProducts, handleLikeClick, isLoading }: { allProducts: LikedProduct[], handleLikeClick: (productId: number) => void, isLoading: boolean }) =>
     <ProductGrid>
-    {
-        allProducts.map((product) => {
-            return (
-                <ProductContainer key={`product-container-${product.id}`}>
-                    <FavouriteButton onClick={() => { handleLikeClick(product.id) }}>
-                        <FavouriteIcon src={product.isLiked ? heartFull : heartEmpty} alt="add to favourites" />
-                    </FavouriteButton>
-                    <Link to={`/productlistpage/${product.id}`}>
-                        <Product key={product.id} productProp={product} />
-                    </Link>
-                </ProductContainer>
+        {
+            isLoading ? (
+                <ProductSkeleton cards={12} width={300} height={400} />
+            ) : (
+                allProducts.map((product) => {
+                    return (
+                        <ProductContainer key={`product-container-${product.id}`}>
+                            <FavouriteButton onClick={() => { handleLikeClick(product.id) }}>
+                                <FavouriteIcon src={product.isLiked ? heartFull : heartEmpty} alt="add to favourites" />
+                            </FavouriteButton>
+                            <Link to={`/productlistpage/${product.id}`}>
+                                <Product key={product.id} productProp={product} />
+                            </Link>
+                        </ProductContainer>
+                    )
+                })
             )
-        })
-    }
-</ProductGrid>
+        }
+    </ProductGrid>
+
+
+{/* <ProductGrid>
+        {
+            Object.keys(allProducts[0]).length === 0 ? (
+                <p>nothing</p>
+            ) : (
+                isLoading ? (
+                    <ProductSkeleton cards={12} />
+                ) : (
+                    allProducts.map((product) => {
+                        return (
+                            <ProductContainer key={`product-container-${product.id}`}>
+                                <FavouriteButton onClick={() => { handleLikeClick(product.id) }}>
+                                    <FavouriteIcon src={product.isLiked ? heartFull : heartEmpty} alt="add to favourites" />
+                                </FavouriteButton>
+                                <Link to={`/productlistpage/${product.id}`}>
+                                    <Product key={product.id} productProp={product} />
+                                </Link>
+                            </ProductContainer>
+                        )
+                    })
+                )
+
+
+            )
+        }
+    </ProductGrid> */}
