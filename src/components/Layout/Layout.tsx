@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import styled from "styled-components/macro";
+import styled, {css} from "styled-components/macro";
 
 export const MainLayout = styled.main``;
 
@@ -10,7 +10,6 @@ export const LoginLayout = styled(MainLayout)`
     min-height: calc(100vh - 100px);
     justify-content: center;
 `;
-
 
 export const ButtonLink = styled(Link)`
     background-color: var(--primary-color);
@@ -29,7 +28,12 @@ export const ButtonLink = styled(Link)`
     }
 `;
 
-export const Button = styled.button`
+
+type ButtonProps = {
+    noMargin?: boolean;
+}
+
+export const Button = styled.button<ButtonProps>`
     background-color: var(--primary-color);
     border: none;
     border-radius: 4px;
@@ -42,4 +46,8 @@ export const Button = styled.button`
     &:hover {
         box-shadow: -1px 6px 10px 0 rgba(120, 60, 20, .15);
     }
+
+    ${(props) => props.noMargin && css`
+        margin: 0;
+    `}
 `;

@@ -1,13 +1,16 @@
 // @ts-nocheck
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
+
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import CheckoutProduct from "../../components/CheckoutProduct/CheckoutProduct";
-import leftArrow from "../../assets/arrow-left.png";
+import { CartProduct } from "./components/CartProduct";
+import { Discount } from "./components/Discount";
+import { Form } from "./components/Form";
+import { Price } from "./components/Price";
+import { ViewProductList } from "./components/ViewProductList";
 
 import styled from "styled-components/macro";
-import "./cart.css";
 
 const CartContainer = styled.main`
 	display: flex;
@@ -23,13 +26,54 @@ const CartContainer = styled.main`
 	}
 `;
 
+const CartProducts = styled.section`
+	width: 68%;
+    padding-right: 0px;
+    padding-top: 60px;
+
+	@media (max-width: 686px) {
+		width: 100%;
+	}
+`;
+
+const CartProductsTitle = styled.h2`
+	margin: 0;
+    margin-bottom: 12px;
+	padding-bottom: 8px;
+    font-size: 30px;
+    font-weight: 300;
+    border-bottom: 1px solid #999999;
+`;
+
+const CartSummary = styled.section`
+	width: 28%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 30px;
+
+	@media (max-width: 1300px) {
+		width: 70%;
+	}
+
+	@media (max-width: 686px) {
+		width: 100%;
+	}
+`;
+
+const CartSummaryDetails = styled.div`
+	display: flex;
+    flex-direction: column;
+    background-color: #e9e9e9;
+    padding: 30px;
+`;
+
 function CartPage() {
 	const { id } = useParams();
 	const [checkoutClicked, setCheckoutClicked] = useState(false);
 	const [discountClicked, setDiscountClicked] = useState(false);
 	const [isCartEmpty, setCartEmpty] = useState(false);
 	const [allProducts, setAllProducts] = useState([]);
-	const [total, setTotal] = useState();
+	const [total, setTotal] = useState(0);
 	const fullName = useRef("");
 	const phoneNumber = useRef("");
 	const email = useRef("");
@@ -86,7 +130,7 @@ function CartPage() {
 		setDiscountClicked(true);
 	}
 
-	async function handleRemove(productId) {
+	async function handleRemove(productId: number) {
 		const request = {
 			method: "PATCH",
 			headers: {
@@ -111,65 +155,19 @@ function CartPage() {
 		<>
 			<Header />
 			<CartContainer>
-				<div className="main-container">
-					<div className="main-header">
-						<h2>Shopping Cart</h2>
-					</div>
-					<div className="main-products">
-						{
-							allProducts.map((product) => {
-								return (
-									<CheckoutProduct key={product.id} isCartEmpty={isCartEmpty} handleRemove={() => { handleRemove(product.id) }} product={product} />
-								);
-							})
-						}
-					</div>
-					<div className="main-footer">
-						<a href="/productlistpage">
-							<img src={leftArrow} alt="" />
-							<span>&nbsp; Back to Product List</span>
-						</a>
-					</div>
-				</div>
+				<CartProducts>
+					<CartProductsTitle>Shopping Cart</CartProductsTitle>
+					<CartProduct allProducts={allProducts} isCartEmpty={isCartEmpty} handleRemove={handleRemove}></CartProduct>
+					<ViewProductList></ViewProductList>
+				</CartProducts>
 
-				<div className="secondary-container">
-					<div className="payment-container">
-						<div className="payment-header">
-							<h2>Summary</h2>
-							<div className="payment-header-info">
-								<p>Total:</p>
-								<p>{total} €</p>
-							</div>
-						</div>
-
-						<div>
-							<form className="payment-form-cart" onSubmit={handleCheckout}>
-								<label className="payment-label-cart" htmlFor="full-name">
-									<input type="text" name="full-name" ref={fullName} placeholder="Full Name" />
-								</label>
-								<label className="payment-label-cart" htmlFor="phone-number">
-									<input type="text" name="phone-number" ref={phoneNumber} placeholder="Phone Number" />
-								</label>
-								<label className="payment-label-cart" htmlFor="email">
-									<input type="text" name="email" ref={email} placeholder="Email" />
-								</label>
-								<label className="payment-label-cart" htmlFor="address">
-									<input type="text" name="address" ref={address} placeholder="Address" />
-								</label>
-								<button className="payment-button-cart" type="submit">Checkout</button>
-							</form>
-						</div>
-					</div>
-
-					<div className="discount-container">
-						<form className="discount-container-form" onSubmit={handleDiscount}>
-							<label className="discount-label-cart" htmlFor="discount-code">
-								<input type="text" name="discount-code" ref={discountCode} placeholder="Enter discount code" />
-							</label>
-							<button className="payment-submit-button" type="submit">Submit</button>
-						</form>
-					</div>
-				</div>
+				<CartSummary>
+					<CartSummaryDetails>
+						<Price total={total}></Price>
+						<Form handleCheckout={handleCheckout} fullName={fullName} phoneNumber={phoneNumber} email={email} address={address}></Form>
+					</CartSummaryDetails>
+					<Discount handleDiscount={handleDiscount} discountCode={discountCode}></Discount>
+				</CartSummary>
 			</CartContainer>
 
 			<Footer />
