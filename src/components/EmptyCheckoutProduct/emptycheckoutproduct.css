@@ -1,12 +1,11 @@
-.empty_main-product-container {
+/* .empty_main-product-container {
     background-color: var(--light-grey);
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 40px;
     align-items: center;
     margin: 20px 0px 20px 0px;
     padding: 10px;
-    padding-right: 20px;
 }
 
 .empty_image-div {
@@ -27,4 +26,4 @@
     border: none;
     background-color: var(--light-grey);
     cursor: pointer;
-}
+} */

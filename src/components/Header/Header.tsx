@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { NavLink, Link } from "react-router-dom";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import Cart from "../../assets/shopping-cart.png";
 
 const MainHeader = styled.header`

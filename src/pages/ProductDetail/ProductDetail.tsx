@@ -1,9 +1,12 @@
 // @ts-nocheck
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useParams } from "react-router-dom";
+
 import Header from '../../components/Header/Header'
 import QuantityButton from '../../components/QuantityButton/QuantityButton';
 import RenderRating from '../../components/RenderRating/RenderRating';
+import { ButtonLink } from "../../components/Layout/Layout";
+
 import arrowLeft from '../../assets/arrow-left.png'
 import "./productDetail.css"
 
@@ -13,7 +16,7 @@ function ProductDetailPage() {
     const [productsToAdd, setProductsToAdd] = useState(1);
 
     const userId = localStorage.getItem('Id');
-    
+
     useEffect(() => {
         const fetchById = async (desiredId) => {
             const response = await fetch(`/api/v1/users/products/${desiredId}`);
@@ -71,9 +74,7 @@ function ProductDetailPage() {
                         <div className="product-detail_cart-options">
                             <QuantityButton quantity={productsToAdd} handleAddToUserCart={handleAddToUserCart} />
 
-                            <div>
-                                <Link to={`/cart/${userId}`} className="product-detail_cart-button" onClick={handleAddToUserCartFetch}>Add to Cart</Link>
-                            </div>
+                            <ButtonLink to={`/cart/${userId}`} onClick={handleAddToUserCartFetch}>Add to Cart</ButtonLink>
                         </div>
                     </div>
                 </div>

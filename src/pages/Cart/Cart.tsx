@@ -1,18 +1,30 @@
 // @ts-nocheck
-
-import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import CheckoutProduct from "../../components/CheckoutProduct/CheckoutProduct";
-import EmptyCheckoutProduct from "../../components/EmptyCheckoutProduct/EmptyCheckoutProduct";
 import leftArrow from "../../assets/arrow-left.png";
+
+import styled from "styled-components/macro";
 import "./cart.css";
+
+const CartContainer = styled.main`
+	display: flex;
+    justify-content: space-between;
+    margin-left: 40px;
+    margin-right: 40px;
+
+	@media (max-width:1300px) {
+        flex-direction: column;
+        align-items: center;
+        margin-left: 40px;
+        margin-right: 40px;
+	}
+`;
 
 function CartPage() {
 	const { id } = useParams();
-	const [cartColor, setCartColor] = useState(false);
 	const [checkoutClicked, setCheckoutClicked] = useState(false);
 	const [discountClicked, setDiscountClicked] = useState(false);
 	const [isCartEmpty, setCartEmpty] = useState(false);
@@ -25,8 +37,6 @@ function CartPage() {
 	const discountCode = useRef("");
 
 	useEffect(() => {
-		setCartColor(true);
-
 		async function fetchAllProducts() {
 			const request = {
 				method: "GET",
@@ -43,7 +53,6 @@ function CartPage() {
 			} else {
 				setCartEmpty(false);
 			}
-			console.log(products)
 			setAllProducts(products);
 		}
 		fetchAllProducts();
@@ -67,24 +76,14 @@ function CartPage() {
 		setTotal(roundedTotal);
 	}
 
-
-	const productArray = allProducts.map((product, index) => {
-		return (
-			//assumir que estava a chamar a funcao, estava a executar cada x que checkout product era chamado
-			<CheckoutProduct key={index} handleRemove={() => { handleRemove(product.id) }} product={product} productList={allProducts} index={index} />
-		);
-	});
-
 	function handleCheckout(event) {
 		event.preventDefault();
 		setCheckoutClicked(true);
-		console.log("checkout clicked");
 	}
 
 	function handleDiscount(event) {
 		event.preventDefault();
 		setDiscountClicked(true);
-		console.log("discount clicked");
 	}
 
 	async function handleRemove(productId) {
@@ -110,14 +109,20 @@ function CartPage() {
 
 	return (
 		<>
-			<Header cartColor={cartColor} />
-			<div className="cart-container">
+			<Header />
+			<CartContainer>
 				<div className="main-container">
 					<div className="main-header">
 						<h2>Shopping Cart</h2>
 					</div>
 					<div className="main-products">
-						{isCartEmpty ? <EmptyCheckoutProduct /> : productArray}
+						{
+							allProducts.map((product) => {
+								return (
+									<CheckoutProduct key={product.id} isCartEmpty={isCartEmpty} handleRemove={() => { handleRemove(product.id) }} product={product} />
+								);
+							})
+						}
 					</div>
 					<div className="main-footer">
 						<a href="/productlistpage">
@@ -165,9 +170,9 @@ function CartPage() {
 						</form>
 					</div>
 				</div>
-			</div>
+			</CartContainer>
 
-			<Footer/>
+			<Footer />
 		</>
 	);
 }

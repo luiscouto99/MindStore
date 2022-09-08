@@ -1,45 +1,120 @@
 // @ts-nocheck
 
-import React, { useState }  from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom"
-import QuantityButton from "../QuantityButton/QuantityButton";
-import "./checkoutproduct.css";
 
-function CheckoutProduct(props) {
-	const { handleRemove, product } = props;
+import QuantityButton from "../QuantityButton/QuantityButton";
+
+import emptyCart from "../../assets/empty-cart-image.png";
+
+import styled, { css } from "styled-components/macro";
+
+const CheckoutProductContainer = styled.section`
+	background-color: var(--light-grey);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0px;
+    padding: 10px;
+
+	${(props) =>
+		props.isCartEmpty && css`
+    	justify-content: flex-start;
+	`}
+`;
+
+const CheckoutProductLink = styled(Link)`
+    width: 9%;
+    max-height: fit-content;
+    background-color: white;
+    padding: 5px;
+`;
+
+const CheckoutProductImg = styled.img`
+	width: 100%;
+    min-width: 50px;
+    height: 100px;
+    object-fit: contain;
+`;
+
+const CheckoutProductDetails = styled.div`
+	display: flex;
+    flex-direction: column;
+	gap: 20px;
+    width: 45%;
+`;
+
+const CheckoutProductCategory = styled.div`
+	font-weight: 500;
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.3);
+    text-transform: uppercase;
+`;
+
+const CheckoutProductTitle = styled.div`
+	font-weight: 300;
+    font-size: 16px;
+`;
+
+const CheckoutProductPrice = styled.div`
+	margin-left: 20px;
+    color: var(--primary-color);
+    font-size: 14px;
+    font-weight: 400;
+    text-align: end;
+`;
+
+const CheckoutProductRemoveBtn = styled.button`
+ 	border: none;
+    background-color: transparent;
+    padding: 10px;
+    cursor: pointer;
+
+	&:hover {
+		color: #c7c7c7;
+	}
+`;
+
+const CheckoutProductEmptyTitle = styled.p`
+`;
+
+function CheckoutProduct({ handleRemove, product, isCartEmpty }) {
+	console.log("is it", isCartEmpty);
 	const [productsToAdd, setProductsToAdd] = useState(1);
-	
+
 	// nao funciona
 	function handleAddToUserCart(quantity) {
-        setProductsToAdd(quantity);
-    }
+		setProductsToAdd(quantity);
+	}
 
 	return (
-		<div className="main-product-container">
-			<div className="image-div">
-				<Link to={`/productlistpage/${product.id}`}>
-					<img src={product.image} alt="product" />
-				</Link>
-			</div>
+		<CheckoutProductContainer isCartEmpty={isCartEmpty}>
+			{
+				isCartEmpty ? (
+					<>
+						<CheckoutProductImg src={emptyCart} alt="empty cart" />
+						<CheckoutProductEmptyTitle>Your cart is empty!</CheckoutProductEmptyTitle>
+					</>
+				) : (
+					<>
+						<CheckoutProductLink to={`/productlistpage/${product.id}`}>
+							<CheckoutProductImg src={product.image} alt="product" />
+						</CheckoutProductLink>
 
-			<div className="details-div">
-				<p className="details-div_category">{product.category}</p>
+						<CheckoutProductDetails>
+							<CheckoutProductCategory>{product.category}</CheckoutProductCategory>
+							<CheckoutProductTitle>{product.title}</CheckoutProductTitle>
+						</CheckoutProductDetails>
 
-				<h1 className="details-div_title">{product.title}</h1>
-			</div>
+						<QuantityButton quantity={productsToAdd} handleAddToUserCart={handleAddToUserCart} />
 
-			<div className="quantity-div">
-				<QuantityButton quantity={productsToAdd} handleAddToUserCart={handleAddToUserCart} />
-			</div>
+						<CheckoutProductPrice>{product.price} €</CheckoutProductPrice>
 
-			<div className="price-div">{product.price} €</div>
-
-			<div className="remove-div">
-				<button className="remove-button" onClick={() => handleRemove(product.id)}>
-					X
-				</button>
-			</div>
-		</div>
+						<CheckoutProductRemoveBtn onClick={() => handleRemove(product.id)}>X</CheckoutProductRemoveBtn>
+					</>
+				)
+			}
+		</CheckoutProductContainer >
 	);
 }
 

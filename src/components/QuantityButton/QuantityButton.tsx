@@ -1,5 +1,4 @@
-// @ts-nocheck
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 const QuantityContainer = styled.div`
     display: flex;
@@ -8,7 +7,6 @@ const QuantityContainer = styled.div`
     border: 2px solid var(--primary-color);
     border-radius: 4px;
     height: 45px;
-    margin-right: 20px;
 `;
 
 const QuantityBtn = styled.button`

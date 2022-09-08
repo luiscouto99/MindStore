@@ -1,5 +1,8 @@
 git
 estrategias de merge
+Refinement
+Stand ups
+
 styled components
 linaria
 emotion
@@ -24,4 +27,3 @@ corpo de texto preto, ou branco
 section BG preto ou branco
 section, header, img
 section c prop dark mode, qd existir o copo de texto muda de cor
-

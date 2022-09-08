@@ -58,20 +58,3 @@
     display: flex;
     align-items: center;
 }
-
-.product-detail_cart-button {
-    border: none;
-    background-color: var(--primary-color);
-    color: white;
-    font-weight: 500;
-    font-family: 'Roboto', sans-serif;
-    padding: 16px 72px;
-    cursor: pointer;
-    transition: 0.3s ease-in-out;
-    font-size: 16px;
-    text-align: center;
-}
-
-.product-detail_cart-button:hover {
-    box-shadow: -1px 6px 10px 0 rgba(120, 60, 20, .15);
-}

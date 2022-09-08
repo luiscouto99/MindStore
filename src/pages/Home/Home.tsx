@@ -1,16 +1,16 @@
-// @ts-nocheck
 import { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 
 import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
 import Product from "../../components/Product/Product";
-import { MainLayout, Button } from "../../components/Layout/Layout";
+import { MainLayout, ButtonLink } from "../../components/Layout/Layout";
+import type { Product as ProductType } from "../../types/product";
 
 import bannerImg from "../../assets/bannerImg.jpg";
 import heroImg from "../../assets/heroImg.jpg";
 
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 const HeroContainer = styled.section`
     margin: 84px 40px;
@@ -172,7 +172,7 @@ function Home() {
                         <HeroBodyDescription>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam soluta saepe et dolorem corporis numquam? Quaerat quod quae sapiente ullam magnam consequuntur recusandae? Iste enim reprehenderit voluptatem ex laudantium ut?
                         </HeroBodyDescription>
-                        <Button to="/productlistpage">View Products</Button>
+                        <ButtonLink to="/productlistpage">View Products</ButtonLink>
                     </HeroBody>
 
                     <HeroImage src={heroImg} alt="single product display" />
@@ -180,7 +180,7 @@ function Home() {
 
                 <ProductGallery>
                     {
-                        allProducts.slice(0, 3).map((product, index) => {
+                        allProducts.slice(0, 3).map((product: ProductType, index) => {
                             return (
                                 <ProductContainer key={index} to={`/productlistpage/${product.id}`}>
                                     <Product key={product.id} productProp={product} />
@@ -193,7 +193,7 @@ function Home() {
                 <Banner>
                     <BannerBody>
                         <BannerBodyTitle>Trending Now</BannerBodyTitle>
-                        <Button to="/productlistpage">View Products</Button>
+                        <ButtonLink to="/productlistpage">View Products</ButtonLink>
                     </BannerBody>
                     <BannerImage src={bannerImg} alt="banner image" />
                 </Banner>

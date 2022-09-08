@@ -2,7 +2,7 @@
 import Filter from '../Filter/Filter';
 import Sort from '../Sort/Sort';
 
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 const SideBar = styled.div`
     display: flex;
@@ -14,6 +14,11 @@ const SideBar = styled.div`
     padding-left: 20px;
     margin-left: 20px;
     background-color: var(--light-grey);
+
+    @media (max-width: 650px) {
+      width: 100%;
+      margin: 0 auto;
+    }
 `;
 
 function Sidebar(props) {
