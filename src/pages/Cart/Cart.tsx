@@ -8,7 +8,10 @@ import { CartProduct } from "./components/CartProduct";
 import { Discount } from "./components/Discount";
 import { Form } from "./components/Form";
 import { Price } from "./components/Price";
-import { ViewProductList } from "./components/ViewProductList";
+import { ViewProductList } from "../../components/ViewProductList/ViewProductList";
+
+import emptyCart from "../../assets/empty-cart-image.png";
+
 
 import styled from "styled-components/macro";
 
@@ -65,6 +68,16 @@ const CartSummaryDetails = styled.div`
     flex-direction: column;
     background-color: #e9e9e9;
     padding: 30px;
+`;
+
+const CheckoutProductEmptyTitle = styled.p`
+`;
+
+const CheckoutProductImg = styled.img`
+	width: 100%;
+    min-width: 50px;
+    height: 100px;
+    object-fit: contain;
 `;
 
 function CartPage() {
@@ -146,19 +159,25 @@ function CartPage() {
 		setAllProducts(finalProducts);
 		fetchTotal();
 
-		if (finalProducts.length === 0) {
-			setCartEmpty(true);
-		}
+		setCartEmpty(finalProducts.length === 0);
 	};
 
 	return (
 		<>
 			<Header />
-			
+
 			<CartContainer>
 				<CartProducts>
 					<CartProductsTitle>Shopping Cart</CartProductsTitle>
-					<CartProduct allProducts={allProducts} isCartEmpty={isCartEmpty} handleRemove={handleRemove}></CartProduct>
+					{
+						isCartEmpty ? (
+							<>
+								<CheckoutProductImg src={emptyCart} alt="empty cart" />
+								<CheckoutProductEmptyTitle>Your cart is empty!</CheckoutProductEmptyTitle>
+							</>
+						) : (<CartProduct allProducts={allProducts} handleRemove={handleRemove}></CartProduct>)
+					}
+
 					<ViewProductList></ViewProductList>
 				</CartProducts>
 

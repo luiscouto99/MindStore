@@ -3,7 +3,7 @@
 import { Link } from "react-router-dom";
 
 import Product from "../../../components/Product/Product";
-import ProductSkeleton from "../../../components/ProductSkeleton/ProductSkeleton";
+import { ProductSkeleton } from "../../../components/ProductSkeleton/ProductSkeleton";
 
 import type { Product as ProductType } from "../../../types/product";
 
@@ -27,7 +27,7 @@ export const HomeGallery = ({ allProducts, isLoading }: { allProducts: ProductTy
     <ProductGallery>
         {
             isLoading ? (
-                <ProductSkeleton cards={3} width={440} height={460} />
+                <ProductSkeleton amount={3} width={440} height={460} />
             ) : (
                 allProducts.slice(0, 3).map((product: ProductType, index: number) => {
                     return (

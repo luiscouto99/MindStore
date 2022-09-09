@@ -1,14 +1,64 @@
 // @ts-nocheck
 import { useState, useEffect } from 'react';
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import Header from '../../components/Header/Header'
 import QuantityButton from '../../components/QuantityButton/QuantityButton';
 import RenderRating from '../../components/RenderRating/RenderRating';
 import { ButtonLink } from "../../components/Layout/Layout";
+import { ViewProductList } from "../../components/ViewProductList/ViewProductList";
 
-import arrowLeft from '../../assets/arrow-left.png'
-import "./productDetail.css"
+import styled from "styled-components/macro";
+
+const ProductContainer = styled.div`
+    padding: 40px;
+    margin: 40px;
+    display: flex;
+    justify-content: space-between;
+`;
+
+const ProductImage = styled.img`
+    background-color: white;
+    width: 45%;
+    text-align: center;
+    height: 1000px;
+    object-fit: contain;
+`;
+
+const ProductInfo = styled.div`
+    width: 50%;
+`;
+
+const ProductCategory = styled.p`
+    font-weight: 500;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.3);
+    margin: 160px 0 40px;
+    text-transform: uppercase;
+`;
+
+const ProductTitle = styled.h1`
+    font-family: "Prata", serif;
+    font-weight: normal;
+`;
+
+const ProductPrice = styled.p`
+    margin-top: 80px;
+    font-size: 36px;
+    font-weight: 500;
+    color: var(--primary-color);
+`;
+
+const ProductDescription = styled.p`
+    margin: 80px 0;
+    font-size: 20px;
+    line-height: 32px;
+`;
+
+const ProductCartOptions = styled.div`
+    display: flex;
+    align-items: center;
+`;
 
 function ProductDetailPage() {
     const { id: productId } = useParams();
@@ -52,32 +102,25 @@ function ProductDetailPage() {
             <Header />
 
             {productData && (
-                <div className="product-detail_container">
-                    <img src={productData.image} alt="" className='product-detail_image' />
+                <ProductContainer>
+                    <ProductImage src={productData.image} alt="main product" />
 
 
-                    <div className="product-detail_body">
-                        <Link to="/productlistpage" className='product-detail_link'>
-                            <img src={arrowLeft} alt="" />
-                            <span>&nbsp; Back to Product List</span>
-                        </Link>
+                    <ProductInfo>
+                        <ViewProductList></ViewProductList>
 
-                        <p className='product-detail_category'>{productData.category}</p>
-                        <h1 className='product-detail_title'>{productData.title}</h1>
+                        <ProductCategory>{productData.category}</ProductCategory>
+                        <ProductTitle>{productData.title}</ProductTitle>
+                        <RenderRating data-testid="main-rating" productRating={productData.rating} />
+                        <ProductPrice>{productData.price}€</ProductPrice>
+                        <ProductDescription>{productData.description}</ProductDescription>
 
-                        <RenderRating productRating={productData.rating} />
-
-                        <p className="product-detail_price">{productData.price}€</p>
-
-                        <p className='product-detail_description'>{productData.description}</p>
-
-                        <div className="product-detail_cart-options">
-                            <QuantityButton quantity={productsToAdd} handleAddToUserCart={handleAddToUserCart} />
-
+                        <ProductCartOptions>
+                            <QuantityButton marginRight quantity={productsToAdd} handleAddToUserCart={handleAddToUserCart} />
                             <ButtonLink to={`/cart/${userId}`} onClick={handleAddToUserCartFetch}>Add to Cart</ButtonLink>
-                        </div>
-                    </div>
-                </div>
+                        </ProductCartOptions>
+                    </ProductInfo>
+                </ProductContainer>
             )}
         </div>
     )

@@ -97,13 +97,13 @@ function Sort({ handleSortFetch }: {handleSortFetch: (value: string) => void}) {
 
                 {
                     choice ? (
-                        <SortForm>
-                            <FormLabel htmlFor="ascending" onClick={(event) => setSelected((event.target as HTMLInputElement).value)} onChange={(event) => handleSortFetch((event.target as HTMLInputElement).value)}>
+                        <SortForm data-testid="sort-form">
+                            <FormLabel htmlFor="ascending" onClick={(event) => setSelected((event.target as HTMLInputElement).value)} onChange={(event) => handleSortFetch((event.target as HTMLInputElement).value)} >
                                 <FormInput type="radio" id='ascending' name='sort' value="ASC" checked={selected === "ASC"}/>
                                 <FormInputText>Ascending Order</FormInputText>
                             </FormLabel>
 
-                            <FormLabel htmlFor="descending" onClick={(event) => setSelected((event.target as HTMLInputElement).value)} onChange={(event) => handleSortFetch((event.target as HTMLInputElement).value)}>
+                            <FormLabel data-testid="sort-label-desc" htmlFor="descending" onClick={(event) => setSelected((event.target as HTMLInputElement).value)} onChange={(event) => handleSortFetch((event.target as HTMLInputElement).value)} >
                                 <FormInput type="radio" id='descending' name='sort' value="DESC" checked={selected === "DESC"} />
                                 <FormInputText>Descending Order</FormInputText>
                             </FormLabel>

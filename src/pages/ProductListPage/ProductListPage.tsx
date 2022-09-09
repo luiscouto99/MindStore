@@ -80,7 +80,7 @@ function ProductListPage() {
 		if (response.status === 404) {
 			setIsLoading(false);
 			setItemsFromSearch(`No results found for the search: "${inputSearch.current.value}"`);
-			setAllProducts([{}]); // se nao tiver isto devolve o fetch inicial
+			setAllProducts([]); // se nao tiver isto devolve o fetch inicial
 			// setInterval(() => inputSearch = "", 3000);
 			return;
 		}
@@ -97,8 +97,11 @@ function ProductListPage() {
 					<Sidebar className="sidebar" handleSortFetch={(direction: ProductListSorting) => setSort(direction)} handleCategoryFetch={() => setLink(link)} handlePriceFetch={(link: string) => setLink(link)} handleRatingFetch={(link: string) => setLink(link)} />
 					<ProductDisplay>
 						<SearchBar inputSearch={inputSearch} handleSearchBar={handleSearchBar} />
-						{itemsFromSearch !== "" ? <p>{itemsFromSearch}</p> : null}
-						<ProductListGrid allProducts={allProducts} handleLikeClick={handleLikeClick} isLoading={isLoading} />
+						{
+							allProducts.length === 0 && !isLoading ? (<p>"no products"</p>) : (
+								<ProductListGrid allProducts={allProducts} handleLikeClick={handleLikeClick} isLoading={isLoading} />
+							) 
+						}
 					</ProductDisplay>
 				</ListContainer>
 				<Pagination setPage={setPage} />

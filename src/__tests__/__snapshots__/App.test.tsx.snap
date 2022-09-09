@@ -1,0 +1,145 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders learn react link 1`] = `
+<div>
+  <header
+    class="Header__MainHeader-sc-npi1x2-0 eJSQYS"
+  >
+    <nav
+      class="Header__Navbar-sc-npi1x2-1 hFVWtk"
+    >
+      <a
+        class="Header__NavbarLogo-sc-npi1x2-2 hZstcz"
+        href="/"
+      >
+        Mind
+        <span
+          class="Header__NavbarLogoBold-sc-npi1x2-3 ebwZsc"
+        >
+          Store
+        </span>
+      </a>
+      <div
+        class="Header__NavbarLinksContainer-sc-npi1x2-4 idDbRu"
+      >
+        <a
+          class="Header__NavbarLink-sc-npi1x2-5 gichIl"
+          href="/productlistpage"
+        >
+          Products
+        </a>
+        <a
+          class="Header__NavbarLink-sc-npi1x2-5 gichIl"
+          href="/login"
+        >
+          Login
+        </a>
+        <a
+          class="Header__NavbarLink-sc-npi1x2-5 gichIl"
+          href="/register"
+        >
+          Register
+        </a>
+      </div>
+    </nav>
+  </header>
+  <main
+    class="Layout__MainLayout-sc-10oin0k-0"
+  >
+    <section
+      class="Hero__HeroContainer-sc-1z060x3-0 jcMblz"
+    >
+      <div
+        class="Hero__HeroBody-sc-1z060x3-1 kJJyCF"
+      >
+        <h1
+          class="Hero__HeroBodyTitle-sc-1z060x3-2 uALgE"
+        >
+          On Sale 
+          <i>
+            -50%
+          </i>
+        </h1>
+        <p
+          class="Hero__HeroBodyDescription-sc-1z060x3-3 SOLli"
+        >
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam soluta saepe et dolorem corporis numquam? Quaerat quod quae sapiente ullam magnam consequuntur recusandae? Iste enim reprehenderit voluptatem ex laudantium ut?
+        </p>
+        <a
+          class="Layout__ButtonLink-sc-10oin0k-2 kGyguP"
+          href="/productlistpage"
+        >
+          View Products
+        </a>
+      </div>
+      <img
+        alt="single product display"
+        class="Hero__HeroImage-sc-1z060x3-4 gFFQUH"
+        src="heroImg.jpg"
+      />
+    </section>
+    <section
+      class="HomeGallery__ProductGallery-sc-1e9kodl-0 hBAusz"
+    >
+      <div
+        class="sc-bczRLJ sc-gsnTZi bhVVTD jYAZOb"
+        data-testid="skeleton"
+        height="460"
+        width="440"
+      />
+      <div
+        class="sc-bczRLJ sc-gsnTZi bhVVTD jYAZOb"
+        data-testid="skeleton"
+        height="460"
+        width="440"
+      />
+      <div
+        class="sc-bczRLJ sc-gsnTZi bhVVTD jYAZOb"
+        data-testid="skeleton"
+        height="460"
+        width="440"
+      />
+    </section>
+    <section
+      class="HomeBanner__Banner-sc-iscbr8-0 jzQVBW"
+    >
+      <div
+        class="HomeBanner__BannerBody-sc-iscbr8-1 kUOXea"
+      >
+        <h2
+          class="HomeBanner__BannerBodyTitle-sc-iscbr8-2 bupiYV"
+        >
+          Trending Now
+        </h2>
+        <a
+          class="Layout__ButtonLink-sc-10oin0k-2 kGyguP"
+          href="/productlistpage"
+        >
+          View Products
+        </a>
+      </div>
+      <img
+        alt="banner image"
+        class="HomeBanner__BannerImage-sc-iscbr8-3 ervXjM"
+        src="bannerImg.jpg"
+      />
+    </section>
+  </main>
+  <footer
+    class="footer"
+  >
+    <p
+      class="footer-title"
+    >
+      MindStore
+    </p>
+    <p
+      class="footer-rights"
+    >
+      © 
+      2022
+      . All Rights Reserved.
+    </p>
+  </footer>
+</div>
+`;

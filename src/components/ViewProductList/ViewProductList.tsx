@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import leftArrow from "../../../assets/arrow-left.png";
+import leftArrow from "../../assets/arrow-left.png";
 
 import styled from "styled-components/macro";
 

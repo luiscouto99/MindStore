@@ -75,11 +75,9 @@ const CheckoutProductRemoveBtn = styled.button`
 	}
 `;
 
-const CheckoutProductEmptyTitle = styled.p`
-`;
 
-function CheckoutProduct({ handleRemove, product, isCartEmpty }) {
-	console.log("is it", isCartEmpty);
+
+function CheckoutProduct({ handleRemove, product }) {
 	const [productsToAdd, setProductsToAdd] = useState(1);
 
 	// nao funciona
@@ -88,32 +86,23 @@ function CheckoutProduct({ handleRemove, product, isCartEmpty }) {
 	}
 
 	return (
-		<CheckoutProductContainer isCartEmpty={isCartEmpty}>
-			{
-				isCartEmpty ? (
-					<>
-						<CheckoutProductImg src={emptyCart} alt="empty cart" />
-						<CheckoutProductEmptyTitle>Your cart is empty!</CheckoutProductEmptyTitle>
-					</>
-				) : (
-					<>
-						<CheckoutProductLink to={`/productlistpage/${product.id}`}>
-							<CheckoutProductImg src={product.image} alt="product" />
-						</CheckoutProductLink>
+		<CheckoutProductContainer>
+			<>
+				<CheckoutProductLink to={`/productlistpage/${product.id}`}>
+					<CheckoutProductImg src={product.image} alt="product" />
+				</CheckoutProductLink>
 
-						<CheckoutProductDetails>
-							<CheckoutProductCategory>{product.category}</CheckoutProductCategory>
-							<CheckoutProductTitle>{product.title}</CheckoutProductTitle>
-						</CheckoutProductDetails>
+				<CheckoutProductDetails>
+					<CheckoutProductCategory>{product.category}</CheckoutProductCategory>
+					<CheckoutProductTitle>{product.title}</CheckoutProductTitle>
+				</CheckoutProductDetails>
 
-						<QuantityButton quantity={productsToAdd} handleAddToUserCart={handleAddToUserCart} />
+				<QuantityButton quantity={productsToAdd} handleAddToUserCart={handleAddToUserCart} />
 
-						<CheckoutProductPrice>{product.price} €</CheckoutProductPrice>
+				<CheckoutProductPrice>{product.price} €</CheckoutProductPrice>
 
-						<CheckoutProductRemoveBtn onClick={() => handleRemove(product.id)}>X</CheckoutProductRemoveBtn>
-					</>
-				)
-			}
+				<CheckoutProductRemoveBtn onClick={() => handleRemove(product.id)}>X</CheckoutProductRemoveBtn>
+			</>
 		</CheckoutProductContainer >
 	);
 }

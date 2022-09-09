@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import Header from '../../components/Header/Header';
 
-import styled, {css} from "styled-components";
+import styled, { css } from "styled-components";
 import { Button, LoginLayout } from '../../components/Layout/Layout';
 import "./credentials.css";
 
@@ -103,16 +103,12 @@ function Login() {
                 localStorage.setItem('Id', givenId || "");
                 localStorage.setItem('adminToken', "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ6ZXRvQGVtYWlsLmNvbSIsImV4cCI6MTY2MTQyOTUyNH0.t9eLz6j70whrt17ea3DYrs7o96AVVKy93_EsS762IK9KjxVf-tCF2Cz1KPf0V1c-iOvbvQQy0fHvW25N-_Eb-Q");
 
-
-
                 setLoginSuccessful(true);
             } else {
                 setMessage("credentials failed"); //devolve a msg OK ou ERRO do json login
                 setToken(null);
                 setLoginSuccessful(false);
             }
-
-
         } catch (e) {
             console.log("error message ", (e as unknown as Error).message);
             console.log("login failed")
@@ -121,11 +117,8 @@ function Login() {
         }
     };
 
-
     return (
         <>
-
-
             <Header />
             <LoginLayout>
                 <LoginContainer isSuccessfull={loginSuccessful}>
@@ -136,7 +129,7 @@ function Login() {
                             <Link to="/profile" className='button-success'>Go to Profile Page</Link>
                         ) : (
                             <>
-                                <LoginForm id='myForm' onSubmit={handleSubmit}>
+                                <LoginForm data-testid="login-form" id='myForm' onSubmit={handleSubmit}>
                                     <LoginLabel htmlFor="login">
                                         <LoginInput autoFocus autoComplete="off" type="text" name="login" placeholder="Email" ref={email} required />
                                     </LoginLabel>

@@ -2,16 +2,16 @@
 import { Link } from "react-router-dom";
 
 import Product from "../../../components/Product/Product";
-import ProductSkeleton from "../../../components/ProductSkeleton/ProductSkeleton";
-
+import { ProductSkeleton } from "../../../components/ProductSkeleton/ProductSkeleton";
 import styled from "styled-components/macro";
+import { ProductContainer } from "./ProductContainer"
 
 import heartEmpty from "../../../assets/heart-empty.png";
 import heartFull from "../../../assets/heart-full.png";
 
 import { LikedProduct } from "../../../types/product";
 
-const ProductGrid = styled.div`
+export const ProductGrid = styled.div`
     width: 100%;
     margin-bottom: 50px;
     display: grid;
@@ -23,9 +23,7 @@ const ProductGrid = styled.div`
 	}
 `;
 
-const ProductContainer = styled.div`
-	position: relative;
-`;
+
 
 const FavouriteButton = styled.button`
     position: absolute;
@@ -51,8 +49,9 @@ const FavouriteIcon = styled.img`
 export const ProductListGrid = ({ allProducts, handleLikeClick, isLoading }: { allProducts: LikedProduct[], handleLikeClick: (productId: number) => void, isLoading: boolean }) =>
     <ProductGrid>
         {
+
             isLoading ? (
-                <ProductSkeleton cards={12} width={300} height={400} />
+                <ProductSkeleton amount={8} height={400} />
             ) : (
                 allProducts.map((product) => {
                     return (

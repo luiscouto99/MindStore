@@ -4,7 +4,7 @@ import searchBar from "../../../assets/search-bar.png";
 
 const SearchBarLabel = styled.label`
 position: relative;
-margin-top: 30px;
+margin: 30px 0;
 width: 300px;
 
 @media (max-width: 650px) {

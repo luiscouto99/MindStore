@@ -1,22 +1,23 @@
-// @ts-nocheck
-import Skeleton from "react-loading-skeleton";
-import 'react-loading-skeleton/dist/skeleton.css'
+import { ProductContainer } from "../../pages/ProductListPage/components/ProductContainer"
 
-import styled from "styled-components/macro";
+import styled from "styled-components"
 
-const SkeletonContainer = styled.div`
-`;
-
-function ProductSkeleton({ cards, width, height }: { cards: number, width:number, height: number }) {
-    return (
-        Array(cards).fill(0).map((_, index) => {
-            return(
-                <SkeletonContainer key = {index} >
-                    <Skeleton width={width} height={height} />
-                </SkeletonContainer>
-            )
-        })
-    )
+type SkeletonProps = {
+    width?: number,
+    height?: number
 }
 
-export default ProductSkeleton;
+const Skeleton = styled(ProductContainer) <SkeletonProps>`
+    background-color: #e1e1e1;
+    min-width: ${(props) => props.width ? `${props.width}px;` : "300px;"};    
+    min-height: ${(props) => props.height ? `${props.height}px;` : "300px;"};    
+`
+
+export const ProductSkeleton = ({ amount, height, width }: { amount: number, height?: number, width?: number }) => {
+    const scafold = [];
+    for (let index = 0; index < amount; index++) {
+        scafold.push(<Skeleton key={`skeleton-${index}`} height={height} width={width} data-testid="skeleton" />)
+    }
+    return <>{scafold}</>
+
+}
