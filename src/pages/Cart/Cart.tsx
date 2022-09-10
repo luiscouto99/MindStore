@@ -8,7 +8,7 @@ import { CartProduct } from "./components/CartProduct";
 import { Discount } from "./components/Discount";
 import { Form } from "./components/Form";
 import { Price } from "./components/Price";
-import { ViewProductList } from "../../components/ViewProductList/ViewProductList";
+import { BackToProductList } from "../../components/BackToProductList/BackToProductList";
 
 import emptyCart from "../../assets/empty-cart-image.png";
 
@@ -178,7 +178,7 @@ function CartPage() {
 						) : (<CartProduct allProducts={allProducts} handleRemove={handleRemove}></CartProduct>)
 					}
 
-					<ViewProductList></ViewProductList>
+					<BackToProductList></BackToProductList>
 				</CartProducts>
 
 				<CartSummary>

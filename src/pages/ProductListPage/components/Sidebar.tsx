@@ -1,6 +1,6 @@
 // @ts-nocheck
-import Filter from '../Filter/Filter';
-import Sort from '../Sort/Sort';
+import Filter from '../../../components/Filter/Filter';
+import Sort from '../../../components/Sort/Sort';
 
 import styled from "styled-components/macro";
 

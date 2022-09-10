@@ -15,7 +15,7 @@ const CartGoBackIcon = styled.img`
 const CartGoBackText = styled.span`
 `;
 
-export const ViewProductList = () =>
+export const BackToProductList = () =>
     <CartGoBack to="/productlistpage">
         <CartGoBackIcon src={leftArrow} alt="left arrow to go to list page" />
         <CartGoBackText>&nbsp; Back to Product List</CartGoBackText>

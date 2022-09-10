@@ -6,7 +6,7 @@ import Header from '../../components/Header/Header'
 import QuantityButton from '../../components/QuantityButton/QuantityButton';
 import RenderRating from '../../components/RenderRating/RenderRating';
 import { ButtonLink } from "../../components/Layout/Layout";
-import { ViewProductList } from "../../components/ViewProductList/ViewProductList";
+import { BackToProductList } from "../../components/BackToProductList/BackToProductList";
 
 import styled from "styled-components/macro";
 
@@ -107,7 +107,7 @@ function ProductDetailPage() {
 
 
                     <ProductInfo>
-                        <ViewProductList></ViewProductList>
+                        <BackToProductList></BackToProductList>
 
                         <ProductCategory>{productData.category}</ProductCategory>
                         <ProductTitle>{productData.title}</ProductTitle>

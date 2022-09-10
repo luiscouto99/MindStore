@@ -4,65 +4,7 @@ import { Link } from "react-router-dom";
 
 import Header from '../../components/Header/Header';
 
-import styled, { css } from "styled-components";
-import { Button, LoginLayout } from '../../components/Layout/Layout';
-import "./credentials.css";
-
-const LoginContainer = styled.section`
-    display: flex;
-    flex-direction: column;
-    width: 30%;
-    min-width: 300px;
-    background-color: white;
-    padding: 20px;
-
-    ${(props) => {
-        props.isSuccessfull && css`
-        display: flex;
-        align-items: center;
-        padding-bottom: 30px;
-        `
-    }}
-`;
-
-const LoginTitle = styled.h2`
-    font-family: "Prata", serif;
-    font-weight: normal;
-    text-align: center;
-    border-bottom: 0.5px solid #dddddd;
-    margin: 0 15%;
-`;
-
-const LoginForm = styled.form`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 30px 15%;
-    gap: 20px;
-`;
-
-const LoginLabel = styled.label`
-    width: 100%;
-`;
-
-const LoginInput = styled.input`
-    background-color: var(--light-grey);
-    border: none;
-    border-radius: 4px;
-    padding: 13px 5px 13px 10px;
-    width: 94.5%;
-    font-family: "Roboto", sansserif;
-    transition: ease-in-out 0.2s;
-
-    &::placeholder {
-        color:rgb(163, 163, 163);
-    }
-
-    &:focus {
-        outline: none;
-        box-shadow: -1px 6px 10px 0 rgba(119, 119, 119, 0.15);
-    }
-`;
+import { Button, CredentialsLayout, CredentialsContainer, CredentialsTitle, CredentialsForm, CredentialsLabel, CredentialsInput, CredentialsFooterText } from '../../components/Layout/Layout';
 
 function Login() {
     const email = useRef();
@@ -120,35 +62,35 @@ function Login() {
     return (
         <>
             <Header />
-            <LoginLayout>
-                <LoginContainer isSuccessfull={loginSuccessful}>
-                    <LoginTitle>{loginSuccessful ? "Login Successful" : "Login"}</LoginTitle>
+            <CredentialsLayout>
+                <CredentialsContainer isSuccessfull={loginSuccessful}>
+                    <CredentialsTitle>{loginSuccessful ? "Login Successful" : "Login"}</CredentialsTitle>
 
                     {
                         loginSuccessful ? (
                             <Link to="/profile" className='button-success'>Go to Profile Page</Link>
                         ) : (
                             <>
-                                <LoginForm data-testid="login-form" id='myForm' onSubmit={handleSubmit}>
-                                    <LoginLabel htmlFor="login">
-                                        <LoginInput autoFocus autoComplete="off" type="text" name="login" placeholder="Email" ref={email} required />
-                                    </LoginLabel>
+                                <CredentialsForm data-testid="login-form" id='myForm' onSubmit={handleSubmit}>
+                                    <CredentialsLabel htmlFor="login">
+                                        <CredentialsInput autoFocus autoComplete="off" type="text" name="login" placeholder="Email" ref={email} required />
+                                    </CredentialsLabel>
 
-                                    <LoginLabel htmlFor="password">
-                                        <LoginInput type="password" name="password" placeholder="Password" ref={password} required />
-                                    </LoginLabel>
+                                    <CredentialsLabel htmlFor="password">
+                                        <CredentialsInput type="password" name="password" placeholder="Password" ref={password} required />
+                                    </CredentialsLabel>
                                     <Button type="submit">Login</Button>
-                                </LoginForm>
-                                <p>{message}</p>
-                                <p className='footer-text'>
+                                </CredentialsForm>
+                                <CredentialsFooterText>{message}</CredentialsFooterText>
+                                <CredentialsFooterText className='footer-text'>
                                     Don't have an account?
                                     <Link to="/register"> Register here</Link>
-                                </p>
+                                </CredentialsFooterText>
                             </>
                         )
                     }
-                </LoginContainer>
-            </LoginLayout>
+                </CredentialsContainer>
+            </CredentialsLayout>
         </>
     );
 }

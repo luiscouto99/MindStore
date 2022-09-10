@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, { useState, useEffect, useRef } from "react";
 import "./profile.css";
-import "../Credentials/credentials.css";
+import "./credentials.css";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import avatar from "../../assets/avatar.jpg";

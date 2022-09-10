@@ -1,4 +1,4 @@
-import CheckoutProduct from '../../../components/CheckoutProduct/CheckoutProduct';
+import CheckoutProduct from './CheckoutProduct';
 
 import styled from "styled-components/macro";
 

@@ -3,28 +3,11 @@ import { useState } from 'react';
 import arrowRight from "../../assets/arrow-right.png";
 
 import styled, { css } from "styled-components";
+import { SidebarButton } from "../Layout/Layout";
 
 const SortContainer = styled.div`
     margin-top: 53px;
     margin-bottom: 40px;
-`;
-
-const SortButton = styled.button`
-    width: 100%;
-    cursor: pointer;
-    border: none;
-    font-size: 15px;
-    background-color: var(--light-grey);
-    border-bottom: 1px solid rgb(212, 212, 212);
-    margin-bottom: 30px;
-    text-align: left;
-    padding-bottom: 5px;
-    padding-left: 0;
-    font-weight: 500;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 `;
 
 type SortIconProps = {
@@ -75,8 +58,6 @@ const FormInputText = styled.span`
     cursor: pointer;
 `;
 
-
-
 function Sort({ handleSortFetch }: {handleSortFetch: (value: string) => void}) {
     const [choice, setChoice] = useState(false);
     const [isClicked, setIsClicked] = useState(false);
@@ -90,10 +71,10 @@ function Sort({ handleSortFetch }: {handleSortFetch: (value: string) => void}) {
     return (
         <>
             <SortContainer>
-                <SortButton onClick={handleClick}>
+                <SidebarButton onClick={handleClick}>
                     Sort by
                     <SortIcon rotation={isClicked} src={arrowRight} alt="" />
-                </SortButton>
+                </SidebarButton>
 
                 {
                     choice ? (

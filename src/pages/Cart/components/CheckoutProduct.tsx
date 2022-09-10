@@ -1,26 +1,18 @@
 // @ts-nocheck
-
 import { useState } from "react";
 import { Link } from "react-router-dom"
 
-import QuantityButton from "../QuantityButton/QuantityButton";
+import QuantityButton from "../../../components/QuantityButton/QuantityButton";
 
-import emptyCart from "../../assets/empty-cart-image.png";
-
-import styled, { css } from "styled-components/macro";
+import styled from "styled-components/macro";
 
 const CheckoutProductContainer = styled.section`
 	background-color: var(--light-grey);
     display: flex;
-    justify-content: space-between;
+    justify-content: ${(props) => props.isMargin ? "flex-start;" : "space-between;"};
     align-items: center;
     margin: 20px 0px;
     padding: 10px;
-
-	${(props) =>
-		props.isCartEmpty && css`
-    	justify-content: flex-start;
-	`}
 `;
 
 const CheckoutProductLink = styled(Link)`
@@ -75,8 +67,6 @@ const CheckoutProductRemoveBtn = styled.button`
 	}
 `;
 
-
-
 function CheckoutProduct({ handleRemove, product }) {
 	const [productsToAdd, setProductsToAdd] = useState(1);
 
@@ -87,22 +77,20 @@ function CheckoutProduct({ handleRemove, product }) {
 
 	return (
 		<CheckoutProductContainer>
-			<>
-				<CheckoutProductLink to={`/productlistpage/${product.id}`}>
-					<CheckoutProductImg src={product.image} alt="product" />
-				</CheckoutProductLink>
+			<CheckoutProductLink to={`/productlistpage/${product.id}`}>
+				<CheckoutProductImg src={product.image} alt="product" />
+			</CheckoutProductLink>
 
-				<CheckoutProductDetails>
-					<CheckoutProductCategory>{product.category}</CheckoutProductCategory>
-					<CheckoutProductTitle>{product.title}</CheckoutProductTitle>
-				</CheckoutProductDetails>
+			<CheckoutProductDetails>
+				<CheckoutProductCategory>{product.category}</CheckoutProductCategory>
+				<CheckoutProductTitle>{product.title}</CheckoutProductTitle>
+			</CheckoutProductDetails>
 
-				<QuantityButton quantity={productsToAdd} handleAddToUserCart={handleAddToUserCart} />
+			<QuantityButton quantity={productsToAdd} handleAddToUserCart={handleAddToUserCart} />
 
-				<CheckoutProductPrice>{product.price} €</CheckoutProductPrice>
+			<CheckoutProductPrice>{product.price} €</CheckoutProductPrice>
 
-				<CheckoutProductRemoveBtn onClick={() => handleRemove(product.id)}>X</CheckoutProductRemoveBtn>
-			</>
+			<CheckoutProductRemoveBtn onClick={() => handleRemove(product.id)}>X</CheckoutProductRemoveBtn>
 		</CheckoutProductContainer >
 	);
 }

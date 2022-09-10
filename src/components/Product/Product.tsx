@@ -1,9 +1,61 @@
-import React from "react";
-import "./product.css";
 import { useState } from "react"
-import starFull from "../../assets/star-full.png";
 import { useEffect } from "react";
+
+import styled, { css } from "styled-components/macro";
+
+import starFull from "../../assets/star-full.png";
+
 import { LikedProduct, Product as ProductType } from "../../types/product";
+
+const ProductContainer = styled.div`
+	background-color: white;
+    position: relative;
+    height: 400px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+`;
+
+const ProductImage = styled.img`
+	height: 80%;
+	object-fit: contain;
+`;
+
+const ProductRating = styled.p`
+	display: flex;
+    align-items: center;
+    margin: 0;
+    justify-content: flex-star;
+    font-size: 14px;
+`;
+
+const ProductRatingStar = styled.img`
+	margin-left: 4px;
+    width: 12px;
+`;
+
+const ProductDescription = styled.div`
+	display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+`;
+
+type ProductTextProps = {
+	price?: boolean;
+}
+const ProductText = styled.p<ProductTextProps>`
+	font-size: 14px;
+    padding-right: 10px;
+    margin-bottom: 7px;
+
+	${(props) => props.price && css`
+		color: var(--primary-color);
+		font-weight: 400;
+	`}
+`;
+
+
 
 function Product({ productProp }: { productProp: LikedProduct | ProductType }) {
 	const [productData, setProductData] = useState({} as ProductType | LikedProduct);
@@ -18,21 +70,17 @@ function Product({ productProp }: { productProp: LikedProduct | ProductType }) {
 	}, [productProp.id]);
 
 	return (
-		<div className="product-container">
-			<div className="product-image-div">
-				<img className="product-photo" src={productData.image} alt="picsum" />
-			</div>
-			<p className="product-rating">
+		<ProductContainer>
+			<ProductImage src={productData.image} alt="product image" />
+			<ProductRating>
 				{Math.round(productData.rating?.rate * 10) / 10}
-				<img src={starFull} alt="" className="product-rating-star" />
-			</p>
-			<div className="product-description">
-				<p className="product-name">{productData.title}</p>
-				<div>
-					<p className="product-price">{productData.price}€</p>
-				</div>
-			</div>
-		</div>
+				<ProductRatingStar src={starFull} alt="star icon" />
+			</ProductRating>
+			<ProductDescription>
+				<ProductText>{productData.title}</ProductText>
+				<ProductText price>{productData.price}€</ProductText>
+			</ProductDescription>
+		</ProductContainer>
 	);
 }
 

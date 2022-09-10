@@ -1,11 +1,33 @@
 // @ts-nocheck
-
-import React from "react";
 import { useState } from "react";
 import "./filter.css";
 import arrowDown from "../../assets/arrow-down.png";
 import arrowRight from "../../assets/arrow-right.png";
 import starBlack from "../../assets/star-grey-darker.png";
+
+import styled from "styled-components/macro";
+import { SidebarButton } from "../Layout/Layout";
+
+const FilterContainer = styled.div`
+	flex-direction: column;
+    margin-left: 30px;
+`;
+
+type FilterIconProps = {
+    rotation?: boolean;
+}
+const FilterIcon = styled.img<FilterIconProps>`
+    height: 9px;
+    transition: 0.1s ease-in-out;
+
+    ${(props: FilterIconProps) =>
+        props.rotation &&
+        css`
+            transform: rotate(90deg);
+        `
+    }
+`;
+
 
 function Filter(props) {
 	const { handleCategoryFetch, handlePriceFetch, handleRatingFetch } = props;
@@ -37,27 +59,21 @@ function Filter(props) {
 
 		if (isFilterClicked) {
 			return (
-				//form
 				<>
-					<div className="inner-filter-container">
-						<label>
-							<button className="category-button" name="filter" onClick={handleCategoryClick} value="category">
-								Category
-								{isCategoryClicked ?
-                        		<img className="arrow-down" src={arrowDown} alt="" /> :
-                        		<img className="arrow-right" src={arrowRight} alt="" />
-                    			}
-							</button>
-						</label>
+					<FilterContainer>
+						<SidebarButton onClick={handleCategoryClick} value="category">
+							Category
+							<FilterIcon rotation={isCategoryClicked} src={arrowRight} alt="" />
+						</SidebarButton>
 						<CategoryButton />
 
 						<label>
 							<button className="rating-button" name="filter" onClick={handleRatingClick} value="rating">
 								Rating
 								{isRatingClicked ?
-                        		<img className="arrow-down" src={arrowDown} alt="" /> :
-                        		<img className="arrow-right" src={arrowRight} alt="" />
-                    			}
+									<img className="arrow-down" src={arrowDown} alt="" /> :
+									<img className="arrow-right" src={arrowRight} alt="" />
+								}
 							</button>
 						</label>
 						<RatingButton />
@@ -66,13 +82,13 @@ function Filter(props) {
 							<button className="price-button" name="filter" onClick={handlePriceClick} value="price">
 								Price
 								{isPriceClicked ?
-                        		<img className="arrow-down" src={arrowDown} alt="" /> :
-                        		<img className="arrow-right" src={arrowRight} alt="" />
-                    			}
+									<img className="arrow-down" src={arrowDown} alt="" /> :
+									<img className="arrow-right" src={arrowRight} alt="" />
+								}
 							</button>
 						</label>
 						<PriceButton />
-					</div>
+					</FilterContainer>
 				</>
 			);
 		} else {
@@ -90,7 +106,7 @@ function Filter(props) {
 	function CategoryButton() {
 		function handleCategoryChange(event) {
 			const field = event.target.value;
-			const link =`/category?category=${field}&pagesize=9&direction=`;
+			const link = `/category?category=${field}&pagesize=9&direction=`;
 			handleCategoryFetch(link);
 			console.log(event.target.value);
 		}
@@ -105,7 +121,7 @@ function Filter(props) {
 						</label>
 
 						<label className='category-radio-label'>
-							<input className='category-radio'  type="radio" name="category" onChange={handleCategoryChange} value="men's+clothing" />
+							<input className='category-radio' type="radio" name="category" onChange={handleCategoryChange} value="men's+clothing" />
 							Men’s Clothing
 						</label>
 
@@ -127,11 +143,11 @@ function Filter(props) {
 	}
 
 	function RatingButton() {
-		const rating01 = {min: 0, max: 1};
-		const rating02 = {min: 1, max: 2};
-		const rating03 = {min: 2, max: 3};
-		const rating04 = {min: 3, max: 4};
-		const rating05 = {min: 4, max: 5};
+		const rating01 = { min: 0, max: 1 };
+		const rating02 = { min: 1, max: 2 };
+		const rating03 = { min: 2, max: 3 };
+		const rating04 = { min: 3, max: 4 };
+		const rating05 = { min: 4, max: 5 };
 
 		function handleRatingChange01(event) {
 			const min = rating01.min;
@@ -139,7 +155,7 @@ function Filter(props) {
 			console.log(min, max);
 			// const link =`/category?category=${field}&page=1&pagesize=9&direction=`;
 			///price?direction=ASC&page=1&pagesize=4&min=20&max=2000
-			const link =`/rating?pagesize=9&min=${min}&max=${max}&direction=`;
+			const link = `/rating?pagesize=9&min=${min}&max=${max}&direction=`;
 			handleRatingFetch(link);
 			console.log(event.target.value);
 		}
@@ -149,7 +165,7 @@ function Filter(props) {
 			console.log(min, max);
 			// const link =`/category?category=${field}&page=1&pagesize=9&direction=`;
 			///rating?direction=ASC&page=1&pagesize=4&min=20&max=2000
-			const link =`/rating?pagesize=9&min=${min}&max=${max}&direction=`;
+			const link = `/rating?pagesize=9&min=${min}&max=${max}&direction=`;
 			handleRatingFetch(link);
 			console.log(event.target.value);
 		}
@@ -159,7 +175,7 @@ function Filter(props) {
 			console.log(min, max);
 			// const link =`/category?category=${field}&page=1&pagesize=9&direction=`;
 			///rating?direction=ASC&page=1&pagesize=4&min=20&max=2000
-			const link =`/rating?pagesize=9&min=${min}&max=${max}&direction=`;
+			const link = `/rating?pagesize=9&min=${min}&max=${max}&direction=`;
 			handleRatingFetch(link);
 			console.log(event.target.value);
 		}
@@ -169,7 +185,7 @@ function Filter(props) {
 			console.log(min, max);
 			// const link =`/category?category=${field}&page=1&pagesize=9&direction=`;
 			///rating?direction=ASC&page=1&pagesize=4&min=20&max=2000
-			const link =`/rating?pagesize=9&min=${min}&max=${max}&direction=`;
+			const link = `/rating?pagesize=9&min=${min}&max=${max}&direction=`;
 			handleRatingFetch(link);
 			console.log(event.target.value);
 		}
@@ -179,7 +195,7 @@ function Filter(props) {
 			console.log(min, max);
 			// const link =`/category?category=${field}&page=1&pagesize=9&direction=`;
 			///rating?direction=ASC&page=1&pagesize=4&min=20&max=2000
-			const link =`/rating?pagesize=9&min=${min}&max=${max}&direction=`;
+			const link = `/rating?pagesize=9&min=${min}&max=${max}&direction=`;
 			handleRatingFetch(link);
 			console.log(event.target.value);
 		}
@@ -191,7 +207,7 @@ function Filter(props) {
 						<label className='rating-radio-label'>
 							{/* <input className='rating-radio' type="radio" name="rating" onChange={handleRatingChange} value="{min: 1.1, max: 2.0}" /> */}
 							<input className='rating-radio' type="radio" name="rating" onChange={handleRatingChange01} value={rating01} />
-							<img src={starBlack} alt="" /> 
+							<img src={starBlack} alt="" />
 						</label>
 
 						<label className='rating-radio-label'>
@@ -238,24 +254,24 @@ function Filter(props) {
 	}
 
 	function PriceButton() {
-		const priceObject01 = {min: 0, max: 50};
-		const priceObject02 = {min: 51, max: 100};
-		const priceObject03 = {min: 101, max: 300};
-		const priceObject04 = {min: 301, max: 800};
-		const priceObject05 = {min: 801, max: 1200};
-		const priceObject06 = {min: 1201, max: 3000};
-		const priceObject07 = {min: 3001, max: 5000};
+		const priceObject01 = { min: 0, max: 50 };
+		const priceObject02 = { min: 51, max: 100 };
+		const priceObject03 = { min: 101, max: 300 };
+		const priceObject04 = { min: 301, max: 800 };
+		const priceObject05 = { min: 801, max: 1200 };
+		const priceObject06 = { min: 1201, max: 3000 };
+		const priceObject07 = { min: 3001, max: 5000 };
 
 		function handlePriceChange(priceObject) {
 			const min = priceObject.min;
 			const max = priceObject.max;
 			console.log(min, max);
 			//   /price?page=1&pagesize=9&min=0&max=5000&direction=ASC
-			const link =`/price?pagesize=9&min=${min}&max=${max}&direction=`;
+			const link = `/price?pagesize=9&min=${min}&max=${max}&direction=`;
 			handlePriceFetch(link);
 		}
 
-	
+
 		if (isPriceClicked) {
 			return (
 				<>
@@ -320,12 +336,12 @@ function Filter(props) {
 export default Filter;
 
 /*
-    <>
-        <button onClick={handleFilterClick}>Filter by</button>
-        <FilterMainButton>
-            <CategoryButton />
-            <RatingButton />
-            <PriceButton />
-        </FilterMainButton>
-    </>
+	<>
+		<button onClick={handleFilterClick}>Filter by</button>
+		<FilterMainButton>
+			<CategoryButton />
+			<RatingButton />
+			<PriceButton />
+		</FilterMainButton>
+	</>
 */
