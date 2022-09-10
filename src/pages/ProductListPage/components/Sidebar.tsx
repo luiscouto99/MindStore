@@ -1,5 +1,5 @@
 // @ts-nocheck
-import Filter from '../../../components/Filter/Filter';
+import Filter from './Filter';
 import Sort from '../../../components/Sort/Sort';
 
 import styled from "styled-components/macro";
@@ -23,7 +23,6 @@ const SideBar = styled.div`
 
 function Sidebar(props) {
   const { handleSortFetch, handleCategoryFetch, handlePriceFetch, handleRatingFetch } = props;
-
   return (
     <SideBar>
       <Sort handleSortFetch={handleSortFetch} />

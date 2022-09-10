@@ -73,8 +73,14 @@ const CartSummaryDetails = styled.div`
 const CheckoutProductEmptyTitle = styled.p`
 `;
 
+const CheckoutCartEmpty = styled.div`
+	margin: 40px 0;
+	display: flex;
+	align-items: center;
+	gap: 40px;
+`;
+
 const CheckoutProductImg = styled.img`
-	width: 100%;
     min-width: 50px;
     height: 100px;
     object-fit: contain;
@@ -171,10 +177,10 @@ function CartPage() {
 					<CartProductsTitle>Shopping Cart</CartProductsTitle>
 					{
 						isCartEmpty ? (
-							<>
+							<CheckoutCartEmpty>
 								<CheckoutProductImg src={emptyCart} alt="empty cart" />
 								<CheckoutProductEmptyTitle>Your cart is empty!</CheckoutProductEmptyTitle>
-							</>
+							</CheckoutCartEmpty>
 						) : (<CartProduct allProducts={allProducts} handleRemove={handleRemove}></CartProduct>)
 					}
 

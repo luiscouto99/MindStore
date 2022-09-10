@@ -23,8 +23,6 @@ export const ProductGrid = styled.div`
 	}
 `;
 
-
-
 const FavouriteButton = styled.button`
     position: absolute;
 	top: 20px;
@@ -49,7 +47,6 @@ const FavouriteIcon = styled.img`
 export const ProductListGrid = ({ allProducts, handleLikeClick, isLoading }: { allProducts: LikedProduct[], handleLikeClick: (productId: number) => void, isLoading: boolean }) =>
     <ProductGrid>
         {
-
             isLoading ? (
                 <ProductSkeleton amount={8} height={400} />
             ) : (
@@ -68,31 +65,3 @@ export const ProductListGrid = ({ allProducts, handleLikeClick, isLoading }: { a
             )
         }
     </ProductGrid>
-
-
-{/* <ProductGrid>
-        {
-            Object.keys(allProducts[0]).length === 0 ? (
-                <p>nothing</p>
-            ) : (
-                isLoading ? (
-                    <ProductSkeleton cards={12} />
-                ) : (
-                    allProducts.map((product) => {
-                        return (
-                            <ProductContainer key={`product-container-${product.id}`}>
-                                <FavouriteButton onClick={() => { handleLikeClick(product.id) }}>
-                                    <FavouriteIcon src={product.isLiked ? heartFull : heartEmpty} alt="add to favourites" />
-                                </FavouriteButton>
-                                <Link to={`/productlistpage/${product.id}`}>
-                                    <Product key={product.id} productProp={product} />
-                                </Link>
-                            </ProductContainer>
-                        )
-                    })
-                )
-
-
-            )
-        }
-    </ProductGrid> */}

@@ -120,7 +120,10 @@ export const Button = styled.button<ButtonProps>`
     `}
 `;
 
-export const SidebarButton = styled.button`
+type SidebarButtonProps = {
+    marginLeft?: boolean;
+}
+export const SidebarButton = styled.button<SidebarButtonProps>`
     width: 100%;
     cursor: pointer;
     border: none;
@@ -128,12 +131,78 @@ export const SidebarButton = styled.button`
     background-color: var(--light-grey);
     border-bottom: 1px solid rgb(212, 212, 212);
     margin-bottom: 30px;
-    text-align: left;
     padding-bottom: 5px;
     padding-left: 0;
     font-weight: 500;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    ${(props: SidebarButtonProps) => props.marginLeft && css`
+        margin-left: 20px;
+        width: calc(100% - 20px);
+    `}
+`;
+
+type SidebarIconProps = {
+    rotation?: boolean;
+}
+export const SidebarIcon = styled.img<SidebarIconProps>`
+    height: 9px;
+    transition: 0.1s ease-in-out;
+
+    ${(props: SidebarIconProps) => props.rotation && css`
+        transform: rotate(90deg);
+    `}
+`;
+
+export const SidebarForm = styled.form`
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    margin-bottom: 40px;
+`;
+
+type SidebarLabelProps = {
+    stars?: boolean;
+}
+export const SidebarLabel = styled.label<SidebarLabelProps>`
+    margin: 10px;
+
+    ${(props) => props.stars && css`
+        display: flex;
+        align-items: center;
+    `}
+`;
+
+export const SidebarInput = styled.input`
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+
+    &:checked {
+        background-color: black;
+    }
+`;
+
+export const SidebarInputText = styled.span`
+    margin-left: 11px;
+    font-size: 14px;
+    padding: 0 4px;
+    cursor: pointer;
+`;
+
+export const SidebarInputImg = styled.img`
+    padding: 0 2px;
+    cursor: pointer;
+
+    &:first-of-type {
+        margin-left: 11px;
+    }
 `;
