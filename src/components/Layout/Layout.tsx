@@ -80,7 +80,10 @@ export const CredentialsFooterText = styled.p`
     }
 `;
 
-export const ButtonLink = styled(Link)`
+type ButtonLinkProps = {
+    marginLeft?: boolean;
+}
+export const ButtonLink = styled(Link)<ButtonLinkProps>`
     background-color: var(--primary-color);
     color: white;
     padding: 16px 0;
@@ -95,6 +98,10 @@ export const ButtonLink = styled(Link)`
     &:hover {
         box-shadow: -1px 6px 10px 0 rgba(120, 60, 20, .15);
     }
+
+    ${(props) => props.marginLeft && css`
+        margin-left: 32px;
+    `}
 `;
 
 

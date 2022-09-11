@@ -60,7 +60,7 @@ function RenderRating({ productRating }) {
     const roundedRating = Math.round(rate * 10) / 10;
 
     return (
-        <Rating  roundedRating={roundedRating} reviewCount={count} />
+        <Rating roundedRating={roundedRating} reviewCount={count} />
     );
 }
 

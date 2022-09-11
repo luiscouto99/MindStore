@@ -66,7 +66,7 @@ exports[`renders learn react link 1`] = `
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam soluta saepe et dolorem corporis numquam? Quaerat quod quae sapiente ullam magnam consequuntur recusandae? Iste enim reprehenderit voluptatem ex laudantium ut?
         </p>
         <a
-          class="Layout__ButtonLink-sc-10oin0k-2 kGyguP"
+          class="Layout__ButtonLink-sc-10oin0k-8 ekRLGY"
           href="/productlistpage"
         >
           View Products
@@ -112,7 +112,7 @@ exports[`renders learn react link 1`] = `
           Trending Now
         </h2>
         <a
-          class="Layout__ButtonLink-sc-10oin0k-2 kGyguP"
+          class="Layout__ButtonLink-sc-10oin0k-8 ekRLGY"
           href="/productlistpage"
         >
           View Products
@@ -126,15 +126,15 @@ exports[`renders learn react link 1`] = `
     </section>
   </main>
   <footer
-    class="footer"
+    class="Footer__FooterContainer-sc-1c1urqg-0 enyVKY"
   >
     <p
-      class="footer-title"
+      class="Footer__FooterTitle-sc-1c1urqg-1 eWGLmH"
     >
       MindStore
     </p>
     <p
-      class="footer-rights"
+      class="Footer__FooterRights-sc-1c1urqg-2 cdGVaA"
     >
       © 
       2022

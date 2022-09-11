@@ -116,8 +116,8 @@ function ProductDetailPage() {
                         <ProductDescription>{productData.description}</ProductDescription>
 
                         <ProductCartOptions>
-                            <QuantityButton marginRight quantity={productsToAdd} handleAddToUserCart={handleAddToUserCart} />
-                            <ButtonLink to={`/cart/${userId}`} onClick={handleAddToUserCartFetch}>Add to Cart</ButtonLink>
+                            <QuantityButton  quantity={productsToAdd} handleAddToUserCart={handleAddToUserCart} />
+                            <ButtonLink to={`/cart/${userId}`} marginLeft onClick={handleAddToUserCartFetch}>Add to Cart</ButtonLink>
                         </ProductCartOptions>
                     </ProductInfo>
                 </ProductContainer>

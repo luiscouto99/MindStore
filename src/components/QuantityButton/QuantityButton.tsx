@@ -1,5 +1,5 @@
 // @ts-nocheck
-import styled, { css } from "styled-components/macro";
+import styled from "styled-components/macro";
 
 const QuantityContainer = styled.div`
     display: flex;
@@ -8,12 +8,6 @@ const QuantityContainer = styled.div`
     border: 2px solid var(--primary-color);
     border-radius: 4px;
     height: 51px;
-
-    ${(props) =>
-    props.marginRight &&
-    css`
-        margin-right: 16px;
-    `}
 `;
 
 const QuantityBtn = styled.button`
@@ -42,7 +36,6 @@ type QuantityButtonProps = {
 }
 
 const QuantityButton = ({handleAddToUserCart, quantity}: QuantityButtonProps) => {
-
     function handleDecrement() {
         if (quantity === 1) {
             handleAddToUserCart(quantity);
