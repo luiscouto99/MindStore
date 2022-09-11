@@ -1,50 +1,47 @@
 import React from 'react';
 import { screen, render } from '@testing-library/react';
 
+import { Rating as RatingType } from "../../../types/product";
+
 import RenderRating from "../RenderRating"
 
-type productRatingProps = {
-  id: number,
-  rate: number,
-  count: number
-}
 
-const productRatingMock: productRatingProps = {
+const productRatingMock: RatingType = {
   id: 21,
   rate: 1.4,
   count: 234,
 }
-const emptyProductRatingMock: productRatingProps = {
+const emptyProductRatingMock: RatingType = {
   id: 21,
   rate: 0,
   count: 1,
 }
-const fullProductRatingMock: productRatingProps = {
+const fullProductRatingMock: RatingType = {
   id: 21,
   rate: 5,
   count: 11,
 }
-const halfProductRatingMock1: productRatingProps = {
+const halfProductRatingMock1: RatingType = {
   id: 21,
   rate: 0.5,
   count: 11,
 }
-const halfProductRatingMock2: productRatingProps = {
+const halfProductRatingMock2: RatingType = {
   id: 21,
   rate: 1.5,
   count: 11,
 }
-const halfProductRatingMock3: productRatingProps = {
+const halfProductRatingMock3: RatingType = {
   id: 21,
   rate: 2.5,
   count: 11,
 }
-const halfProductRatingMock4: productRatingProps = {
+const halfProductRatingMock4: RatingType = {
   id: 21,
   rate: 3.5,
   count: 11,
 }
-const halfProductRatingMock5: productRatingProps = {
+const halfProductRatingMock5: RatingType = {
   id: 21,
   rate: 4.5,
   count: 11,
@@ -131,54 +128,3 @@ describe("RenderRating", () => {
     expect(starIcon1).toHaveAttribute("src", "star-half.png");
   })
 })
-
-
-/* <body>
-      <div>
-        <div
-          class="RenderRating__RatingContainer-sc-uwmimt-0 fVNLWj"
-          data-testid="general-rating"
-        >
-          <img
-            alt="star icon"
-            class="RenderRating__StarIcon-sc-uwmimt-1 etnViW"
-            data-testid="star-image-1"
-            src="star-full.png"
-          />
-          <img
-            alt="star icon"
-            class="RenderRating__StarIcon-sc-uwmimt-1 etnViW"
-            data-testid="star-image-2"
-            src="star-full.png"
-          />
-          <img
-            alt="star icon"
-            class="RenderRating__StarIcon-sc-uwmimt-1 etnViW"
-            data-testid="star-image-3"
-            src="star-full.png"
-          />
-          <img
-            alt="star icon"
-            class="RenderRating__StarIcon-sc-uwmimt-1 etnViW"
-            data-testid="star-image-4"
-            src="star-full.png"
-          />
-          <img
-            alt="star icon"
-            class="RenderRating__StarIcon-sc-uwmimt-1 etnViW"
-            data-testid="star-image-5"
-            src="star-empty.png"
-          />
-          <p
-            class="RenderRating__ReviewText-sc-uwmimt-2 hZaKxO"
-            data-testid="rating-reviews"
-          >
-               
-            4.4
-             (
-            234
-             reviews)
-          </p>
-        </div>
-      </div>
-    </body> */

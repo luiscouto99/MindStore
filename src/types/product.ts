@@ -1,4 +1,4 @@
-type Rating = {
+export type Rating = {
     id: number,
     rate: number,
     count: number

@@ -8,6 +8,7 @@ type SkeletonProps = {
 }
 
 const Skeleton = styled(ProductContainer) <SkeletonProps>`
+    position: relative;
     background-color: #e1e1e1;
     min-width: ${(props) => props.width ? `${props.width}px;` : "300px;"};    
     min-height: ${(props) => props.height ? `${props.height}px;` : "300px;"};    

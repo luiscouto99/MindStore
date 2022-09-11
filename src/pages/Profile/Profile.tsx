@@ -1,10 +1,45 @@
 // @ts-nocheck
-import React, { useState, useEffect, useRef } from "react";
-import "./profile.css";
-import "./credentials.css";
+import { useState, useEffect, useRef } from "react";
+
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import avatar from "../../assets/avatar.jpg";
+
+import styled from "styled-components/macro";
+
+import { Button, CredentialsLayout, CredentialsContainer, CredentialsTitle, CredentialsForm, CredentialsLabel, CredentialsInput } from "../../components/Layout/Layout"
+
+const ProfileImage = styled.img`
+	border-radius: 50%;
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+`;
+
+const ProfileBtnContainer = styled.div`
+	display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+`;
+
+const ProfileMessage = styled.p`
+	text-align: center;
+    padding: 10px;
+    font-size: 15px;
+    text-decoration: ${(props) => props.error ? "underline;" : "none;"};
+`;
+
+const ProfileDescription = styled.div`
+	margin-bottom: 20px;
+	text-align: center;
+`;
+
+const ProfileDescriptionText = styled.p`
+	font-weight: 200;
+	font-size: 16px;
+	color: rgb(175, 175, 175);
+`;
 
 function Profile() {
 	const fetchedToken = localStorage.getItem("token");
@@ -31,21 +66,18 @@ function Profile() {
 
 	useEffect(() => {
 		const fetchedId = localStorage.getItem("Id");
-		
+
 		async function fetchProfile() {
 			const request = {
 				method: "GET",
 				headers: {
 					"Content-Type": "application/json",
-					Authorization: localStorage.getItem("adminToken"),
+					Authorization: localStorage.getItem("token"),
 				},
 			};
 
-			const response = await fetch(`/api/v1/admins/users/${fetchedId}`, request);
-			console.log("response", response);
-
+			const response = await fetch(`/api/v1/users/${fetchedId}`, request);
 			const json = await response.json();
-			console.log("json", json);
 			setUserData(json);
 		}
 		fetchProfile();
@@ -53,9 +85,6 @@ function Profile() {
 
 	async function handleSaveProfileChanges(event) {
 		event.preventDefault();
-		// console.log(image);
-
-		console.log("insidehandleSavePRofileChanges", userData, newInfo);
 
 		if (firstName.current.value === "") {
 			interFirst = userData.firstName;
@@ -98,26 +127,23 @@ function Profile() {
 			method: "PATCH",
 			headers: { "Content-Type": "application/json", Authorization: fetchedToken },
 			body: JSON.stringify({
-				firstName: interFirst, //firstName.current.value, //ref que recebe do input
-				lastName: interLast, //lastName.current.value,
-				email: interEmail, //email.current.value,
-				password: interPassword, // password.current.value,
-				address: interAddress, //address.current.value,
-				image: interImage, //image.current.value
+				firstName: interFirst,
+				lastName: interLast,
+				email: interEmail,
+				password: interPassword,
+				address: interAddress,
+				image: interImage,
 			}),
 		};
-
 		const response = await fetch(`/api/v1/users/${fetchedId}`, request);
 		const json = await response.json();
 
-		if(response.status === 200) {
+		if (response.status === 200) {
 			const newUserData = json;
-			console.log("new user data", newUserData);
-	
+
 			setNewInfo(true);
 			setUserData(newUserData);
 			setMessage("Your changes were successfully saved!");
-
 			setChangesSaved(true);
 			setEditProfile(!editProfile);
 		} else {
@@ -125,99 +151,88 @@ function Profile() {
 		}
 	};
 
-	function handleEditProfile() {
-		console.log("button edit profile");
-		setEditProfile(!editProfile);
-	}
 	function handleSaveChangesButton() {
-		// console.log("button to Save Changes");
-		// setChangesSaved(true);
-		// setEditProfile(!editProfile);
-	}
-
-	function handleCancelEditProfile() {
-		setEditProfile(false);
+		setChangesSaved(true);
+		setEditProfile(!editProfile);
 	}
 
 	return (
 		<>
-			<Header linkActive={true} />
+			<Header />
 
-			{editProfile ? (
-				<>
-					<div className="container to-save">
-						{/* <img src={avatar} alt="" className="profile-image" /> */}
-						<img src={userData.image} alt="" className="profile-image" />
+			<CredentialsLayout>
+				{
+					<CredentialsContainer profile>
+						<ProfileImage src={userData.image} alt="profile image" />
+						<CredentialsTitle>
+							{userData.firstName} {userData.lastName}{" "}
+						</CredentialsTitle>
 
-						<div className="title title-to-change">
-							<h2>Profile</h2>
-						</div>
-						<form className="form" onSubmit={handleSaveProfileChanges}>
-							<label className="label">
-								<input autoFocus type="text" name="first-name" ref={firstName} placeholder={userData.firstName} />
-							</label>
-							<label className="label">
-								<input autoFocus type="text" name="last-name" ref={lastName} placeholder={userData.lastName} />
-							</label>
-							<label className="label">
-								<input type="email" name="email" ref={email} placeholder={userData.email} />
-							</label>
-							<label className="label">
-								<input type="password" name="password" ref={password} placeholder="Password" />
-							</label>
-							{/* <label className="label date">
-								<input type={isVarTrue ? "text" : "date"} onClick={handleVarClick} name="dateOfBirth" ref={dateOfBirth} required placeholder={userData.dateOfBirth} />
-							</label> */}
-							<label className="label">
-								<input type="text" name="address" ref={address} placeholder={userData.address} />
-							</label>
-							{/* <label className="label">
-									<input type="tel" name="phone" pattern="[0-9]{3}[0-9]{3}[0-9]{3}" placeholder="Phone Number" minLength={9} maxLength={9} ref={phone} required />
-								</label> */}
-							<label className="label">
-								<input type="url" name="url" id="url" placeholder="https://add-your-profile-picture.com" pattern="https://.*" size="900" ref={image}></input>
-							</label>
-							<div className="btn-flex btn-flex-margin">
-								<button className="button btn-cancel" onClick={handleCancelEditProfile}>
-									Cancel
-								</button>
-								<button type="submit" className="button btn-save" onClick={handleSaveChangesButton}>
-									Save Changes
-								</button>
-							</div>
-						</form>
-						<div className={message === "Your changes were successfully saved!" ? 
-							"success-message" : "error-message" }>{message}</div>
-					</div>
-					<div className="footer-wrapper edit-footer">
-						<Footer />
-					</div>
-				</>
-			) : (
-				<>
-					<div className="container non-edit-mode">
-						<img src={userData.image} alt="" className="profile-image" />
+						{
+							editProfile ? (
+								<>
+									<CredentialsForm onSubmit={handleSaveProfileChanges}>
+										<CredentialsLabel htmlFor="first-name">
+											<CredentialsInput autoFocus type="text" name="first-name" ref={firstName} placeholder={userData.firstName} />
+										</CredentialsLabel>
+										<CredentialsLabel htmlFor="last-name">
+											<CredentialsInput type="text" name="last-name" ref={lastName} placeholder={userData.lastName} />
+										</CredentialsLabel>
+										<CredentialsLabel htmlFor="email">
+											<CredentialsInput type="email" name="email" ref={email} placeholder={userData.email} />
+										</CredentialsLabel>
+										<CredentialsLabel htmlFor="password">
+											<CredentialsInput type="password" name="password" ref={password} placeholder="Password" />
+										</CredentialsLabel>
+										{/* 
+									<CredentialsLabel htmlFor="dateOfBirth">
+										<CredentialsInput type={isVarTrue ? "text" : "date"} onClick={handleVarClick} name="dateOfBirth" ref={dateOfBirth} required placeholder={userData.dateOfBirth} />
+									</CredentialsLabel>
+									*/}
+										<CredentialsLabel htmlFor="address">
+											<CredentialsInput type="text" name="address" ref={address} placeholder={userData.address} />
+										</CredentialsLabel>
+										{/* 
+									<CredentialsLabel htmlFor="phone">
+										<CredentialsInput type="tel" name="phone" pattern="[0-9]{3}[0-9]{3}[0-9]{3}" placeholder="Phone Number" minLength={9} maxLength={9} ref={phone} required />
+									</CredentialsLabel> 
+									*/}
+										<CredentialsLabel htmlFor="url">
+											<CredentialsInput type="url" name="url" id="url" placeholder="https://add-your-profile-picture.com" pattern="https://.*" size="900" ref={image}></CredentialsInput>
+										</CredentialsLabel>
 
-						<div className="title title-profile success-h2">
-							<h2>
-								{userData.firstName} {userData.lastName}{" "}
-							</h2>
-						</div>
-						<div className="description-profile">
-							<p>{userData.email}</p>
-							<p>{userData.dateOfBirth}</p>
-							<p>{userData.address}</p>
-						</div>
+										<ProfileBtnContainer>
+											<Button secondary onClick={() => setEditProfile(false)}>
+												Cancel
+											</Button>
+											<Button type="submit" onClick={handleSaveChangesButton}>
+												Save Changes
+											</Button>
+										</ProfileBtnContainer>
+									</CredentialsForm>
 
-						<button className="button edit-profile-button" onClick={handleEditProfile}>
-							Edit Profile
-						</button>
-					</div>
-					<div className="footer-wrapper non-edit-footer">
-						<Footer />
-					</div>
-				</>
-			)}
+									<ProfileMessage error={message === "Your changes were successfully saved!" ? false : true}>
+										{message}
+									</ProfileMessage>
+								</>
+							) : (
+								<>
+									<ProfileDescription>
+										<ProfileDescriptionText>{userData.email}</ProfileDescriptionText>
+										<ProfileDescriptionText>{userData.dateOfBirth}</ProfileDescriptionText>
+										<ProfileDescriptionText>{userData.address}</ProfileDescriptionText>
+									</ProfileDescription>
+
+									<Button onClick={() => setEditProfile(!editProfile)}>
+										Edit Profile
+									</Button>
+								</>
+							)
+						}
+					</CredentialsContainer>
+				}
+			</CredentialsLayout>
+			<Footer />
 		</>
 	);
 }

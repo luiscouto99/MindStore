@@ -35,15 +35,15 @@ const NavbarLink = styled(NavLink)`
     position: relative;
 
 	&:before {
-			content: "";
-			position: absolute;
-			width: 0;
-			height: 0.5px;
-			bottom: 0;
-			left: 0;
-			background-color: var(--primary-color);
-			visibility: hidden;
-			transition: all 0.3s ease-in-out;
+		content: "";
+		position: absolute;
+		width: 0;
+		height: 0.5px;
+		bottom: 0;
+		left: 0;
+		background-color: var(--primary-color);
+		visibility: hidden;
+		transition: all 0.3s ease-in-out;
 	}
 
 	&:hover:before {
@@ -65,48 +65,39 @@ const NavbarCart = styled.div`
     display: inline-block;
 `;
 
-
 function Header() {
 	const getToken = localStorage.getItem("token");
 
-	if (getToken !== null) {
-		return (
-			<MainHeader>
-				<Navbar>
-					<NavbarLogo to="/">
-						Mind
-						<NavbarLogoBold>Store</NavbarLogoBold>
-					</NavbarLogo>
+	return (
+		<MainHeader>
+			<Navbar>
+				<NavbarLogo to="/">
+					Mind
+					<NavbarLogoBold>Store</NavbarLogoBold>
+				</NavbarLogo>
 
-					<NavbarLinksContainer>
-						<NavbarLink to="/productlistpage">Products</NavbarLink>
-						<NavbarLink to="/profile">Profile</NavbarLink>
-						<NavbarLink to="/" onClick={() => localStorage.clear()}>Logout</NavbarLink>
-						<NavbarLink to={`/cart/${localStorage.getItem("Id")}`}>
-							<NavbarCart />
-						</NavbarLink>
-					</NavbarLinksContainer>
-				</Navbar>
-			</MainHeader>
-		);
-	} else {
-		return (
-			<MainHeader>
-				<Navbar>
-					<NavbarLogo to="/">
-						Mind
-						<NavbarLogoBold>Store</NavbarLogoBold>
-					</NavbarLogo>
-
-					<NavbarLinksContainer>
-						<NavbarLink to="/productlistpage">Products</NavbarLink>
-						<NavbarLink to="/login">Login</NavbarLink>
-						<NavbarLink to="/register">Register</NavbarLink>
-					</NavbarLinksContainer>
-				</Navbar>
-			</MainHeader>
-		);
-	}
+				<NavbarLinksContainer>
+					<NavbarLink to="/productlistpage">Products</NavbarLink>
+					{
+						getToken ? (
+							<>
+								<NavbarLink to="/profile">Profile</NavbarLink>
+								<NavbarLink to="/" onClick={() => localStorage.clear()}>Logout</NavbarLink>
+								<NavbarLink to={`/cart/${localStorage.getItem("Id")}`}>
+									<NavbarCart />
+								</NavbarLink>
+							</>
+						) : (
+							<>
+								<NavbarLink to="/login">Login</NavbarLink>
+								<NavbarLink to="/register">Register</NavbarLink>
+							</>
+						)
+					}
+				</NavbarLinksContainer>
+			</Navbar>
+		</MainHeader>
+	)
 }
 
 export default Header;

@@ -22,7 +22,7 @@ function Sort({ handleSortFetch }: {handleSortFetch: (value: string) => void}) {
     return (
         <>
             <SortContainer>
-                <SidebarButton onClick={handleClick}>
+                <SidebarButton data-testid="sort-button" onClick={handleClick}>
                     Sort by
                     <SidebarIcon rotation={isClicked} src={arrowRight} alt="" />
                 </SidebarButton>

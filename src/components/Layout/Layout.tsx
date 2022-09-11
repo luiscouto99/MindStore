@@ -12,7 +12,8 @@ export const CredentialsLayout = styled(MainLayout)`
 `;
 
 type CredentialsContainerProps = {
-    isSuccessfull: boolean;
+    isSuccessfull?: boolean;
+    profile?: boolean;
 }
 export const CredentialsContainer = styled.section<CredentialsContainerProps>`
     display: flex;
@@ -22,13 +23,15 @@ export const CredentialsContainer = styled.section<CredentialsContainerProps>`
     background-color: white;
     padding: 20px;
 
-    ${(props) =>
-        props.isSuccessfull && css`
-            display: flex;
-            align-items: center;
-            padding-bottom: 30px;
-        `
-    }
+    ${(props) => props.isSuccessfull && css`
+        display: flex;
+        align-items: center;
+        padding-bottom: 30px;
+    `}
+
+    ${(props) => props.profile && css`
+        margin: 84px 0;
+    `}
 `;
 
 export const CredentialsTitle = styled.h2`
@@ -56,7 +59,7 @@ export const CredentialsInput = styled.input`
     border: none;
     border-radius: 4px;
     padding: 13px 5px 13px 10px;
-    width: 94.5%;
+    width: 100%;
     font-family: "Roboto", sansserif;
     transition: ease-in-out 0.2s;
 
@@ -107,6 +110,7 @@ export const ButtonLink = styled(Link)<ButtonLinkProps>`
 
 type ButtonProps = {
     noMargin?: boolean;
+    secondary?: boolean;
 }
 export const Button = styled.button<ButtonProps>`
     background-color: var(--primary-color);
@@ -125,8 +129,13 @@ export const Button = styled.button<ButtonProps>`
     ${(props) => props.noMargin && css`
         margin: 0;
     `}
-`;
 
+    ${(props) => props.secondary && css`
+        background-color: white;
+        border: 2px solid var(--primary-color);
+        color: var(--primary-color);
+    `}
+`;
 type SidebarButtonProps = {
     marginLeft?: boolean;
 }

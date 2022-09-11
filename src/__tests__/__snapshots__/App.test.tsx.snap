@@ -82,19 +82,19 @@ exports[`renders learn react link 1`] = `
       class="HomeGallery__ProductGallery-sc-1e9kodl-0 hBAusz"
     >
       <div
-        class="sc-bczRLJ sc-gsnTZi bhVVTD jYAZOb"
+        class="sc-bczRLJ sc-gsnTZi bhVVTD TCJrZ"
         data-testid="skeleton"
         height="460"
         width="440"
       />
       <div
-        class="sc-bczRLJ sc-gsnTZi bhVVTD jYAZOb"
+        class="sc-bczRLJ sc-gsnTZi bhVVTD TCJrZ"
         data-testid="skeleton"
         height="460"
         width="440"
       />
       <div
-        class="sc-bczRLJ sc-gsnTZi bhVVTD jYAZOb"
+        class="sc-bczRLJ sc-gsnTZi bhVVTD TCJrZ"
         data-testid="skeleton"
         height="460"
         width="440"

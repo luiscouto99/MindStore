@@ -55,30 +55,17 @@ const ProductText = styled.p<ProductTextProps>`
 	`}
 `;
 
-
-
 function Product({ productProp }: { productProp: LikedProduct | ProductType }) {
-	const [productData, setProductData] = useState({} as ProductType | LikedProduct);
-
-	useEffect(() => {
-		async function fetchASingleProduct() {
-			const response = await fetch(`/api/v1/users/products/${productProp.id}`);
-			const json = await response.json();
-			setProductData(json);
-		};
-		fetchASingleProduct();
-	}, [productProp.id]);
-
 	return (
 		<ProductContainer>
-			<ProductImage src={productData.image} alt="product image" />
+			<ProductImage src={productProp.image} alt="product image" />
 			<ProductRating>
-				{Math.round(productData.rating?.rate * 10) / 10}
+				{Math.round(productProp.rating?.rate * 10) / 10}
 				<ProductRatingStar src={starFull} alt="star icon" />
 			</ProductRating>
 			<ProductDescription>
-				<ProductText>{productData.title}</ProductText>
-				<ProductText price>{productData.price}€</ProductText>
+				<ProductText data-testid="product-text">{productProp.title}</ProductText>
+				<ProductText price>{productProp.price}€</ProductText>
 			</ProductDescription>
 		</ProductContainer>
 	);

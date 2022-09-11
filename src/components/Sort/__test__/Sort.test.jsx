@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
+import { screen, render, fireEvent } from '@testing-library/react';
 
 
 import Sort from "../Sort";
@@ -61,16 +61,19 @@ describe("Sort", () => {
         expect(screen.getByTestId("sort-form")).toBeInTheDocument();
     })
 
-
-    // it("should render 2 labels", () => {
-    //     const handleSortFetchMock = () => { };
-    //     useStateMock
-    //         .mockImplementationOnce(() => [true, jest.fn()])
-    //         .mockImplementationOnce(() => [false, jest.fn()])
-    //         .mockImplementationOnce(() => ["ASC", jest.fn()])
-    //     render(<Sort handleSortFetch={handleSortFetchMock} />);
-    //     const labels = screen.getAllByTestId("sort-label");
-    //     expect(labels).toHaveLength(2);
-    // })
+    it("should manage onClick handler", () => {
+        const handleSortFetchMock = () => { };
+        const setChoiceMock = jest.fn();
+        const setIsClickedMock = jest.fn();
+        useStateMock
+            .mockImplementationOnce(() => [false, jest.fn()])
+            .mockImplementationOnce(() => [false, jest.fn()])
+            .mockImplementationOnce(() => ["ASC", jest.fn()])
+        render(<Sort handleSortFetch={handleSortFetchMock} />);
+        fireEvent.click(screen.getByTestId("sort-button"));
+        expect(setChoiceMock).toHaveBeenCalled();
+        expect(setIsClickedMock).toHaveBeenCalled();
+        
+    })
     
 })
