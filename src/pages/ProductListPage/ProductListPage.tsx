@@ -6,7 +6,7 @@ import Header from "../../components/Header/Header";
 import Sidebar from "./components/Sidebar";
 
 import { MainLayout } from "../../components/Layout/Layout";
-import { SearchBar } from "./components/SearchBar";
+// import { SearchBar } from "./components/SearchBar";
 import { ProductListGrid } from "./components/ProductListGrid";
 import { Pagination } from "./components/Pagination";
 
@@ -17,6 +17,7 @@ import styled from "styled-components/macro";
 const ListContainer = styled.section`
     display: flex;
     flex-direction: row;
+	margin-top: 84px;
 
 	@media (max-width: 650px) {
 		display: flex;
@@ -26,13 +27,21 @@ const ListContainer = styled.section`
 
 const ProductDisplay = styled.div`
 	display: flex;
-	flex-direction: column;
+    align-items: center;
+    justify-content: center;
 	width: 80%;
 
 	@media (max-width: 650px) {
 		width: 100%
 	}
 `;
+
+const EmptyProductSearch = styled.h1`
+	font-size:30px;
+	font-weight: 400;
+	margin: 0;
+`;
+
 
 function ProductListPage() {
 	const [allProducts, setAllProducts] = useState([] as LikedProduct[]);
@@ -95,11 +104,12 @@ function ProductListPage() {
 			<Header />
 			<MainLayout>
 				<ListContainer>
-					<Sidebar className="sidebar" handleSortFetch={(direction: ProductListSorting) => setSort(direction)} handleCategoryFetch={(link: string) => setLink(link)} handlePriceFetch={(link: string) => setLink(link)} handleRatingFetch={(link: string) => setLink(link)} />
+					<Sidebar className="sidebar" handleSortFetch={(direction: ProductListSorting) => setSort(direction)} handleCategoryFetch={(link: string) => setLink(link)} handlePriceFetch={(link: string) => setLink(link)} handleRatingFetch={(link: string) => setLink(link)} inputSearch={inputSearch} handleSearchBar={handleSearchBar} />
 					<ProductDisplay>
-						<SearchBar inputSearch={inputSearch} handleSearchBar={handleSearchBar} />
 						{
-							allProducts.length === 0 && !isLoading ? (<p>"no products"</p>) : (
+							allProducts.length === 0 && !isLoading ? (
+								<EmptyProductSearch>No products found with name: "{inputSearch.current.value}"</EmptyProductSearch>
+							) : (
 								<ProductListGrid allProducts={allProducts} handleLikeClick={handleLikeClick} isLoading={isLoading} />
 							) 
 						}

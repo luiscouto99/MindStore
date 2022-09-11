@@ -3,13 +3,12 @@ import styled from "styled-components/macro";
 import searchBar from "../../../assets/search-bar.png";
 
 const SearchBarLabel = styled.label`
-position: relative;
-margin: 30px 0;
-width: 300px;
+    position: relative;
+    margin-bottom: 30px;
 
-@media (max-width: 650px) {
-    margin: 0 auto;
-}
+    @media (max-width: 650px) {
+        margin: 0 auto;
+    }
 `;
 
 const SearchBarInput = styled.input`
@@ -35,9 +34,14 @@ const SearchBarIcon = styled.img`
 `;
 
 
-export const SearchBar = ({ inputSearch, handleSearchBar }: { inputSearch: React.MutableRefObject<string>, handleSearchBar: () => Promise<void> }) =>
-    <SearchBarLabel>
-        {/* @ts-ignore-next-line */}
-        <SearchBarInput type="text" placeholder="Search" ref={inputSearch} onChange={handleSearchBar} />
-        <SearchBarIcon src={searchBar} alt="search bar icon" />
-    </SearchBarLabel>
+function SearchBar({ inputSearch, handleSearchBar }: { inputSearch: React.MutableRefObject<string>, handleSearchBar: () => Promise<void> }) {
+    return (
+        <SearchBarLabel>
+            {/* @ts-ignore-next-line */}
+            <SearchBarInput type="text" placeholder="Search" ref={inputSearch} onChange={handleSearchBar} />
+            <SearchBarIcon src={searchBar} alt="search bar icon" />
+        </SearchBarLabel>
+    )
+}
+
+export default SearchBar;

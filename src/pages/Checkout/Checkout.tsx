@@ -1,17 +1,20 @@
 // @ts-nocheck
-
-import React, { useRef, useState } from 'react';
+import  { useRef, useState } from 'react';
 import { Link } from "react-router-dom"
 import Header from "../../components/Header/Header";
+
+import styled from "styled-components/macro";
 import "./checkout.css";
+
 import arrowLeft from "../../assets/arrow-left.png"
+
+const CheckoutContainer = styled.main``;
 
 function Checkout() {
     const name = useRef("");
     const number = useRef("");
     const date = useRef("");
     const cvv = useRef("");
-
     const [rerender, setRerender] = useState(false);
 
     function handleSubmit(event) {
@@ -21,9 +24,6 @@ function Checkout() {
 
     function handleInputTyped() {
         setRerender(!rerender);
-
-        console.log(number.current.value.length)
-        console.log(number)
 
         if (number.current.value.split(/[-\s]+/).join("").length === 4 || number.current.value.split(/[-\s]+/).join("").length === 8 || number.current.value.split(/[-\s]+/).join("").length === 12) {
             number.current.value += " - ";

@@ -11,7 +11,6 @@ import styled from "styled-components/macro";
 import { SidebarButton, SidebarIcon } from "../../../components/Layout/Layout";
 
 const FilterContainer = styled.div`
-    margin-bottom: 120px;
 `;
 
 function Filter(props) {

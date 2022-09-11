@@ -17,6 +17,7 @@ export const ProductGrid = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fit, 300px);
     grid-gap: 20px;
+    justify-content: center;
 	
 	@media (max-width: 650px) {
 		justify-content: center;

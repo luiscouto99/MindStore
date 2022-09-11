@@ -56,7 +56,6 @@ const Rating = ({ roundedRating, reviewCount }: { roundedRating: number, reviewC
 }
 
 function RenderRating({ productRating }) {
-    console.log(productRating);
     const { count, rate } = productRating;
     const roundedRating = Math.round(rate * 10) / 10;
 
