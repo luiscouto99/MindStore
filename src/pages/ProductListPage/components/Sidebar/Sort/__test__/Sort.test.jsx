@@ -65,15 +65,30 @@ describe("Sort", () => {
         const handleSortFetchMock = () => { };
         const setChoiceMock = jest.fn();
         const setIsClickedMock = jest.fn();
+        const setSelectedMock = jest.fn();
         useStateMock
-            .mockImplementationOnce(() => [false, jest.fn()])
-            .mockImplementationOnce(() => [false, jest.fn()])
-            .mockImplementationOnce(() => ["ASC", jest.fn()])
+            .mockImplementationOnce(() => [false, setChoiceMock])
+            .mockImplementationOnce(() => [false, setIsClickedMock])
+            .mockImplementationOnce(() => ["ASC", setSelectedMock])
         render(<Sort handleSortFetch={handleSortFetchMock} />);
         fireEvent.click(screen.getByTestId("sort-button"));
         expect(setChoiceMock).toHaveBeenCalled();
         expect(setIsClickedMock).toHaveBeenCalled();
-        
+    })
+
+    it("should change selected value", () => {
+        const handleSortFetchMock = () => { };
+        const setChoiceMock = jest.fn();
+        const setIsClickedMock = jest.fn();
+        const setSelectedMock = jest.fn();
+        useStateMock
+            .mockImplementationOnce(() => [true, setChoiceMock])
+            .mockImplementationOnce(() => [false, setIsClickedMock])
+            .mockImplementationOnce(() => ["ASC", setSelectedMock])
+        render(<Sort handleSortFetch={handleSortFetchMock} />);
+
+        fireEvent.click(screen.getByTestId("sort-label-desc"));
+        expect(setSelectedMock).toHaveBeenCalledWith("DESC");
     })
     
 })

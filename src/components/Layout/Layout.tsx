@@ -1,3 +1,4 @@
+import { type } from "@testing-library/user-event/dist/type";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components/macro";
 
@@ -42,12 +43,19 @@ export const CredentialsTitle = styled.h2`
     margin: 0 15%;
 `;
 
-export const CredentialsForm = styled.form`
+type CredentialFormProps = {
+    checkoutForm?: boolean;
+}
+export const CredentialsForm = styled.form<CredentialFormProps>`
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 30px 15%;
     gap: 20px;
+
+    ${(props) => props.checkoutForm && css`
+        margin: 0;;
+    `}
 `;
 
 export const CredentialsLabel = styled.label`
@@ -85,12 +93,13 @@ export const CredentialsFooterText = styled.p`
 
 type ButtonLinkProps = {
     marginLeft?: boolean;
+    secondary?: boolean;
 }
-export const ButtonLink = styled(Link)<ButtonLinkProps>`
+export const ButtonLink = styled(Link) <ButtonLinkProps>`
+    border-radius: 4px;
     background-color: var(--primary-color);
     color: white;
     padding: 16px 0;
-    font-family: 'Roboto', sans-serif;
     font-size: 16px;
     font-weight: 500;
     text-align: center;
@@ -104,6 +113,16 @@ export const ButtonLink = styled(Link)<ButtonLinkProps>`
 
     ${(props) => props.marginLeft && css`
         margin-left: 32px;
+    `}
+
+    ${(props) => props.secondary && css`
+        background-color: white;
+        border: 2px solid var(--primary-color);
+        color: var(--primary-color);
+        padding: 13px 40px;
+        margin-top: 13px;
+        width: auto;
+        font-weight: normal;
     `}
 `;
 
@@ -121,6 +140,7 @@ export const Button = styled.button<ButtonProps>`
     margin-top: 13px;
     cursor: pointer;
     transition: all 0.3s ease;
+    border: 2px solid var(--primary-color);
 
     &:hover {
         box-shadow: -1px 6px 10px 0 rgba(120, 60, 20, .15);

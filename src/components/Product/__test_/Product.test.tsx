@@ -25,5 +25,4 @@ describe("Product", () => {
         const productTitle = screen.getByTestId("product-text");
         expect(productTitle.textContent).toMatch(productMock.title);
     })
-
 })
