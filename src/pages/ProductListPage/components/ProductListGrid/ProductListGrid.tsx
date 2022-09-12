@@ -1,13 +1,13 @@
 // @ts-nocheck
 import { Link } from "react-router-dom";
 
-import Product from "../../../components/Product/Product";
-import { ProductSkeleton } from "../../../components/ProductSkeleton/ProductSkeleton";
+import Product from "../../../../components/Product/Product";
+import { ProductSkeleton } from "../../../../components/ProductSkeleton/ProductSkeleton";
 import styled from "styled-components/macro";
 import { ProductContainer } from "./ProductContainer"
 
-import heartEmpty from "../../../assets/heart-empty.png";
-import heartFull from "../../../assets/heart-full.png";
+import heartEmpty from "../../../../assets/heart-empty.png";
+import heartFull from "../../../../assets/heart-full.png";
 
 import { LikedProduct } from "../../../types/product";
 

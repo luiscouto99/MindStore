@@ -5,10 +5,10 @@ import CategoryButton from "./CategoryButton";
 import PriceButton from "./PriceButton";
 import RatingButton from "./RatingButton";
 
-import arrowRight from "../../../assets/arrow-right.png";
+import arrowRight from "../../../../../assets/arrow-right.png";
 
 import styled from "styled-components/macro";
-import { SidebarButton, SidebarIcon } from "../../../components/Layout/Layout";
+import { SidebarButton, SidebarIcon } from "../../../../../components/Layout/Layout";
 
 const FilterContainer = styled.div`
 `;

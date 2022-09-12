@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
-import arrowRight from "../../assets/arrow-right.png";
+import arrowRight from "../../../../../assets/arrow-right.png";
 
 import styled from "styled-components";
-import { SidebarButton, SidebarForm, SidebarIcon, SidebarInput, SidebarInputText, SidebarLabel } from "../Layout/Layout";
+import { SidebarButton, SidebarForm, SidebarIcon, SidebarInput, SidebarInputText, SidebarLabel } from "../../../../../components/Layout/Layout";
 
 const SortContainer = styled.div`
     margin-top: 53px;

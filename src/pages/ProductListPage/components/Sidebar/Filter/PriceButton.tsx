@@ -1,7 +1,7 @@
 // @ts-nocheck
-import { SidebarButton, SidebarForm, SidebarIcon, SidebarInput, SidebarInputText, SidebarLabel } from "../../../components/Layout/Layout";
+import { SidebarButton, SidebarForm, SidebarIcon, SidebarInput, SidebarInputText, SidebarLabel } from "../../../../../components/Layout/Layout";
 
-import arrowRight from "../../../assets/arrow-right.png";
+import arrowRight from "../../../../../assets/arrow-right.png";
 
 function PriceButton({ handlePriceFetch, handlePriceClick, isPriceClicked }) {
     const priceObject01 = { min: 0, max: 50 };

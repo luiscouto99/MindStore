@@ -1,4 +1,4 @@
-import { ProductContainer } from "../../pages/ProductListPage/components/ProductContainer"
+import { ProductContainer } from "../../pages/ProductListPage/components/ProductListGrid/ProductContainer"
 
 import styled from "styled-components"
 

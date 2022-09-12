@@ -1,7 +1,7 @@
 // @ts-nocheck
-import Filter from './Filter';
-import SearchBar from "./SearchBar";
-import Sort from '../../../components/Sort/Sort';
+import Filter from './Filter/Filter';
+import SearchBar from "../SearchBar";
+import Sort from './Sort/Sort';
 
 import styled from "styled-components/macro";
 

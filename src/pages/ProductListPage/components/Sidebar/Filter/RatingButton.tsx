@@ -1,8 +1,8 @@
 // @ts-nocheck
-import { SidebarButton, SidebarForm, SidebarIcon, SidebarInput, SidebarInputImg, SidebarLabel } from "../../../components/Layout/Layout";
+import { SidebarButton, SidebarForm, SidebarIcon, SidebarInput, SidebarInputImg, SidebarLabel } from "../../../../../components/Layout/Layout";
 
-import arrowRight from "../../../assets/arrow-right.png";
-import starBlack from "../../../assets/star-grey-darker.png";
+import arrowRight from "../../../../../assets/arrow-right.png";
+import starBlack from "../../../../../assets/star-grey-darker.png";
 
 function RatingButton({ handleRatingFetch, handleRatingClick, isRatingClicked }) {
     const ratingValues = [
