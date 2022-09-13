@@ -1,6 +1,3 @@
-import { useState } from "react"
-import { useEffect } from "react";
-
 import styled, { css } from "styled-components/macro";
 
 import starFull from "../../assets/star-full.png";

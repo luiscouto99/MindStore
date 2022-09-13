@@ -10,8 +10,11 @@ import { Form } from "./components/Form";
 import { Price } from "./components/Price/Price";
 import { BackToProductList } from "../../components/BackToProductList/BackToProductList";
 
-import emptyCart from "../../assets/empty-cart-image.png";
+import { getUserCart } from "./services/getUserCart";
+import { getCartTotal } from "./services/getCartTotal";
+import { deleteItemFromCart } from "./services/deleteItemFromCart";
 
+import emptyCart from "../../assets/empty-cart-image.png";
 
 import styled from "styled-components/macro";
 
@@ -100,72 +103,24 @@ function CartPage() {
 	const discountCode = useRef("");
 
 	useEffect(() => {
-		async function fetchAllProducts() {
-			const request = {
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-					"Authorization": localStorage.getItem("token")
-				},
-			};
-
-			const response = await fetch(`/api/v1/users/shoppingcart/${id}`, request);
-			const products = await response.json();
-			if (products.length === 0) {
-				setCartEmpty(true);
-			} else {
-				setCartEmpty(false);
-			}
-			setAllProducts(products);
-		}
-		fetchAllProducts();
-		fetchTotal();
+		getUserCart(id, setCartEmpty, setAllProducts);
+		getCartTotal(id, setTotal);
 	}, []);
 
-	async function fetchTotal() {
-		const request = {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				"Authorization": localStorage.getItem("token")
-			},
-		};
-
-		const response = await fetch(`/api/v1/users/shoppingcart/price/${id}`, request);
-		const text = await response.text(); // text = 1000€
-		const removeEuroSymbol = text.split("€"); // text = ["1000", ""]
-		const finalPrice = Number(removeEuroSymbol[0]); // removeEuroSymbol[0] = "1000"
-		const roundedTotal = Math.round((finalPrice + Number.EPSILON) * 100) / 100;
-		setTotal(roundedTotal);
-	}
-
 	function handleCheckout(event) {
+		//missing functionality
 		event.preventDefault();
 		setCheckoutClicked(true);
 	}
 
 	function handleDiscount(event) {
+		//missing functionality
 		event.preventDefault();
 		setDiscountClicked(true);
 	}
 
-	async function handleRemove(productId: number) {
-		const request = {
-			method: "PATCH",
-			headers: {
-
-				"Content-Type": "application/json",
-				"Authorization": localStorage.getItem("token")
-			},
-		};
-
-		const response = await fetch(`/api/v1/users/removefromcart?userid=${id}&productid=${productId}`, request);
-		const json = await response.json();
-		const finalProducts = json;
-		setAllProducts(finalProducts);
-		fetchTotal();
-
-		setCartEmpty(finalProducts.length === 0);
+	function handleRemove(productId: number) {
+		deleteItemFromCart(setAllProducts, setCartEmpty, id, productId, setTotal);
 	};
 
 	return (
@@ -181,9 +136,11 @@ function CartPage() {
 								<CheckoutProductImg src={emptyCart} alt="empty cart" />
 								<CheckoutProductEmptyTitle>Your cart is empty!</CheckoutProductEmptyTitle>
 							</CheckoutCartEmpty>
-						) : (<CartProduct allProducts={allProducts} handleRemove={handleRemove}></CartProduct>)
+						) : (
+								<CartProduct allProducts={allProducts} handleRemove={handleRemove} />
+							)
 					}
-					<BackToProductList></BackToProductList>
+					<BackToProductList />
 				</CartProducts>
 
 				<CartSummary>
@@ -191,7 +148,7 @@ function CartPage() {
 						<Price total={total}></Price>
 						<Form handleCheckout={handleCheckout} fullName={fullName} phoneNumber={phoneNumber} email={email} address={address}></Form>
 					</CartSummaryDetails>
-					<Discount handleDiscount={handleDiscount} discountCode={discountCode}></Discount>
+					<Discount handleDiscount={handleDiscount} discountCode={discountCode} />
 				</CartSummary>
 			</CartContainer>
 

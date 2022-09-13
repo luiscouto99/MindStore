@@ -1,6 +1,5 @@
 import { ButtonLink } from "../../../components/Layout/Layout";
 
-
 import styled from "styled-components/macro";
 
 import heroImg from "../../../assets/heroImg.jpg";

@@ -9,7 +9,10 @@ import { MainLayout } from "../../components/Layout/Layout";
 import { ProductListGrid } from "./components/ProductListGrid/ProductListGrid";
 import { Pagination } from "./components/Pagination/Pagination";
 
-import type { LikedProduct, Product as ProductType, ProductListSorting } from "../../types/product";
+import type { LikedProduct, ProductListSorting } from "../../types/product";
+
+import { getAllProducts } from "./services/getAllProducts";
+import { getSearchedItems } from "./services/getSearchedItems";
 
 import styled from "styled-components/macro";
 
@@ -47,7 +50,6 @@ const EmptyProductSearch = styled.h1`
 	margin: 0;
 `;
 
-
 function ProductListPage() {
 	const [allProducts, setAllProducts] = useState([] as LikedProduct[]);
 	const [sort, setSort] = useState("ASC");
@@ -58,22 +60,7 @@ function ProductListPage() {
 	const inputSearch = useRef("");
 
 	useEffect(() => {
-		async function fetchAllProducts() {
-			const response = await fetch(`/api/v1/users/products${link}${sort}&page=${page}`);
-			const products: ProductType[] = await response.json();
-
-			const likedArr: LikedProduct[] = products.map((product) => {
-				const obj = {
-					// destruturamos o product e injetamos o isLiked
-					// assim o objeto retornado e uma replica do product com a propriedade extra
-					...product,
-					isLiked: false,
-				}
-				return obj;
-			});
-			setAllProducts(likedArr);
-		}
-		fetchAllProducts();
+		getAllProducts(link, sort, page, setAllProducts);
 		setTimeout(() => setIsLoading(false), 2000);
 	}, [link, sort, page]);
 
@@ -88,20 +75,9 @@ function ProductListPage() {
 		setAllProducts(likedProducts);
 	};
 
-	async function handleSearchBar() {
+	function handleSearchBar() {
 		setIsLoading(true);
-
-		const response = await fetch(`/api/v1/users/products/name?title=${(inputSearch as unknown as React.RefObject<HTMLInputElement>).current?.value}&page=1&pagesize=6`);
-		if (response.status === 404) {
-			setIsLoading(false);
-			setItemsFromSearch(`No results found for the search: "${inputSearch.current.value}"`);
-			setAllProducts([]);
-			// setInterval(() => inputSearch = "", 3000);
-			return;
-		}
-		const json = await response.json();
-		setAllProducts(json);
-		setIsLoading(false);
+		getSearchedItems(inputSearch, setIsLoading, setItemsFromSearch, setAllProducts);
 	}
 
 	return (
