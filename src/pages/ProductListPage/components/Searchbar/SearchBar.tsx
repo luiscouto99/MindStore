@@ -7,6 +7,7 @@ const SearchBarLabel = styled.label`
     margin-bottom: 30px;
 
     @media (max-width: 650px) {
+        width: 300px;
         margin: 0 auto;
     }
 `;

@@ -25,13 +25,19 @@ const ListContainer = styled.section`
 `;
 
 const ProductDisplay = styled.div`
+	margin-left: 25%;
 	display: flex;
     align-items: center;
     justify-content: center;
 	width: 80%;
 
+	@media (max-width: 930px) {
+		margin-left: 30%;
+	}
+
 	@media (max-width: 650px) {
-		width: 100%
+		width: 100%;
+		margin-left: 0;
 	}
 `;
 

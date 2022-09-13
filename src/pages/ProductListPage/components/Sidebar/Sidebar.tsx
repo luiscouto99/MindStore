@@ -6,6 +6,7 @@ import Sort from './Sort/Sort';
 import styled from "styled-components/macro";
 
 const SideBar = styled.div`
+    position: fixed;
     display: flex;
     flex-direction: column;
     width: 20%;
@@ -14,7 +15,8 @@ const SideBar = styled.div`
     background-color: var(--light-grey);
 
     @media (max-width: 650px) {
-      width: 100%;
+      position: initial;
+      width: 300px;
       margin: 0 auto;
     }
 `;

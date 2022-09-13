@@ -183,7 +183,6 @@ function CartPage() {
 							</CheckoutCartEmpty>
 						) : (<CartProduct allProducts={allProducts} handleRemove={handleRemove}></CartProduct>)
 					}
-
 					<BackToProductList></BackToProductList>
 				</CartProducts>
 
