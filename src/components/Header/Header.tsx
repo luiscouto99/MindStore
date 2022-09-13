@@ -82,7 +82,7 @@ function Header() {
 						getToken ? (
 							<>
 								<NavbarLink to="/profile">Profile</NavbarLink>
-								<NavbarLink to="/" onClick={() => localStorage.clear()}>Logout</NavbarLink>
+								<NavbarLink to="/" onClick={() => {localStorage.clear(); window.location.refresh(true)}}>Logout</NavbarLink>
 								<NavbarLink to={`/cart/${localStorage.getItem("Id")}`}>
 									<NavbarCart />
 								</NavbarLink>
