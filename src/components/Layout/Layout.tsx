@@ -1,4 +1,3 @@
-import { type } from "@testing-library/user-event/dist/type";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components/macro";
 

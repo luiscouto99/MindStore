@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 
-import Header from "../../../components/Header/Header";
-
 import styled from "styled-components/macro";
 
+import { CredentialsLayout } from "../../../components/Layout/Layout";
+
 const SuccessContainer = styled.div`
-    position: absolute;
+    /* position: absolute;
     top: calc(50% + 50px);
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); */
     background-color: white;
     width: 30%;
     min-width: 300px;
@@ -51,8 +51,7 @@ const RegisterSuccessfullButtons = styled(Link)`
 
 function RegisterSuccessfull() {
   return (
-    <>
-      <Header />
+    <CredentialsLayout>
       <SuccessContainer>
         <RegisterSuccessfullTitle>Register Successful!</RegisterSuccessfullTitle>
         <SuccessfullBtnContainer>
@@ -60,7 +59,7 @@ function RegisterSuccessfull() {
           <RegisterSuccessfullButtons to="/productlistpage">Products page</RegisterSuccessfullButtons>
         </SuccessfullBtnContainer>
       </SuccessContainer>
-    </>
+    </CredentialsLayout>
   );
 }
 
