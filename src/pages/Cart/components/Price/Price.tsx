@@ -28,7 +28,7 @@ export const Price = ({ total } : {total: number}) =>
         <CartSummaryTitle>Summary</CartSummaryTitle>
         <CartSummaryPriceDetails>
             <CartSummaryPriceText>Total:</CartSummaryPriceText>
-            <CartSummaryPriceText>{total} €</CartSummaryPriceText>
+            <CartSummaryPriceText data-testid="total">{total} €</CartSummaryPriceText>
         </CartSummaryPriceDetails>
     </CartSummaryPrice>
 

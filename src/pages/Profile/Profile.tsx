@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
+import { ProfileForm } from "./components/ProfileForm";
 
 import styled from "styled-components/macro";
 
@@ -14,13 +15,6 @@ const ProfileImage = styled.img`
     width: 200px;
     height: 200px;
     object-fit: cover;
-`;
-
-const ProfileBtnContainer = styled.div`
-	display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-top: 20px;
 `;
 
 const ProfileMessage = styled.p`
@@ -41,6 +35,17 @@ const ProfileDescriptionText = styled.p`
 	color: rgb(175, 175, 175);
 `;
 
+export const getUserInfoObject = (currentProfile, editedProfile) => {
+	return {
+		firstName: editedProfile.firstName.current.value || currentProfile.firstName,
+		lastName: editedProfile.lastName.current.value || currentProfile.lastName,
+		email: editedProfile.email.current.value || currentProfile.email,
+		password: editedProfile.password.current.value || currentProfile.password,
+		address: editedProfile.address.current.value || currentProfile.address,
+		image: editedProfile.image.current.value || currentProfile.image
+	}
+}
+
 function Profile() {
 	const fetchedToken = localStorage.getItem("token");
 	const fetchedId = localStorage.getItem("Id");
@@ -56,13 +61,6 @@ function Profile() {
 	const password = useRef("");
 	const address = useRef("");
 	const image = useRef("");
-
-	let interFirst = "";
-	let interLast = "";
-	let interEmail = "";
-	let interPassword = "";
-	let interAddress = "";
-	let interImage = "";
 
 	useEffect(() => {
 		const fetchedId = localStorage.getItem("Id");
@@ -85,55 +83,12 @@ function Profile() {
 
 	async function handleSaveProfileChanges(event) {
 		event.preventDefault();
-
-		if (firstName.current.value === "") {
-			interFirst = userData.firstName;
-		} else {
-			interFirst = firstName.current.value;
-		}
-
-		if (lastName.current.value === "") {
-			interLast = userData.lastName;
-		} else {
-			interLast = lastName.current.value;
-		}
-
-		if (email.current.value === "") {
-			interEmail = userData.email;
-		} else {
-			interEmail = email.current.value;
-		}
-
-		if (password.current.value === "") {
-			interPassword = userData.password;
-		} else {
-			interPassword = password.current.value;
-		}
-
-		if (address.current.value === "") {
-			interAddress = userData.address;
-		} else {
-			interAddress = address.current.value;
-		}
-
-		if (image.current.value === "") {
-			interImage = userData.image;
-		} else {
-			interImage = image.current.value;
-		}
-		console.log("print info:", interFirst, interLast, interEmail, interPassword, interAddress, interImage);
+		const profileData = getUserInfoObject(userData, { firstName, lastName, email, password, address, image })
 
 		const request = {
 			method: "PATCH",
 			headers: { "Content-Type": "application/json", Authorization: fetchedToken },
-			body: JSON.stringify({
-				firstName: interFirst,
-				lastName: interLast,
-				email: interEmail,
-				password: interPassword,
-				address: interAddress,
-				image: interImage,
-			}),
+			body: JSON.stringify(profileData),
 		};
 		const response = await fetch(`/api/v1/users/${fetchedId}`, request);
 		const json = await response.json();
@@ -151,86 +106,38 @@ function Profile() {
 		}
 	};
 
-	function handleSaveChangesButton() {
-		setChangesSaved(true);
-		setEditProfile(!editProfile);
-	}
-
 	return (
 		<>
 			<Header />
 
 			<CredentialsLayout>
-				{
-					<CredentialsContainer profile>
-						<ProfileImage src={userData.image} alt="profile image" />
-						<CredentialsTitle>
-							{userData.firstName} {userData.lastName}{" "}
-						</CredentialsTitle>
+				<CredentialsContainer profile>
+					<ProfileImage src={userData.image} alt="profile image" />
+					<CredentialsTitle>{userData.firstName + " " + userData.lastName}</CredentialsTitle>
+					{
+						editProfile ? (
+							<>
+								<ProfileForm handleSaveProfileChanges={handleSaveProfileChanges} firstName={firstName} lastname={lastName} email={email} password={password} address={address} image={image} userData={userData} setEditProfile={setEditProfile} />
 
-						{
-							editProfile ? (
-								<>
-									<CredentialsForm onSubmit={handleSaveProfileChanges}>
-										<CredentialsLabel htmlFor="first-name">
-											<CredentialsInput autoFocus type="text" name="first-name" ref={firstName} placeholder={userData.firstName} />
-										</CredentialsLabel>
-										<CredentialsLabel htmlFor="last-name">
-											<CredentialsInput type="text" name="last-name" ref={lastName} placeholder={userData.lastName} />
-										</CredentialsLabel>
-										<CredentialsLabel htmlFor="email">
-											<CredentialsInput type="email" name="email" ref={email} placeholder={userData.email} />
-										</CredentialsLabel>
-										<CredentialsLabel htmlFor="password">
-											<CredentialsInput type="password" name="password" ref={password} placeholder="Password" />
-										</CredentialsLabel>
-										{/* 
-									<CredentialsLabel htmlFor="dateOfBirth">
-										<CredentialsInput type={isVarTrue ? "text" : "date"} onClick={handleVarClick} name="dateOfBirth" ref={dateOfBirth} required placeholder={userData.dateOfBirth} />
-									</CredentialsLabel>
-									*/}
-										<CredentialsLabel htmlFor="address">
-											<CredentialsInput type="text" name="address" ref={address} placeholder={userData.address} />
-										</CredentialsLabel>
-										{/* 
-									<CredentialsLabel htmlFor="phone">
-										<CredentialsInput type="tel" name="phone" pattern="[0-9]{3}[0-9]{3}[0-9]{3}" placeholder="Phone Number" minLength={9} maxLength={9} ref={phone} required />
-									</CredentialsLabel> 
-									*/}
-										<CredentialsLabel htmlFor="url">
-											<CredentialsInput type="url" name="url" id="url" placeholder="https://add-your-profile-picture.com" pattern="https://.*" size="900" ref={image}></CredentialsInput>
-										</CredentialsLabel>
+								<ProfileMessage error={message === "Your changes were successfully saved!" ? false : true}>
+									{message}
+								</ProfileMessage>
+							</>
+						) : (
+							<>
+								<ProfileDescription>
+									<ProfileDescriptionText>{userData.email}</ProfileDescriptionText>
+									<ProfileDescriptionText>{userData.dateOfBirth}</ProfileDescriptionText>
+									<ProfileDescriptionText>{userData.address}</ProfileDescriptionText>
+								</ProfileDescription>
 
-										<ProfileBtnContainer>
-											<Button secondary onClick={() => setEditProfile(false)}>
-												Cancel
-											</Button>
-											<Button type="submit" onClick={handleSaveChangesButton}>
-												Save Changes
-											</Button>
-										</ProfileBtnContainer>
-									</CredentialsForm>
-
-									<ProfileMessage error={message === "Your changes were successfully saved!" ? false : true}>
-										{message}
-									</ProfileMessage>
-								</>
-							) : (
-								<>
-									<ProfileDescription>
-										<ProfileDescriptionText>{userData.email}</ProfileDescriptionText>
-										<ProfileDescriptionText>{userData.dateOfBirth}</ProfileDescriptionText>
-										<ProfileDescriptionText>{userData.address}</ProfileDescriptionText>
-									</ProfileDescription>
-
-									<Button onClick={() => setEditProfile(!editProfile)}>
-										Edit Profile
-									</Button>
-								</>
-							)
-						}
-					</CredentialsContainer>
-				}
+								<Button onClick={() => setEditProfile(!editProfile)}>
+									Edit Profile
+								</Button>
+							</>
+						)
+					}
+				</CredentialsContainer>
 			</CredentialsLayout>
 			<Footer />
 		</>
@@ -239,31 +146,3 @@ function Profile() {
 
 export default Profile;
 
-/*
-	function handleSaveProfileChanges(event) {
-		event.preventDefault();
-		async function editProfile() {
-			const request = {
-				method: "PATCH",
-				headers: { "Content-Type": "application/json", 
-							"Authorization": fetchedToken },
-				body: JSON.stringify({
-					firstName: firstName.current.value, //ref que recebe do input
-					lastName: lastName.current.value,
-					email: email.current.value,
-					password: password.current.value,
-					address: address.current.value,
-				}),
-			};
-	
-			const response = await fetch(`/api/v1/users/${fetchedId}`, request);
-			const json = await response.json();
-			// console.log("editprofile response json", json);
-			const newUserData = json;
-
-			setUserData(newUserData);
-
-		};
-		editProfile();
-	};
-*/

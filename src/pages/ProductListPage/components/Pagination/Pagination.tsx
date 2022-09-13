@@ -27,7 +27,7 @@ background-color: transparent;
 
 export const Pagination = ({setPage} : {setPage: (page: string) => void}) =>
     <PaginationContainer>
-        <PaginationButton value={1} onClick={(event) => setPage((event.target as HTMLInputElement).value)}>1</PaginationButton>
-        <PaginationButton value={2} onClick={(event) => setPage((event.target as HTMLInputElement).value)}>2</PaginationButton>
-        <PaginationButton value={3} onClick={(event) => setPage((event.target as HTMLInputElement).value)}>3</PaginationButton>
+        <PaginationButton data-testid="page1" value={1} onClick={(event) => setPage((event.target as HTMLInputElement).value)}>1</PaginationButton>
+        <PaginationButton data-testid="page2" value={2} onClick={(event) => setPage((event.target as HTMLInputElement).value)}>2</PaginationButton>
+        <PaginationButton data-testid="page3" value={3} onClick={(event) => setPage((event.target as HTMLInputElement).value)}>3</PaginationButton>
     </PaginationContainer>

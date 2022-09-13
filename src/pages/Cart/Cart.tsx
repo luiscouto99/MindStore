@@ -7,7 +7,7 @@ import Footer from "../../components/Footer/Footer";
 import { CartProduct } from "./components/CartProduct";
 import { Discount } from "./components/Discount";
 import { Form } from "./components/Form";
-import { Price } from "./components/Price";
+import { Price } from "./components/Price/Price";
 import { BackToProductList } from "../../components/BackToProductList/BackToProductList";
 
 import emptyCart from "../../assets/empty-cart-image.png";

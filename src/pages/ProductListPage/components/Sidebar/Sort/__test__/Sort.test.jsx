@@ -12,7 +12,6 @@ jest.mock('react', () => ({
 }))
 
 const useStateMock = React.useState;
-const setStateMock = React.setState;
 
 
 describe("Sort", () => {
@@ -37,26 +36,6 @@ describe("Sort", () => {
             .mockImplementationOnce(() => [true, jest.fn()])
             .mockImplementationOnce(() => [false, jest.fn()])
             .mockImplementationOnce(() => ["ASC", jest.fn()])
-        render(<Sort handleSortFetch={handleSortFetchMock} />);
-        expect(screen.getByTestId("sort-form")).toBeInTheDocument();
-    })
-
-    it("should render ASC", () => {
-        const handleSortFetchMock = () => { };
-        useStateMock
-            .mockImplementationOnce(() => [true, jest.fn()])
-            .mockImplementationOnce(() => [false, jest.fn()])
-            .mockImplementationOnce(() => ["ASC", jest.fn()])
-        render(<Sort handleSortFetch={handleSortFetchMock} />);
-        expect(screen.getByTestId("sort-form")).toBeInTheDocument();
-    })
-
-    it("should render DESC", () => {
-        const handleSortFetchMock = () => { };
-        useStateMock
-            .mockImplementationOnce(() => [true, jest.fn()])
-            .mockImplementationOnce(() => [false, jest.fn()])
-            .mockImplementationOnce(() => ["DESC", jest.fn()])
         render(<Sort handleSortFetch={handleSortFetchMock} />);
         expect(screen.getByTestId("sort-form")).toBeInTheDocument();
     })

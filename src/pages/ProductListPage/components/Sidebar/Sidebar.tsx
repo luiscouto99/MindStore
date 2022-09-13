@@ -1,6 +1,6 @@
 // @ts-nocheck
 import Filter from './Filter/Filter';
-import SearchBar from "../SearchBar";
+import SearchBar from "../Searchbar/SearchBar";
 import Sort from './Sort/Sort';
 
 import styled from "styled-components/macro";

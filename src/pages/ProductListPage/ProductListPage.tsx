@@ -7,7 +7,7 @@ import Sidebar from "./components/Sidebar/Sidebar";
 
 import { MainLayout } from "../../components/Layout/Layout";
 import { ProductListGrid } from "./components/ProductListGrid/ProductListGrid";
-import { Pagination } from "./components/Pagination";
+import { Pagination } from "./components/Pagination/Pagination";
 
 import type { LikedProduct, Product as ProductType, ProductListSorting } from "../../types/product";
 

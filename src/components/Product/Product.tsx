@@ -57,7 +57,7 @@ const ProductText = styled.p<ProductTextProps>`
 
 function Product({ productProp }: { productProp: LikedProduct | ProductType }) {
 	return (
-		<ProductContainer>
+		<ProductContainer data-testid="home-product">
 			<ProductImage src={productProp.image} alt="product image" />
 			<ProductRating>
 				{Math.round(productProp.rating?.rate * 10) / 10}

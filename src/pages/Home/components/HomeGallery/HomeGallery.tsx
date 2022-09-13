@@ -2,10 +2,10 @@
 
 import { Link } from "react-router-dom";
 
-import Product from "../../../components/Product/Product";
-import { ProductSkeleton } from "../../../components/ProductSkeleton/ProductSkeleton";
+import Product from "../../../../components/Product/Product";
+import { ProductSkeleton } from "../../../../components/ProductSkeleton/ProductSkeleton";
 
-import type { Product as ProductType } from "../../../types/product";
+import type { Product as ProductType } from "../../../../types/product";
 
 import styled from "styled-components/macro";
 

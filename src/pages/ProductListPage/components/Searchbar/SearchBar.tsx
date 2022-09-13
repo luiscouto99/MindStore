@@ -1,6 +1,6 @@
 import styled from "styled-components/macro";
 
-import searchBar from "../../../assets/search-bar.png";
+import searchBar from "../../../../assets/search-bar.png";
 
 const SearchBarLabel = styled.label`
     position: relative;
