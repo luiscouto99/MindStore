@@ -58,12 +58,17 @@ function ProductListPage() {
 	const inputSearch = useRef("");
 
 	useEffect(() => {
-		const fetchProducts = async () => {
-			const response = await getAllProducts(link, sort, page);
-			setAllProducts(response);
+		const getPlpProducts = async () => {
+			const productRequest = getAllProducts("/api/v1/users/products");
+			const products = await productRequest({
+				method: "GET",
+				authorization: localStorage.getItem("token") || "",
+				requestString: `${link}${sort}&page=${page}`
+			})
+			console.log(products);
+			setAllProducts(products);
 		}
-		fetchProducts();
-		
+		getPlpProducts();
 		setTimeout(() => setIsLoading(false), 2000);
 	}, [link, sort, page]);
 

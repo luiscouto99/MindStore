@@ -15,11 +15,17 @@ function Home() {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const fetchProducts = async () => {
-            const response = await getAllProducts();
-            setAllProducts(response);
+        const getHomeProducts = async() => {
+            const productRequest = getAllProducts("/api/v1/users/products");
+            const products = await productRequest({
+                method: "GET",
+                authorization: localStorage.getItem("token") || "",
+                requestString: "?direction=ASC&field=id&page=5&pagesize=3"
+            })
+            console.log(products);
+            setAllProducts(products);
         }
-        fetchProducts();
+        getHomeProducts();
         setTimeout(() => setIsLoading(false), 2000);
     }, []);
 
