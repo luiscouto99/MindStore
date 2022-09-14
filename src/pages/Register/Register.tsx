@@ -23,7 +23,15 @@ function Register() {
 
 	async function handleRegisterNewUser(event) {
 		event.preventDefault();
-		addUser(firstName, lastName, email, password, dateOfBirth, address, setMessage, setUserRegisteredWithSuccess);
+		const response = await addUser(firstName, lastName, email, password, dateOfBirth, address);
+
+		if (response.status === 200) {
+			setMessage("Register successful!");
+			setUserRegisteredWithSuccess(true);
+		} else {
+			setMessage("Register failed!");
+			setUserRegisteredWithSuccess(false);
+		}
 	};
 
 	return (

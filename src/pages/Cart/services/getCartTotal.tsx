@@ -1,10 +1,9 @@
-// @ts-nocheck
-export const getCartTotal = async (id, setTotal) => {
+export const getCartTotal = async (id: string | undefined) => {
     const request = {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": localStorage.getItem("token")
+            "Authorization": localStorage.getItem("token") || ""
         },
     };
 
@@ -13,5 +12,5 @@ export const getCartTotal = async (id, setTotal) => {
     const removeEuroSymbol = text.split("€");
     const finalPrice = Number(removeEuroSymbol[0]);
     const roundedTotal = Math.round((finalPrice + Number.EPSILON) * 100) / 100;
-    setTotal(roundedTotal);
+    return roundedTotal;
 }

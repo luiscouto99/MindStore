@@ -1,4 +1,3 @@
-import React from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './pages/Home/Home';
@@ -10,8 +9,6 @@ import Profile from './pages/Profile/Profile';
 import CartPage from "./pages/Cart/Cart"
 import Checkout from './pages/Checkout/Checkout';
 
-
-//https://fakestoreapi.com/products
 function App() {
   return (
     <>

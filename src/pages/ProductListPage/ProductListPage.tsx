@@ -1,5 +1,4 @@
-// @ts-nocheck
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
@@ -11,11 +10,10 @@ import { Pagination } from "./components/Pagination/Pagination";
 
 import type { LikedProduct, ProductListSorting } from "../../types/product";
 
-import { getAllProducts } from "./services/getAllProducts";
+import { getAllProducts } from "../../services/getAllProducts";
 import { getSearchedItems } from "./services/getSearchedItems";
 
 import styled from "styled-components/macro";
-
 const ListContainer = styled.section`
     display: flex;
     flex-direction: row;
@@ -52,15 +50,20 @@ const EmptyProductSearch = styled.h1`
 
 function ProductListPage() {
 	const [allProducts, setAllProducts] = useState([] as LikedProduct[]);
-	const [sort, setSort] = useState("ASC");
 	const [link, setLink] = useState("?field=title&pagesize=12&direction=");
+	const [sort, setSort] = useState("ASC");
 	const [page, setPage] = useState("1");
 	const [isLoading, setIsLoading] = useState(true);
-	const [itemsFromSearch, setItemsFromSearch] = useState(null);
+	const [itemsFromSearch, setItemsFromSearch] = useState("");
 	const inputSearch = useRef("");
 
 	useEffect(() => {
-		getAllProducts(link, sort, page, setAllProducts);
+		const fetchProducts = async () => {
+			const response = await getAllProducts(link, sort, page);
+			setAllProducts(response);
+		}
+		fetchProducts();
+		
 		setTimeout(() => setIsLoading(false), 2000);
 	}, [link, sort, page]);
 
@@ -75,9 +78,20 @@ function ProductListPage() {
 		setAllProducts(likedProducts);
 	};
 
-	function handleSearchBar() {
+	async function handleSearchBar() {
 		setIsLoading(true);
-		getSearchedItems(inputSearch, setIsLoading, setItemsFromSearch, setAllProducts);
+
+		const searchTerm = (inputSearch.current as unknown as HTMLInputElement).value || "";
+		const response = await getSearchedItems(searchTerm);
+
+		if (response.status === 404) {
+			setIsLoading(false);
+			setItemsFromSearch(`No results found for the search: "${(inputSearch.current as unknown as HTMLInputElement).value}"`);
+			setAllProducts([]);
+			return;
+		}
+		setAllProducts(response);
+		setIsLoading(false);
 	}
 
 	return (
@@ -85,14 +99,14 @@ function ProductListPage() {
 			<Header />
 			<MainLayout>
 				<ListContainer>
-					<Sidebar className="sidebar" handleSortFetch={(direction: ProductListSorting) => setSort(direction)} handleCategoryFetch={(link: string) => setLink(link)} handlePriceFetch={(link: string) => setLink(link)} handleRatingFetch={(link: string) => setLink(link)} inputSearch={inputSearch} handleSearchBar={handleSearchBar} />
+					<Sidebar handleSortFetch={(direction: ProductListSorting) => setSort(direction)} handleCategoryFetch={(link: string) => setLink(link)} handlePriceFetch={(link: string) => setLink(link)} handleRatingFetch={(link: string) => setLink(link)} inputSearch={inputSearch} handleSearchBar={handleSearchBar} />
 					<ProductDisplay>
 						{
 							allProducts.length === 0 && !isLoading ? (
-								<EmptyProductSearch>No products found with name: "{inputSearch.current.value}"</EmptyProductSearch>
+								<EmptyProductSearch>No products found with name: "{(inputSearch.current as unknown as HTMLInputElement).value}"</EmptyProductSearch>
 							) : (
 								<ProductListGrid allProducts={allProducts} handleLikeClick={handleLikeClick} isLoading={isLoading} />
-							) 
+							)
 						}
 					</ProductDisplay>
 				</ListContainer>

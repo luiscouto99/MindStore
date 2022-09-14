@@ -8,14 +8,19 @@ import { Hero } from "./components/Hero";
 import { HomeBanner } from "./components/HomeBanner"
 import { HomeGallery } from "./components/HomeGallery/HomeGallery";
 
-import { getAllProducts } from "./services/getAllProducts";
+import { getAllProducts } from "../../services/getAllProducts";
 
 function Home() {
     const [allProducts, setAllProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        getAllProducts(setAllProducts, setIsLoading);
+        const fetchProducts = async () => {
+            const response = await getAllProducts();
+            setAllProducts(response);
+        }
+        fetchProducts();
+        setTimeout(() => setIsLoading(false), 2000);
     }, []);
 
     return (

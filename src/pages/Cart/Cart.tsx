@@ -103,9 +103,19 @@ function CartPage() {
 	const discountCode = useRef("");
 
 	useEffect(() => {
-		getUserCart(id, setCartEmpty, setAllProducts);
-		getCartTotal(id, setTotal);
-	}, []);
+		const fetchCart = async () => {
+			const response = await getUserCart(id);
+			setCartEmpty(response.length === 0);
+			setAllProducts(response);
+		}
+		fetchCart();
+
+		const fetchCartTotal = async () => {
+			const response = await getCartTotal(id);
+			setTotal(response);
+		};
+		fetchCartTotal();
+	}, [id]);
 
 	function handleCheckout(event) {
 		//missing functionality
@@ -119,8 +129,10 @@ function CartPage() {
 		setDiscountClicked(true);
 	}
 
-	function handleRemove(productId: number) {
-		deleteItemFromCart(setAllProducts, setCartEmpty, id, productId, setTotal);
+	async function handleRemove(productId: number) {
+		const response = await deleteItemFromCart(id, productId);
+		setAllProducts(response);
+		setCartEmpty(response.length === 0);
 	};
 
 	return (

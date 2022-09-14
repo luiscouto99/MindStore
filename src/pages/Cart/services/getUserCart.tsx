@@ -1,19 +1,13 @@
-// @ts-nocheck
-export const getUserCart = async (id, setCartEmpty, setAllProducts) => {
+export const getUserCart = async (userId: string | undefined) => {
     const request = {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": localStorage.getItem("token")
+            "Authorization": localStorage.getItem("token") || ""
         },
     };
 
-    const response = await fetch(`/api/v1/users/shoppingcart/${id}`, request);
-    const products = await response.json();
-    if (products.length === 0) {
-        setCartEmpty(true);
-    } else {
-        setCartEmpty(false);
-    }
-    setAllProducts(products);
+    const response = await fetch(`/api/v1/users/shoppingcart/${userId}`, request);
+    const json = await response.json();
+    return json;
 }

@@ -77,11 +77,11 @@ function Header() {
 				</NavbarLogo>
 
 				<NavbarLinksContainer>
-					<NavbarLink to="/productlistpage">Products</NavbarLink>
+					<NavbarLink to="/productlistpage" onClick={() => window.location.refresh(true)}>Products</NavbarLink>
 					{
 						getToken ? (
 							<>
-								<NavbarLink to="/profile">Profile</NavbarLink>
+								<NavbarLink to="/profile" >Profile</NavbarLink>
 								<NavbarLink to="/" onClick={() => {localStorage.clear(); window.location.refresh(true)}}>Logout</NavbarLink>
 								<NavbarLink to={`/cart/${localStorage.getItem("Id")}`}>
 									<NavbarCart />

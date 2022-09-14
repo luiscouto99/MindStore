@@ -37,13 +37,29 @@ function Profile() {
 
 	useEffect(() => {
 		const fetchedId = localStorage.getItem("Id");
-		getUserProfile(fetchedId, setUserData);
+
+		const fetchProfile = async () => {
+			const response = await getUserProfile(fetchedId);
+			setUserData(response);
+		}
+		fetchProfile();
+		
 	}, [newInfo]);
 
 	async function handleSaveProfileChanges(event) {
 		event.preventDefault();
 		const profileData = getUserInfoObject(userData, { firstName, lastName, email, password, address, image })
-		updateUserProfile(profileData, fetchedId, setNewInfo, setUserData, setMessage, setChangesSaved, setEditProfile, editProfile, fetchedToken);
+		const response = await updateUserProfile(profileData, fetchedId, fetchedToken);
+		
+		if (response.status === 200) {
+			setNewInfo(true);
+			setUserData(response.data);
+			setMessage("Your changes were successfully saved!");
+			setChangesSaved(true);
+			setEditProfile(!editProfile);
+		} else {
+			setMessage("Oops! Something went wrong while trying to update your profile");
+		}
 	};
 
 	return (

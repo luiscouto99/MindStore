@@ -1,5 +1,5 @@
-export const getProductById = async (productId: number, setProductData:(value: React.SetStateAction<null>) => void) => {
+export const getProductById = async (productId: number) => {
     const response = await fetch(`/api/v1/users/products/${productId}`);
-    const productData = await response.json();
-    setProductData(productData);
+    const json = await response.json();
+    return json;
 }

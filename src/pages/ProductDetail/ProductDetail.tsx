@@ -19,7 +19,11 @@ function ProductDetailPage() {
     const userId = localStorage.getItem('Id');
 
     useEffect(() => {
-        getProductById(productId, setProductData);
+        const fetchProduct = async () => {
+            const response = await getProductById(productId);
+            setProductData(response);
+        }
+        fetchProduct();
     }, [productId]);
 
 
@@ -27,8 +31,8 @@ function ProductDetailPage() {
         setProductsToAdd(quantity);
     }
 
-    function handleAddToUserCartFetch() {
-        addToUserCart(productData, productsToAdd, userId);
+    async function handleAddToUserCartFetch() {
+        await addToUserCart(productId, productsToAdd, userId);
     }
 
     return (
