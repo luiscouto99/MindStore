@@ -35,7 +35,8 @@ const ProfileDescriptionText = styled.p`
 	color: rgb(175, 175, 175);
 `;
 
-export const ProfileCard = ({ userData, handleSaveProfileChanges, firstName, lastName, email, message, setEditProfile, editProfile, password, address, image }: { userData: User, handleSaveProfileChanges: () => void, firstName: string, lastName: string, email: string, message: string, setEditProfile: React.Dispatch<React.SetStateAction<boolean>>, editProfile: boolean, password: string, address: string, image: string }) => {
+export const ProfileCard = ({ userData, handleSaveProfileChanges, setEditProfile, editProfile, message, inputRef }: { userData: User, handleSaveProfileChanges: () => void, inputRef: { firstName: string, lastName: string, email: string, password: string, address: string, image: string }, message: string, setEditProfile: React.Dispatch<React.SetStateAction<boolean>>, editProfile: boolean}) => {
+    const { firstName, lastName, email, password, address, image } = inputRef;
     return (
         <CredentialsLayout>
             <CredentialsContainer profile>

@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 import styled, { css } from "styled-components/macro";
 
 import starFull from "../../assets/star-full.png";
@@ -53,6 +55,7 @@ const ProductText = styled.p<ProductTextProps>`
 `;
 
 function Product({ productProp }: { productProp: LikedProduct | ProductType }) {
+	console.log("rendered", productProp.id)
 	return (
 		<ProductContainer data-testid="home-product">
 			<ProductImage src={productProp.image} alt="product image" />
@@ -69,3 +72,5 @@ function Product({ productProp }: { productProp: LikedProduct | ProductType }) {
 }
 
 export default Product;
+
+export const MemoizedProduct = memo(Product);

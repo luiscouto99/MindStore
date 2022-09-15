@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { Link } from "react-router-dom";
 
-import Product from "../../../../components/Product/Product";
+import { MemoizedProduct } from "../../../../components/Product/Product";
 import { ProductSkeleton } from "../../../../components/ProductSkeleton/ProductSkeleton";
 import styled from "styled-components/macro";
 import { ProductContainer } from "./ProductContainer"
@@ -58,7 +58,7 @@ export const ProductListGrid = ({ allProducts, handleLikeClick, isLoading }: { a
                                 <FavouriteIcon src={product.isLiked ? heartFull : heartEmpty} alt="add to favourites" />
                             </FavouriteButton>
                             <Link to={`/productlistpage/${product.id}`}>
-                                <Product key={product.id} productProp={product} />
+                                <MemoizedProduct key={product.id} productProp={product} />
                             </Link>
                         </ProductContainer>
                     )

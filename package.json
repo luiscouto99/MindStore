@@ -16,7 +16,6 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.5",
-    "typescript": "^4.8.2",
     "web-vitals": "^2.1.4"
   },
   "proxy": "https://mindshop-api.herokuapp.com",
@@ -25,12 +24,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test --watchAll=false --coverage",
     "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [
@@ -45,7 +38,21 @@
     ]
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.5.4",
     "@types/styled-components": "^5.1.26",
-    "babel-plugin-styled-components": "^2.0.7"
+    "@typescript-eslint/eslint-plugin": "^5.37.0",
+    "babel-plugin-styled-components": "^2.0.7",
+    "eslint": "^8.23.1",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard-with-typescript": "^23.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.5",
+    "eslint-plugin-promise": "^6.0.1",
+    "eslint-plugin-react": "^7.31.8",
+    "prettier": "^2.7.1",
+    "pretty-quick": "^3.1.3",
+    "typescript": "^4.8.3",
+    "typescript-eslint": "^0.0.1-alpha.0"
   }
 }

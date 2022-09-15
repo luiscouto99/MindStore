@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-config
 import { useRef, useState } from 'react'
 
 import Footer from "../../components/Footer/Footer";
