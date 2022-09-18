@@ -1,5 +1,5 @@
-import styled from "styled-components"
+import styled from 'styled-components';
 
 export const ProductContainer = styled.div`
-	position: relative;
+  position: relative;
 `;

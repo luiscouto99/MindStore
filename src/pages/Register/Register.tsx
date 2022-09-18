@@ -19,7 +19,7 @@ function Register() {
   const [isVarTrue, setIsVarTrue] = useState(true);
   const [userRegisteredWithSuccess, setUserRegisteredWithSuccess] = useState(false);
 
-  async function handleRegisterNewUser(event) {
+  const handleRegisterNewUser = async (event: any) => {
     event.preventDefault();
     const response = await addUser(firstName, lastName, email, password, dateOfBirth, address);
 
@@ -30,7 +30,17 @@ function Register() {
       setMessage('Register failed!');
       setUserRegisteredWithSuccess(false);
     }
-  }
+  };
+
+  const inputRef = {
+    firstName,
+    lastName,
+    email,
+    password,
+    dateOfBirth,
+    address,
+    image,
+  };
 
   return (
     <>
@@ -40,16 +50,10 @@ function Register() {
       ) : (
         <RegisterForm
           handleRegisterNewUser={handleRegisterNewUser}
-          firstName={firstName}
-          lastName={lastName}
-          email={email}
-          password={password}
+          inputRef={inputRef}
           isVarTrue={isVarTrue}
           setIsVarTrue={setIsVarTrue}
-          dateOfBirth={dateOfBirth}
-          address={address}
           message={message}
-          image={image}
         />
       )}
       <Footer />

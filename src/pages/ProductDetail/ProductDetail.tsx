@@ -1,47 +1,51 @@
-// @ts-nocheck
 import { useState, useEffect } from 'react';
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
-import Header from '../../components/Header/Header'
-import Footer from "../../components/Footer/Footer";
+import Header from '../../components/Header/Header';
+import Footer from '../../components/Footer/Footer';
 
-import { ProductDisplay } from "./components/ProductDisplay";
-import { MainLayout } from "../../components/Layout/Layout";
+import { ProductDisplay } from './components/ProductDisplay';
+import { MainLayout } from '../../components/Layout/Layout';
 
-import { getProductById } from "./services/getProductById";
-import { addToUserCart } from "./services/addToUserCart";
+import { getProductById } from './services/getProductById';
+import { addToUserCart } from './services/addToUserCart';
 
 function ProductDetailPage() {
-    const { id: productId } = useParams();
-    const [productData, setProductData] = useState(null);
-    const [productsToAdd, setProductsToAdd] = useState(1);
+  const { id: productId } = useParams();
+  const [productData, setProductData] = useState(null);
+  const [productsToAdd, setProductsToAdd] = useState(1);
 
-    const userId = localStorage.getItem('Id');
+  const userId = localStorage.getItem('Id');
 
-    useEffect(() => {
-        const fetchProduct = async () => {
-            const response = await getProductById(productId);
-            setProductData(response);
-        }
-        fetchProduct();
-    }, [productId]);
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const response = await getProductById(productId);
+      setProductData(response);
+    };
+    fetchProduct();
+  }, [productId]);
 
+  const handleAddToUserCart = (quantity: number) => {
+    setProductsToAdd(quantity);
+  };
 
-    function handleAddToUserCart(quantity) {
-        setProductsToAdd(quantity);
-    }
+  const handleAddToUserCartFetch = async () => {
+    await addToUserCart(productId, productsToAdd, userId);
+  };
 
-    async function handleAddToUserCartFetch() {
-        await addToUserCart(productId, productsToAdd, userId);
-    }
-
-    return (
-        <MainLayout>
-            <Header />
-            <ProductDisplay productsToAdd={productsToAdd} productData={productData} userId={userId} handleAddToUserCart={handleAddToUserCart} handleAddToUserCartFetch={handleAddToUserCartFetch} />
-            <Footer />
-        </MainLayout>
-    )
+  return (
+    <MainLayout>
+      <Header />
+      <ProductDisplay
+        productsToAdd={productsToAdd}
+        productData={productData}
+        userId={userId}
+        handleAddToUserCart={handleAddToUserCart}
+        handleAddToUserCartFetch={handleAddToUserCartFetch}
+      />
+      <Footer />
+    </MainLayout>
+  );
 }
 
 export default ProductDetailPage;

@@ -4,6 +4,7 @@ import SearchBar from '../Searchbar/SearchBar';
 import Sort from './Sort/Sort';
 
 import styled from 'styled-components/macro';
+import { ProductListSorting } from '../../../../types/product';
 
 const SideBar = styled.div`
   position: fixed;
@@ -30,12 +31,12 @@ const Sidebar = ({
   inputSearch,
   handleSearchBar,
 }: {
-  handleSortFetch: any;
-  handleCategoryFetch: any;
-  handlePriceFetch: any;
-  handleRatingFetch: any;
-  inputSearch: any;
-  handleSearchBar: any;
+  handleSortFetch: (direction: ProductListSorting) => void;
+  handleCategoryFetch: () => void;
+  handlePriceFetch: () => void;
+  handleRatingFetch: () => void;
+  inputSearch: React.MutableRefObject<string>;
+  handleSearchBar: () => void;
 }): JSX.Element => (
   <SideBar>
     <SearchBar inputSearch={inputSearch} handleSearchBar={handleSearchBar} />

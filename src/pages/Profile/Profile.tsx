@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
@@ -7,32 +7,31 @@ import { ProfileCard } from './components/ProfileCard';
 import { getUserProfile } from './services/getUserProfile';
 import { updateUserProfile } from './services/updateUserProfile';
 
-export const getUserInfoObject = (currentProfile, editedProfile) => {
-  return {
-    firstName: editedProfile.firstName.current.value || currentProfile.firstName,
-    lastName: editedProfile.lastName.current.value || currentProfile.lastName,
-    email: editedProfile.email.current.value || currentProfile.email,
-    password: editedProfile.password.current.value || currentProfile.password,
-    address: editedProfile.address.current.value || currentProfile.address,
-    image: editedProfile.image.current.value || currentProfile.image,
-  };
-};
+import { User, PreviousUser } from '../../types/user';
+
+export const getUserInfoObject = (currentProfile: PreviousUser, editedProfile: User) => ({
+  firstName: editedProfile?.firstName?.current.value || currentProfile.firstName,
+  lastName: editedProfile?.lastName?.current.value || currentProfile.lastName,
+  email: editedProfile?.email?.current.value || currentProfile.email,
+  password: editedProfile?.password?.current.value || currentProfile.password,
+  address: editedProfile?.address?.current.value || currentProfile.address,
+  image: editedProfile?.image?.current.value || currentProfile.image,
+});
 
 function Profile() {
   const fetchedToken = localStorage.getItem('token');
   const fetchedId = localStorage.getItem('Id');
 
   const [editProfile, setEditProfile] = useState(false);
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState<PreviousUser>({} as PreviousUser);
   const [newInfo, setNewInfo] = useState(false);
-  const [changesSaved, setChangesSaved] = useState(false);
   const [message, setMessage] = useState('');
-  const firstName = useRef('');
-  const lastName = useRef('');
-  const email = useRef('');
-  const password = useRef('');
-  const address = useRef('');
-  const image = useRef('');
+  const firstName = useRef<HTMLInputElement>();
+  const lastName = useRef<HTMLInputElement>();
+  const email = useRef<HTMLInputElement>();
+  const password = useRef<HTMLInputElement>();
+  const address = useRef<HTMLInputElement>();
+  const image = useRef<HTMLInputElement>();
 
   useEffect(() => {
     const fetchedId = localStorage.getItem('Id');
@@ -44,7 +43,7 @@ function Profile() {
     fetchProfile();
   }, [newInfo]);
 
-  async function handleSaveProfileChanges(event) {
+  const handleSaveProfileChanges = async (event: any) => {
     event.preventDefault();
     const profileData = getUserInfoObject(userData, {
       firstName,
@@ -53,19 +52,18 @@ function Profile() {
       password,
       address,
       image,
-    });
+    } as User);
     const response = await updateUserProfile(profileData, fetchedId, fetchedToken);
 
     if (response.status === 200) {
       setNewInfo(true);
       setUserData(response.data);
       setMessage('Your changes were successfully saved!');
-      setChangesSaved(true);
       setEditProfile(!editProfile);
     } else {
       setMessage('Oops! Something went wrong while trying to update your profile');
     }
-  }
+  };
 
   const inputRef = {
     firstName,
@@ -74,7 +72,7 @@ function Profile() {
     password,
     address,
     image,
-  };
+  } as User;
 
   return (
     <>

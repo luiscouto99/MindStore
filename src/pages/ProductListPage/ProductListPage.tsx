@@ -92,7 +92,8 @@ function ProductListPage() {
     if (response.status === 404) {
       setIsLoading(false);
       setItemsFromSearch(
-        `No results found for the search: "${(inputSearch.current as unknown as HTMLInputElement).value
+        `No results found for the search: "${
+          (inputSearch.current as unknown as HTMLInputElement).value
         }"`,
       );
       setAllProducts([]);
@@ -117,10 +118,7 @@ function ProductListPage() {
           />
           <ProductDisplay>
             {allProducts.length === 0 && !isLoading ? (
-              <EmptyProductSearch>
-                No products found with name: "
-                {(inputSearch.current as unknown as HTMLInputElement).value}
-              </EmptyProductSearch>
+              <EmptyProductSearch>{itemsFromSearch}</EmptyProductSearch>
             ) : (
               <ProductListGrid
                 allProducts={allProducts}

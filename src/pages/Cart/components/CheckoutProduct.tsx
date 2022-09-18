@@ -1,98 +1,105 @@
-// @ts-nocheck
-import { useState } from "react";
-import { Link } from "react-router-dom"
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-import QuantityButton from "../../../components/QuantityButton/QuantityButton";
+import QuantityButton from '../../../components/QuantityButton/QuantityButton';
 
-import styled from "styled-components/macro";
+import { Product } from '../../../types/product';
 
-const CheckoutProductContainer = styled.section`
-	background-color: var(--light-grey);
-    display: flex;
-    justify-content: ${(props) => props.isMargin ? "flex-start;" : "space-between;"};
-    align-items: center;
-    margin: 20px 0px;
-    padding: 10px;
+import styled from 'styled-components/macro';
+
+const CheckoutProductContainer = styled.section<{isMargin?: boolean}>`
+  background-color: var(--light-grey);
+  display: flex;
+  justify-content: ${(props) => (props.isMargin ? 'flex-start;' : 'space-between;')};
+  align-items: center;
+  margin: 20px 0px;
+  padding: 10px;
 `;
 
 const CheckoutProductLink = styled(Link)`
-    width: 9%;
-    max-height: fit-content;
-    background-color: white;
-    padding: 5px;
+  width: 9%;
+  max-height: fit-content;
+  background-color: white;
+  padding: 5px;
 `;
 
 const CheckoutProductImg = styled.img`
-	width: 100%;
-    min-width: 50px;
-    height: 100px;
-    object-fit: contain;
+  width: 100%;
+  min-width: 50px;
+  height: 100px;
+  object-fit: contain;
 `;
 
 const CheckoutProductDetails = styled.div`
-	display: flex;
-    flex-direction: column;
-	gap: 20px;
-    width: 45%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 45%;
 `;
 
 const CheckoutProductCategory = styled.div`
-	font-weight: 500;
-    font-size: 13px;
-    color: rgba(0, 0, 0, 0.3);
-    text-transform: uppercase;
+  font-weight: 500;
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.3);
+  text-transform: uppercase;
 `;
 
 const CheckoutProductTitle = styled.div`
-	font-weight: 300;
-    font-size: 16px;
+  font-weight: 300;
+  font-size: 16px;
 `;
 
 const CheckoutProductPrice = styled.div`
-	margin-left: 20px;
-    color: var(--primary-color);
-    font-size: 14px;
-    font-weight: 400;
-    text-align: end;
+  margin-left: 20px;
+  color: var(--primary-color);
+  font-size: 14px;
+  font-weight: 400;
+  text-align: end;
 `;
 
 const CheckoutProductRemoveBtn = styled.button`
- 	border: none;
-    background-color: transparent;
-    padding: 10px;
-    cursor: pointer;
+  border: none;
+  background-color: transparent;
+  padding: 10px;
+  cursor: pointer;
 
-	&:hover {
-		color: #c7c7c7;
-	}
+  &:hover {
+    color: #c7c7c7;
+  }
 `;
 
-function CheckoutProduct({ handleRemove, product }) {
-	const [productsToAdd, setProductsToAdd] = useState(1);
+function CheckoutProduct({
+  handleRemove,
+  product,
+}: {
+  handleRemove: (id: number) => void;
+  product: Product;
+}) {
+  const [productsToAdd, setProductsToAdd] = useState(1);
 
-	// nao funciona
-	function handleAddToUserCart(quantity) {
-		setProductsToAdd(quantity);
-	}
+  // nao funciona
+  const handleAddToUserCart = (quantity: number) => setProductsToAdd(quantity);
 
-	return (
-		<CheckoutProductContainer>
-			<CheckoutProductLink to={`/productlistpage/${product.id}`}>
-				<CheckoutProductImg src={product.image} alt="product" />
-			</CheckoutProductLink>
+  return (
+    <CheckoutProductContainer>
+      <CheckoutProductLink to={`/productlistpage/${product.id}`}>
+        <CheckoutProductImg src={product.image} alt="product" />
+      </CheckoutProductLink>
 
-			<CheckoutProductDetails>
-				<CheckoutProductCategory>{product.category}</CheckoutProductCategory>
-				<CheckoutProductTitle>{product.title}</CheckoutProductTitle>
-			</CheckoutProductDetails>
+      <CheckoutProductDetails>
+        <CheckoutProductCategory>{product.category}</CheckoutProductCategory>
+        <CheckoutProductTitle>{product.title}</CheckoutProductTitle>
+      </CheckoutProductDetails>
 
-			<QuantityButton quantity={productsToAdd} handleAddToUserCart={handleAddToUserCart} />
+      <QuantityButton quantity={productsToAdd} handleAddToUserCart={handleAddToUserCart} />
 
-			<CheckoutProductPrice>{product.price} €</CheckoutProductPrice>
+      <CheckoutProductPrice>{product.price} €</CheckoutProductPrice>
 
-			<CheckoutProductRemoveBtn onClick={() => handleRemove(product.id)}>X</CheckoutProductRemoveBtn>
-		</CheckoutProductContainer >
-	);
+      <CheckoutProductRemoveBtn onClick={() => handleRemove(product.id)}>
+        X
+      </CheckoutProductRemoveBtn>
+    </CheckoutProductContainer>
+  );
 }
 
 export default CheckoutProduct;

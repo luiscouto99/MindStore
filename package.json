@@ -23,7 +23,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --watchAll=false --coverage",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "types": "tsc --noEmit",
+    "lint": "eslint ./src/**/**/*.{ts, tsx}"
   },
   "browserslist": {
     "production": [
