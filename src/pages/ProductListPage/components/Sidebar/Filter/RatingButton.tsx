@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import {
   SidebarButton,
   SidebarForm,
@@ -15,7 +17,7 @@ function RatingButton({
   handleRatingClick,
   isRatingClicked,
 }: {
-  handleRatingFetch: () => void;
+  handleRatingFetch: (link: string) => void;
   handleRatingClick: () => void;
   isRatingClicked: boolean;
 }) {

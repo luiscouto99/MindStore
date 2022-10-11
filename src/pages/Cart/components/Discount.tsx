@@ -36,7 +36,7 @@ const CartDiscountLabel = styled.label`
 export const Discount = ({
   discountCode,
 }: {
-  discountCode: React.MutableRefObject<string>;
+  discountCode: React.MutableRefObject<HTMLInputElement | null>;
 }) => (
   <CartDiscountForm>
     <CartDiscountLabel htmlFor="discount-code">

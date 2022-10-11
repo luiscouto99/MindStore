@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import {
   SidebarButton,
   SidebarForm,
@@ -14,7 +16,7 @@ function PriceButton({
   handlePriceClick,
   isPriceClicked,
 }: {
-  handlePriceFetch: () => void;
+  handlePriceFetch: (link: string) => void;
   handlePriceClick: () => void;
   isPriceClicked: boolean;
 }) {
@@ -26,7 +28,7 @@ function PriceButton({
   const priceObject06 = { min: 1201, max: 3000 };
   const priceObject07 = { min: 3001, max: 5000 };
 
-  function handlePriceChange(priceObject) {
+  function handlePriceChange(priceObject: any) {
     const min = priceObject.min;
     const max = priceObject.max;
     const link = `/price?pagesize=12&min=${min}&max=${max}&direction=`;

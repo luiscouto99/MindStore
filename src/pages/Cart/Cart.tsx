@@ -92,11 +92,11 @@ function CartPage() {
   const [isCartEmpty, setCartEmpty] = useState(false);
   const [allProducts, setAllProducts] = useState([]);
   const [total, setTotal] = useState(0);
-  const fullName = useRef<HTMLInputElement>();
-  const phoneNumber = useRef<HTMLInputElement>();
-  const email = useRef<HTMLInputElement>();
-  const address = useRef<HTMLInputElement>();
-  const discountCode = useRef<HTMLInputElement>();
+  const fullName = useRef<HTMLInputElement>(null);
+  const phoneNumber = useRef<HTMLInputElement>(null);
+  const email = useRef<HTMLInputElement>(null);
+  const address = useRef<HTMLInputElement>(null);
+  const discountCode = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const fetchCart = async () => {
@@ -126,6 +126,10 @@ function CartPage() {
     address,
   };
 
+  const handleCheckout = () => {
+    console.log('to do later');
+  };
+
   return (
     <>
       <Header />
@@ -147,7 +151,7 @@ function CartPage() {
         <CartSummary>
           <CartSummaryDetails>
             <Price total={total}></Price>
-            <Form formInformation={formInformation}></Form>
+            <Form handleCheckout={handleCheckout} formInformation={formInformation} />
           </CartSummaryDetails>
           <Discount discountCode={discountCode} />
         </CartSummary>

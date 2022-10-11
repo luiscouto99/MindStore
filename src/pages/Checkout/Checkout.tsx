@@ -20,10 +20,10 @@ const CheckoutContainer = styled.main`
 `;
 
 function Checkout() {
-  const name = useRef('');
-  const number = useRef('');
-  const date = useRef('');
-  const cvv = useRef('');
+  const name = useRef<HTMLInputElement>(null);
+  const number = useRef<HTMLInputElement>(null);
+  const date = useRef<HTMLInputElement>(null);
+  const cvv = useRef<HTMLInputElement>(null);
   const [rerender, setRerender] = useState(false);
 
   const handleInputTyped = () => {

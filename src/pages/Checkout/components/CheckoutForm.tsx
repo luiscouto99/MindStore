@@ -8,7 +8,7 @@ import {
   CredentialsInput,
 } from '../../../components/Layout/Layout';
 
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 import arrowLeft from '../../../assets/arrow-left.png';
 
@@ -63,10 +63,10 @@ export const CheckoutForm = ({
   cvv,
 }: {
   handleInputTyped: () => void;
-  number: React.MutableRefObject<string>;
-  name: React.MutableRefObject<string>;
-  date: React.MutableRefObject<string>;
-  cvv: React.MutableRefObject<string>;
+  number: React.MutableRefObject<HTMLInputElement | null>;
+  name: React.MutableRefObject<HTMLInputElement | null>;
+  date: React.MutableRefObject<HTMLInputElement | null>;
+  cvv: React.MutableRefObject<HTMLInputElement | null>;
 }) => (
   <CheckoutFormContainer>
     <FormContainerTitle>Payment Details</FormContainerTitle>

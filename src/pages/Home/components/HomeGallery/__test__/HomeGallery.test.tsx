@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import { screen, render } from '@testing-library/react';
 
 import { Product as ProductType, Rating as RatingType } from '../../../../../types/product';

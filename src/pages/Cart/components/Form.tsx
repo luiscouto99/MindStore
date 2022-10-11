@@ -40,10 +40,10 @@ export const Form = ({
 }: {
   handleCheckout: (event: any) => void;
   formInformation: {
-    fullName: React.MutableRefObject<HTMLInputElement>;
-    phoneNumber: React.MutableRefObject<HTMLInputElement>;
-    email: React.MutableRefObject<HTMLInputElement>;
-    address: React.MutableRefObject<HTMLInputElement>;
+    fullName: React.MutableRefObject<HTMLInputElement | null>;
+    phoneNumber: React.MutableRefObject<HTMLInputElement | null>;
+    email: React.MutableRefObject<HTMLInputElement | null>;
+    address: React.MutableRefObject<HTMLInputElement | null>;
   };
 }) => {
   const { fullName, phoneNumber, email, address } = formInformation;

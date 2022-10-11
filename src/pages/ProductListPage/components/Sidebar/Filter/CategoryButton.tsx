@@ -14,9 +14,9 @@ function CategoryButton({
   handleCategoryClick,
   isCategoryClicked,
 }: {
-  handleCategoryFetch;
-  handleCategoryClick;
-  isCategoryClicked;
+  handleCategoryFetch: (link: string) => void;
+  handleCategoryClick: () => void;
+  isCategoryClicked: boolean;
 }) {
   const handleCategoryChange = (event: any) => {
     const field = event.target.value;

@@ -67,7 +67,7 @@ export const ProductDisplay = ({
   handleAddToUserCartFetch,
 }: {
   productsToAdd: number;
-  productData: Product;
+  productData: Product | null;
   userId: string | null;
   handleAddToUserCart: (quantity: number) => void;
   handleAddToUserCartFetch: () => Promise<void>;

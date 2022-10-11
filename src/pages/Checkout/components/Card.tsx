@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 
 const CardMock = styled.section`
   background: linear-gradient(283.38deg, #bcbcbc 6.57%, rgba(188, 188, 188, 0) 221.12%);
@@ -63,31 +63,31 @@ export const Card = ({
   date,
   cvv,
 }: {
-  number: React.MutableRefObject<string>;
-  name: React.MutableRefObject<string>;
-  date: React.MutableRefObject<string>;
-  cvv: React.MutableRefObject<string>;
+  number: React.MutableRefObject<HTMLInputElement | null>;
+  name: React.MutableRefObject<HTMLInputElement | null>;
+  date: React.MutableRefObject<HTMLInputElement | null>;
+  cvv: React.MutableRefObject<HTMLInputElement | null>;
 }) => (
   <CardMock>
     <CardNumberContainer>
       <CardPlaceholder>Card Number</CardPlaceholder>
-      <CardInputText number>{number.current.value}</CardInputText>
+      <CardInputText number>{(number.current as unknown as HTMLInputElement).value}</CardInputText>
     </CardNumberContainer>
 
     <CardInfo>
       <CardInfoContainer>
         <CardPlaceholder>Name</CardPlaceholder>
-        <CardInputText>{name.current.value}</CardInputText>
+        <CardInputText>{(name.current as unknown as HTMLInputElement).value}</CardInputText>
       </CardInfoContainer>
 
       <CardInfoContainer>
         <CardPlaceholder>Exp Date</CardPlaceholder>
-        <CardInputText>{date.current.value}</CardInputText>
+        <CardInputText>{(date.current as unknown as HTMLInputElement).value}</CardInputText>
       </CardInfoContainer>
 
       <CardInfoContainer>
         <CardPlaceholder>CVV</CardPlaceholder>
-        <CardInputText>{cvv.current.value}</CardInputText>
+        <CardInputText>{(cvv.current as unknown as HTMLInputElement).value}</CardInputText>
       </CardInfoContainer>
     </CardInfo>
   </CardMock>

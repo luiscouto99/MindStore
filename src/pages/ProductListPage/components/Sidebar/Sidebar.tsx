@@ -32,9 +32,9 @@ const Sidebar = ({
   handleSearchBar,
 }: {
   handleSortFetch: (direction: ProductListSorting) => void;
-  handleCategoryFetch: () => void;
-  handlePriceFetch: () => void;
-  handleRatingFetch: () => void;
+  handleCategoryFetch: (link: string) => void;
+  handlePriceFetch: (link: string) => void;
+  handleRatingFetch: (link: string) => void;
   inputSearch: React.MutableRefObject<string>;
   handleSearchBar: () => void;
 }): JSX.Element => (

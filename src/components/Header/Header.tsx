@@ -76,7 +76,7 @@ function Header() {
         </NavbarLogo>
 
         <NavbarLinksContainer>
-          <NavbarLink to="/productlistpage" onClick={() => window.location.reload()}>
+          <NavbarLink to="/productlistpage">
             Products
           </NavbarLink>
           {getToken ? (

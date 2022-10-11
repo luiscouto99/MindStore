@@ -16,9 +16,9 @@ function Filter({
   handlePriceFetch,
   handleRatingFetch,
 }: {
-  handleCategoryFetch: () => void;
-  handlePriceFetch: () => void;
-  handleRatingFetch: () => void;
+  handleCategoryFetch: (link: string) => void;
+  handlePriceFetch: (link: string) => void;
+  handleRatingFetch: (link: string) => void;
 }) {
   const [isFilterClicked, setIsFilterClicked] = useState(false);
   const [isCategoryClicked, setIsCategoryClicked] = useState(false);

@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import arrowRight from '../../../../../assets/arrow-right.png';
 
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import {
   SidebarButton,
   SidebarForm,

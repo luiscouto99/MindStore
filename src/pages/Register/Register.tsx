@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import { useRef, useState } from 'react';
 
 import Header from '../../components/Header/Header';
@@ -8,20 +11,22 @@ import { RegisterForm } from './components/RegisterForm';
 import { addUser } from './services/addUser';
 
 function Register() {
-  const firstName = useRef('');
-  const lastName = useRef('');
-  const email = useRef('');
-  const password = useRef('');
-  const dateOfBirth = useRef('');
-  const address = useRef('');
+  const firstName = useRef<HTMLInputElement>(null);
+  const lastName = useRef<HTMLInputElement>(null);
+  const email = useRef<HTMLInputElement>(null);
+  const password = useRef<HTMLInputElement>(null);
+  const dateOfBirth = useRef<HTMLInputElement>(null);
+  const address = useRef<HTMLInputElement>(null);
   const image = useRef('');
   const [message, setMessage] = useState('');
   const [isVarTrue, setIsVarTrue] = useState(true);
   const [userRegisteredWithSuccess, setUserRegisteredWithSuccess] = useState(false);
 
+  const userObj = { firstName, lastName, email, password, dateOfBirth, address };
+
   const handleRegisterNewUser = async (event: any) => {
     event.preventDefault();
-    const response = await addUser(firstName, lastName, email, password, dateOfBirth, address);
+    const response = await addUser(userObj);
 
     if (response.status === 200) {
       setMessage('Register successful!');

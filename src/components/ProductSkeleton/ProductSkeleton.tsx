@@ -1,6 +1,6 @@
 import { ProductContainer } from '../../pages/ProductListPage/components/ProductListGrid/ProductContainer';
 
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 type SkeletonProps = {
   width?: number;

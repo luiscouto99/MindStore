@@ -1,6 +1,6 @@
 export const validateUserLogin = async (
-  email: React.MutableRefObject<string>,
-  password: React.MutableRefObject<string>,
+  email: React.MutableRefObject<HTMLInputElement>,
+  password: React.MutableRefObject<HTMLInputElement>,
 ) => {
   const request = {
     method: 'POST',
