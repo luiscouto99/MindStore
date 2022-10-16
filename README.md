@@ -1,4 +1,4 @@
-# Website for a local Supermarket - Supermercado Couto
+# Test E-Commerce Website - MindStore, with [custom Backend API](https://github.com/Jcouto97/MindStore_API-Springboot).
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
