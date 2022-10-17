@@ -21,7 +21,7 @@ $ npm start
 
 ## Implementations:
 
-- React.js (w/ hooks) + diving API requests into their own folders
+- React.js (w/ hooks)
 - Typescript
 - Styled-Components
 - Testing w/ Jest
