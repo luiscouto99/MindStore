@@ -12,7 +12,7 @@ It is a fullstack project where the API was built my someone from the group proj
 
 *Feel free to deploy the project using the following workflow:*
 ```
-$ https://github.com/luiscouto99/MindStore.git
+$ git clone https://github.com/luiscouto99/MindStore.git
 $ npm install
 $ cd MindStore
 $ npm start
