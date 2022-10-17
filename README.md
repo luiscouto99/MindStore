@@ -5,7 +5,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Summary:
 
 This project was developed with ReactJS and designed in Figma, as a way of training and improving my Frontend skills.
-I created two fake DB's, one for products and another for product categories, as I didn't have access to the supermarkets official DB at the time of developing.
+It is a fullstack project where the API was built my someone from the group project. Users can register, login, add products ranging from jewelry to clothing, to their cart, search for a specific item and filter through categories.
+
 
 ***
 
